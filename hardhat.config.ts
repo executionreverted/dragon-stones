@@ -205,6 +205,11 @@ module.exports = {
       url: `https://rpc.ankr.com/fantom_testnet`,
       chainId: 4002,
       accounts: accounts(),
+    },
+    'shimmer-testnet': {
+      url: 'https://json-rpc.evm.testnet.shimmer.network',
+      chainId: 1071,
+      accounts: accounts(),
     }
   }
 };

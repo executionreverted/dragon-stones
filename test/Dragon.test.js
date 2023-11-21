@@ -22,8 +22,28 @@ describe("Dragon", function () {
         NonFungibleFacet = await ethers.getContractAt('NonFungibleFacet', deployed.Diamond.address);
     })
 
+    it("account should be disabled", async function () {
+        const activePage = await SymbolFacet.activePageId(owner.address);
+        console.log(`ActivePage: ${activePage}`);
+        expect(`${activePage}`).is.eq("0", "Not right")
+    })
 
-    it("should create token", async function () {
+    it("account should be enabled and page set to 1", async function () {
+        await RegisterFacet.registerAccount();
+        const activePage = await SymbolFacet.activePageId(owner.address);
+        console.log('Account created');
+        console.log(`ActivePage: ${activePage}`);
+
+        expect(`${activePage}`).is.eq("1", "Not right")
+    })
+
+
+    it("should create tokens", async function () {
+        await MinterFacet.createStone();
+        await MinterFacet.createStone();
+        await MinterFacet.createStone();
+        await MinterFacet.createStone();
+        await MinterFacet.createStone();
         await MinterFacet.createStone();
     })
 
@@ -44,20 +64,6 @@ describe("Dragon", function () {
         console.log(stone.OWNER);
     })
 
-    it("account should be disabled", async function () {
-        const activePage = await SymbolFacet.activePageId(owner.address);
-        console.log(`ActivePage: ${activePage}`);
-        expect(`${activePage}`).is.eq("0", "Not right")
-    })
-
-    it("account should be enabled and page set to 1", async function () {
-        await RegisterFacet.registerAccount();
-        const activePage = await SymbolFacet.activePageId(owner.address);
-        console.log('Account created');
-        console.log(`ActivePage: ${activePage}`);
-
-        expect(`${activePage}`).is.eq("1", "Not right")
-    })
 
     it("equip stone id 1 to ruby slot", async function () {
         await SymbolFacet.equipDragonStone(0, 1);
@@ -83,6 +89,18 @@ describe("Dragon", function () {
         expect(owner$).to.eq(owner.address)
     })
 
+    it("should show token ids of owner", async function () {
+        let tokenIds = await NonFungibleFacet.tokenIdsOfOwner(owner.address);
+        console.log({ tokenIds });
+    })
+
+
+    it("should show balanceOf", async function () {
+        let balance$ = await NonFungibleFacet.balanceOf(owner.address);
+        console.log(balance$);
+        expect(balance$.toNumber()).to.eq(6)
+    })
+
     it("should transfer to owner2", async function () {
         await NonFungibleFacet.transferFrom(owner.address, owner2.address, 1);
         let owner$ = await NonFungibleFacet.ownerOf(1);
@@ -90,10 +108,19 @@ describe("Dragon", function () {
         expect(owner$).to.eq(owner2.address)
     })
 
+    it("should show balanceOf -1", async function () {
+        let balance$ = await NonFungibleFacet.balanceOf(owner.address);
+        console.log(balance$);
+        expect(balance$.toNumber()).to.eq(5)
+    })
+    it("should show token ids of owner", async function () {
+        let tokenIds = await NonFungibleFacet.tokenIdsOfOwner(owner.address);
+        console.log({ tokenIds });
+    })
+
     it("should delete equipped stone from owner1 symbols", async function () {
         let page = await SymbolFacet.getPage(owner.address, 1);
         console.log(`Page contains: ${page?.length + 1} stones`);
-        console.log(page[0]);
         console.log(`Equipped Stone Bonus Type Id:  ${page[0].BONUS[0].BONUS_TYPE}`);
         console.log(`Equipped Stone Bonus Stat Id:  ${page[0].BONUS[0].BONUS_STAT}`);
         console.log(`Equipped Stone Bonus Total Value:  ${page[0].BONUS[0].VALUE}`);

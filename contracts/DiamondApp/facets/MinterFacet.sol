@@ -28,6 +28,8 @@ contract MinterFacet is Modifiers {
             .length;
         s.ownerTokenIds[msg.sender].push(uint32(tokenId));
 
+        // add users payment splitter contract to 2981 royalty stuff later
+
         emit LibERC721.Transfer(address(0), msg.sender, tokenId);
     }
 }

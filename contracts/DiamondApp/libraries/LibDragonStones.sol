@@ -3,6 +3,7 @@ pragma solidity ^0.8.23;
 import {ActiveStone, CoreBonus, DragonStone, Bonus, CoreDragonStone} from "./GameStructs.sol";
 import {LibBonuses} from "./LibBonuses.sol";
 import {LibAppStorage, AppStorage} from "./LibAppStorage.sol";
+import {StoneTypes} from "./GameEnums.sol";
 
 library LibDragonStones {
     function getDragonStoneData(
@@ -10,6 +11,11 @@ library LibDragonStones {
     ) internal view returns (ActiveStone memory) {
         AppStorage storage s = LibAppStorage.diamondStorage();
         return s.ActiveStones[tokenId];
+    }
+
+    function getStoneType(uint tokenId) internal view returns (StoneTypes) {
+        AppStorage storage s = LibAppStorage.diamondStorage();
+        return s.DragonStones[tokenId].STONE_TYPE;
     }
 
     function getDragonStone(

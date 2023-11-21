@@ -3,15 +3,16 @@ import hre, { ethers } from "hardhat"
 const deployments = hre.deployments
 
 
-let owner, NonFungibleFacet, DragonStoneFacet, TestingFacet, UpgradeFacet, PolishFacet, SettingsFacet, RegisterFacet, SymbolFacet;
+let owner, owner2, NonFungibleFacet, DragonStoneFacet, MinterFacet, UpgradeFacet, PolishFacet, SettingsFacet, RegisterFacet, SymbolFacet;
 describe("Dragon", function () {
     before(async function () {
         let accounts = await hre.ethers.getSigners()
         owner = accounts[0]
+        owner2 = accounts[1]
 
         let deployed = await deployments.run(['DiamondApp'])
         console.log(`Diamond deployed to ${deployed.Diamond.address}`);
-        TestingFacet = await ethers.getContractAt('TestingFacet', deployed.Diamond.address);
+        MinterFacet = await ethers.getContractAt('MinterFacet', deployed.Diamond.address);
         UpgradeFacet = await ethers.getContractAt('UpgradeFacet', deployed.Diamond.address);
         PolishFacet = await ethers.getContractAt('PolishFacet', deployed.Diamond.address);
         DragonStoneFacet = await ethers.getContractAt('DragonStoneFacet', deployed.Diamond.address);
@@ -23,7 +24,7 @@ describe("Dragon", function () {
 
 
     it("should create token", async function () {
-        await TestingFacet.createStone(1);
+        await MinterFacet.createStone();
     })
 
     it("should give right raw token", async function () {
@@ -72,7 +73,29 @@ describe("Dragon", function () {
     })
 
     it("should show URI", async function () {
-        let uri = await NonFungibleFacet.tokenURI();
-        console.log({uri});
+        let uri = await NonFungibleFacet.tokenURI(1);
+        console.log({ uri });
+    })
+
+    it("should show owner", async function () {
+        let owner$ = await NonFungibleFacet.ownerOf(1);
+        console.log(owner$);
+        expect(owner$).to.eq(owner.address)
+    })
+
+    it("should transfer to owner2", async function () {
+        await NonFungibleFacet.transferFrom(owner.address, owner2.address, 1);
+        let owner$ = await NonFungibleFacet.ownerOf(1);
+        console.log(owner$);
+        expect(owner$).to.eq(owner2.address)
+    })
+
+    it("should delete equipped stone from owner1 symbols", async function () {
+        let page = await SymbolFacet.getPage(owner.address, 1);
+        console.log(`Page contains: ${page?.length + 1} stones`);
+        console.log(page[0]);
+        console.log(`Equipped Stone Bonus Type Id:  ${page[0].BONUS[0].BONUS_TYPE}`);
+        console.log(`Equipped Stone Bonus Stat Id:  ${page[0].BONUS[0].BONUS_STAT}`);
+        console.log(`Equipped Stone Bonus Total Value:  ${page[0].BONUS[0].VALUE}`);
     })
 })

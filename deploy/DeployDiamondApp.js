@@ -1,7 +1,7 @@
 const { FacetCutAction, getSelectors } = require('./helpers')
 
 const FacetNames = [
-    'TestingFacet', // delete on prod
+    'MinterFacet', // delete on prod
     'DragonStoneFacet',
     'PolishFacet',
     'UpgradeFacet',

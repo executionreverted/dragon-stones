@@ -34,7 +34,13 @@ library LibDragonStones {
         Bonus[] memory bonuses = new Bonus[](20);
         for (uint i = 0; i < core.BONUS_IDS.length; i++) {
             if (core.BONUS_IDS[i] == 0) continue;
-            bonuses[i] = LibBonuses.getBonus(core.BONUS_IDS[i], core.TIER);
+            bonuses[i] = LibBonuses.getBonus(
+                core.BONUS_IDS[i],
+                core.TIER,
+                core.POLISH_LEVEL,
+                core.UPGRADE_LEVEL,
+                core.BONUS_EFFS[i]
+            );
         }
 
         /*  address OWNER;

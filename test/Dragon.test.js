@@ -78,6 +78,13 @@ describe("Dragon", function () {
         console.log(`Equipped Stone Bonus Total Value:  ${page[0].BONUS[0].VALUE}`);
     })
 
+    it("should calculate my active page stats right", async function () {
+        let page = await SymbolFacet.getPlayerStats(owner.address);
+        console.log('STATS::::::::');
+        console.log('STATS::::::::'); console.log('STATS::::::::'); console.log('STATS::::::::'); console.log('STATS::::::::'); console.log('STATS::::::::');
+        console.log(page[1].toNumber());
+    })
+
     it("should show URI", async function () {
         let uri = await NonFungibleFacet.tokenURI(1);
         console.log({ uri });

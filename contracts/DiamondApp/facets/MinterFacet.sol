@@ -15,14 +15,17 @@ contract MinterFacet is Modifiers {
         uint tokenId = s.nextMintId;
         s.DragonStones[tokenId].OWNER = msg.sender;
         s.DragonStones[tokenId].STONE_TYPE = StoneTypes.RUBY;
-        s.DragonStones[tokenId].TIER = 1;
-        s.DragonStones[tokenId].POLISH_LEVEL = 0;
-        s.DragonStones[tokenId].UPGRADE_LEVEL = 0;
+        s.DragonStones[tokenId].TIER = 10;
+        s.DragonStones[tokenId].POLISH_LEVEL = 10;
+        s.DragonStones[tokenId].UPGRADE_LEVEL = 999;
 
         uint[] memory _bonusesToAdd = new uint[](20);
         _bonusesToAdd[0] = 1;
+        uint[] memory _bonusesEffToAdd = new uint[](20);
+        _bonusesEffToAdd[0] = 50;
+        // _bonusesToAdd[1] = 2;
         s.DragonStones[tokenId].BONUS_IDS = _bonusesToAdd;
-
+        s.DragonStones[tokenId].BONUS_EFFS = _bonusesEffToAdd;
         s.ownerTokenIdIndexes[msg.sender][tokenId] = s
             .ownerTokenIds[msg.sender]
             .length;

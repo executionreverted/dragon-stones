@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: SEE LICENSE IN LICENSE
 pragma solidity ^0.8.0;
 
-import {StoneTypes, BonusType, BonusValueType, Stats} from "./GameEnums.sol";
+import {StoneTypes, BonusValueType, Stats} from "./GameEnums.sol";
 
 struct ActiveStone {
     address player;
@@ -9,17 +9,19 @@ struct ActiveStone {
 }
 
 struct CoreBonus {
-    BonusType BONUS_TYPE;
     BonusValueType BONUS_VALUE_TYPE;
     Stats BONUS_STAT;
+    uint BONUS_MIN_EFF;
+    uint BONUS_MAX_EFF;
     uint BONUS_VALUE_TIER_INCREMENTAL;
     uint VALUE;
     uint[50] __RESERVED__;
 }
 
 struct Bonus {
-    BonusType BONUS_TYPE;
+    BonusValueType BONUS_VALUE_TYPE;
     Stats BONUS_STAT;
+    uint BONUS_EFF;
     uint VALUE;
     uint[50] __RESERVED__;
 }
@@ -31,6 +33,7 @@ struct CoreDragonStone {
     uint POLISH_LEVEL;
     uint UPGRADE_LEVEL;
     uint[] BONUS_IDS;
+    uint[] BONUS_EFFS;
     uint[50] __RESERVED;
 }
 

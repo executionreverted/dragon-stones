@@ -5,23 +5,14 @@ import {LibDiamond} from "../../shared/libraries/LibDiamond.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {ERC165Upgradeable} from "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol";
 import {ILayerZeroEndpointUpgradeable} from "../../contracts-upgradable/interfaces/ILayerZeroEndpointUpgradeable.sol";
-
-struct Token {
-    uint id;
-    address owner;
-}
-
-struct StoredCredit {
-    uint16 srcChainId;
-    address toAddress;
-    uint256 index; // which index of the tokenIds remain
-    bool creditsRemain;
-}
+import {Token, StoredCredit} from "./AppStructs.sol";
+import {ActiveStone, DragonStone, CoreDragonStone} from "../libraries/GameStructs.sol";
 
 struct AppStorage {
     // core
     bytes32 domainSeparator;
     ILayerZeroEndpointUpgradeable lzEndpoint;
+    string URI;
     mapping(address => bool) Managers;
     // NFT Params
     mapping(address => mapping(uint256 => uint256)) ownerItemIndexes;
@@ -41,6 +32,13 @@ struct AppStorage {
     mapping(uint16 => uint256) dstChainIdToBatchLimit;
     mapping(uint16 => uint256) dstChainIdToTransferGas; // per transfer amount of gas required to mint/transfer on the dst
     mapping(bytes32 => StoredCredit) storedCredits;
+    mapping(uint => CoreDragonStone) DragonStones;
+    // address -> page id -> slot id
+    mapping(uint => ActiveStone) ActiveStones;
+    mapping(address => uint) PlayerMaxPages;
+    mapping(address => mapping(uint => mapping(uint => uint))) Pages;
+    mapping(address => uint) ActivePages;
+    mapping(address => address) Delegates;
 }
 
 library LibAppStorage {
@@ -71,6 +69,15 @@ contract Modifiers {
     modifier onlyManager() {
         address sender = LibMeta.msgSender();
         require(s.Managers[sender], "Only manager can call this function");
+        _;
+    }
+
+    modifier onlyTokenOwner(uint tokenId) {
+        address sender = LibMeta.msgSender();
+        require(
+            sender == s.DragonStones[tokenId].OWNER,
+            "Only manager can call this function"
+        );
         _;
     }
 }

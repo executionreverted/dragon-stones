@@ -1,13 +1,31 @@
 const { FacetCutAction, getSelectors } = require('./helpers')
 
 const FacetNames = [
-    'ExampleFacet'
+    'TestingFacet', // delete on prod
+    'DragonStoneFacet',
+    'PolishFacet',
+    'UpgradeFacet',
+    'SymbolFacet',
+    'SettingsFacet',
+    'RegisterFacet',
+    'NonFungibleFacet'
 ]
 
 module.exports = async function ({ deployments, getNamedAccounts }) {
     const { deploy } = deployments
     const { deployer } = await getNamedAccounts()
     console.log(`>>> your address: ${deployer}`)
+
+    console.log('deploy facets..');
+    for (let index = 0; index < FacetNames.length; index++) {
+        await deploy(FacetNames[index], {
+            from: deployer,
+            args: [],
+            log: true,
+            waitConfirmations: 1,
+        })
+    }
+
     const DiamondCutFacet = await deploy("DiamondCutFacet", {
         from: deployer,
         args: [],
@@ -54,8 +72,8 @@ module.exports = async function ({ deployments, getNamedAccounts }) {
     let tx
     let receipt
     // call to init function
-    let diamondInit = await ethers.getContractAt("GameInit", DiamondInit.address)
-    let functionCall = diamondInit.interface.encodeFunctionData('init')
+    let diamondInit = await ethers.getContractAt("DiamondDappInit", DiamondInit.address)
+    let functionCall = diamondInit.interface.encodeFunctionData('init', [ethers.constants.AddressZero, "dragonstones.com/api/"])
     tx = await diamondCut.diamondCut(cut, diamondInit.address, functionCall)
     // tx = await diamondCut.diamondCut([], diamondInit.address, functionCall)
     console.log('Diamond cut tx: ', tx.hash)
@@ -69,4 +87,4 @@ module.exports = async function ({ deployments, getNamedAccounts }) {
 }
 
 module.exports.tags = ["DiamondApp"]
-module.exports.dependencies = ["ExampleFacet"]
+// module.exports.dependencies = FacetNames

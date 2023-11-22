@@ -7,29 +7,30 @@ enum BonusValueType {
 }
 
 enum Stats {
-    NULL,
-    STR,
-    WIS,
-    VIT,
-    DEX,
-    LUK,
-    HP,
-    SP,
-    DAMAGE,
-    DEF,
-    FIRE_RES,
-    COLD_RES,
-    LIGHTNING_RES,
-    NATURE_RES,
-    HOLY_RES,
-    DARK_RES,
-    LOOT_BONUS,
-    MULTIKILL,
-    CHANCE_TO_DOUBLE_CLAIM,
-    ALL_RES,
-    FASTER_CYCLES,
-    ALL_STATS
+    NULL, // 0
+    STR, // 1
+    WIS, // 2
+    VIT, // 3
+    DEX, // 4
+    LUK, // 5
+    HP, // 6
+    SP, // 7
+    DAMAGE, // 8
+    DEF, // 9
+    FIRE_RES, // 10
+    COLD_RES, //  11
+    LIGHTNING_RES, // 12
+    NATURE_RES, // 13
+    HOLY_RES, // 14
+    DARK_RES, // 15
+    LOOT_BONUS, // 16
+    MULTIKILL, // 17
+    CHANCE_TO_DOUBLE_CLAIM, // 18
+    ALL_RES, // 19
+    FASTER_CYCLES, // 20
+    ALL_STATS // 21
 }
+
 
 enum StoneTypes {
     RUBY, // FIRE

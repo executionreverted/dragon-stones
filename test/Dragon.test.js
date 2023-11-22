@@ -132,4 +132,12 @@ describe("Dragon", function () {
         console.log(`Equipped Stone Bonus Stat Id:  ${page[0].BONUS[0].BONUS_STAT}`);
         console.log(`Equipped Stone Bonus Total Value:  ${page[0].BONUS[0].VALUE}`);
     })
+
+    it("should delete equipped stone from owner1 symbols", async function () {
+        for (let index = 0; index < 7; index++) {
+            let pool = await DragonStoneFacet.getBonusPools(index);
+            console.log(`Stone Type ${index}`);
+            console.log(pool?.map(a => a?.toNumber()));
+        }
+    })
 })

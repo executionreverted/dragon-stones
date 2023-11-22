@@ -52,13 +52,14 @@ describe("Dragon", function () {
             try {
                 await EnchantFacet.enchant(1)
             } catch (error) {
+                console.log(error);
                 break;
             }
             let stone = await DragonStoneFacet.getRawDragonStone(1)
             console.log('TRY: ', index);
             console.log('Stone type:', stone.STONE_TYPE);
-            console.log(stone.BONUS_IDS?.slice(0, 4)?.map(a => `${a}`));
-            console.log(stone.BONUS_EFFS?.slice(0, 4).map(a => `${a}`));
+            console.log(stone.BONUS_IDS?.slice(0, 10)?.map(a => `${a}`));
+            console.log(stone.BONUS_EFFS?.slice(0, 10).map(a => `${a}`));
         }
     })
 

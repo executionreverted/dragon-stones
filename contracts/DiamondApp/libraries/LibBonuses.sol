@@ -25,16 +25,261 @@ library LibBonuses {
             _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
             _bonus.BONUS_VALUE_TIER_INCREMENTAL = 5;
             _bonus.BONUS_STAT = Stats.STR;
-            _bonus.BONUS_MIN_EFF = 30;
+            _bonus.BONUS_MIN_EFF = 50;
             _bonus.BONUS_MAX_EFF = 150;
             _bonus.VALUE = 10;
         } else if (bonusId == 2) {
             _bonus.BONUS_VALUE_TYPE = BonusValueType.PERCENTAGE;
-            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 50;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
             _bonus.BONUS_STAT = Stats.STR;
-            _bonus.BONUS_MIN_EFF = 30;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 5;
+        } else if (bonusId == 3) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 5;
+            _bonus.BONUS_STAT = Stats.DEX;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 10;
+        } else if (bonusId == 4) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.PERCENTAGE;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.DEX;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 5;
+        } else if (bonusId == 5) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 5;
+            _bonus.BONUS_STAT = Stats.WIS;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 10;
+        } else if (bonusId == 6) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.PERCENTAGE;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.WIS;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 5;
+        } else if (bonusId == 7) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 5;
+            _bonus.BONUS_STAT = Stats.VIT;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 10;
+        } else if (bonusId == 8) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.PERCENTAGE;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.VIT;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 5;
+        } else if (bonusId == 9) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 5;
+            _bonus.BONUS_STAT = Stats.LUK;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 10;
+        } else if (bonusId == 10) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.PERCENTAGE;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.LUK;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 5;
+        } else if (bonusId == 11) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 20;
+            _bonus.BONUS_STAT = Stats.HP;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 100;
+        } else if (bonusId == 12) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.PERCENTAGE;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.HP;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 5;
+        } else if (bonusId == 13) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 10;
+            _bonus.BONUS_STAT = Stats.SP;
+            _bonus.BONUS_MIN_EFF = 50;
             _bonus.BONUS_MAX_EFF = 150;
             _bonus.VALUE = 50;
+        } else if (bonusId == 14) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.PERCENTAGE;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.SP;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 5;
+        } else if (bonusId == 15) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.PERCENTAGE;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.ALL_STATS;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 5;
+        } else if (bonusId == 16) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 5;
+            _bonus.BONUS_STAT = Stats.DAMAGE;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 50;
+        } else if (bonusId == 17) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.PERCENTAGE;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 2;
+            _bonus.BONUS_STAT = Stats.DAMAGE;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 10;
+        } else if (bonusId == 18) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 5;
+            _bonus.BONUS_STAT = Stats.DEF;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 50;
+        } else if (bonusId == 19) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.PERCENTAGE;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.DEF;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 10;
+        } else if (bonusId == 20) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 5;
+            _bonus.BONUS_STAT = Stats.FIRE_RES;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 50;
+        } else if (bonusId == 21) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.PERCENTAGE;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.FIRE_RES;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 10;
+        } else if (bonusId == 22) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 5;
+            _bonus.BONUS_STAT = Stats.COLD_RES;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 50;
+        } else if (bonusId == 23) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.PERCENTAGE;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.COLD_RES;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 10;
+        } else if (bonusId == 24) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 5;
+            _bonus.BONUS_STAT = Stats.LIGHTNING_RES;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 50;
+        } else if (bonusId == 25) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.PERCENTAGE;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.LIGHTNING_RES;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 10;
+        } else if (bonusId == 26) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 5;
+            _bonus.BONUS_STAT = Stats.NATURE_RES;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 50;
+        } else if (bonusId == 27) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.PERCENTAGE;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.NATURE_RES;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 10;
+        } else if (bonusId == 28) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 5;
+            _bonus.BONUS_STAT = Stats.HOLY_RES;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 50;
+        } else if (bonusId == 29) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.PERCENTAGE;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.HOLY_RES;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 10;
+        } else if (bonusId == 30) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 5;
+            _bonus.BONUS_STAT = Stats.DARK_RES;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 50;
+        } else if (bonusId == 31) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.PERCENTAGE;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.DARK_RES;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 10;
+        } else if (bonusId == 32) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 5;
+            _bonus.BONUS_STAT = Stats.ALL_RES;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 50;
+        } else if (bonusId == 33) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.PERCENTAGE;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.ALL_RES;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 10;
+        } else if (bonusId == 34) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.CHANCE_TO_DOUBLE_CLAIM;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 20;
+        } else if (bonusId == 35) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 5;
+            _bonus.BONUS_STAT = Stats.MULTIKILL;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 10;
+        } else if (bonusId == 36) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.LOOT_BONUS;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 10;
+        } else if (bonusId == 36) {
+            _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
+            _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
+            _bonus.BONUS_STAT = Stats.FASTER_CYCLES;
+            _bonus.BONUS_MIN_EFF = 50;
+            _bonus.BONUS_MAX_EFF = 150;
+            _bonus.VALUE = 5;
         } else {
             revert("INVALID_BONUS_ID");
         }

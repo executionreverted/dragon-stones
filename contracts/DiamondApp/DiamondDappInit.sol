@@ -14,7 +14,12 @@ import {ILayerZeroEndpointUpgradeable} from "../contracts-upgradable/interfaces/
 contract DiamondDappInit {
     AppStorage internal s;
 
-    function init(address _endpoint, string memory tokenURI) external {
+    function init(
+        address _endpoint,
+        string memory tokenURI,
+        address _pieces,
+        address _blessings
+    ) external {
         s.domainSeparator = LibMeta.domainSeparator("DiamondApp", "V1");
         LibDiamond.DiamondStorage storage ds = LibDiamond.diamondStorage();
         // adding ERC165 data
@@ -25,5 +30,7 @@ contract DiamondDappInit {
         ds.supportedInterfaces[type(IERC173).interfaceId] = true;
         s.lzEndpoint = ILayerZeroEndpointUpgradeable(_endpoint);
         s.URI = tokenURI;
+        s.pieces = _pieces;
+        s.blessings = _blessings;
     }
 }

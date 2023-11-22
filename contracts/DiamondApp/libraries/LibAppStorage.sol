@@ -11,6 +11,8 @@ import {ActiveStone, DragonStone, CoreDragonStone} from "../libraries/GameStruct
 struct AppStorage {
     // core
     bytes32 domainSeparator;
+    address pieces;
+    address blessings;
     ILayerZeroEndpointUpgradeable lzEndpoint;
     string URI;
     mapping(address => bool) Managers;
@@ -55,6 +57,19 @@ library LibAppStorage {
 
 contract Modifiers {
     AppStorage internal s;
+
+    function isContract(address account) internal view returns (bool) {
+        // This method relies on extcodesize/address.code.length, which returns 0
+        // for contracts in construction, since the code is only stored at the end
+        // of the constructor execution.
+
+        return account.code.length > 0;
+    }
+
+    modifier onlyNonEOA() {
+        require(!isContract(msg.sender), "only non eoa");
+        _;
+    }
 
     modifier onlyDiamondOwner() {
         LibDiamond.DiamondStorage storage ds = LibDiamond.diamondStorage();

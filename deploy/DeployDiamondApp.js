@@ -1,7 +1,9 @@
+const { ethers, network } = require('hardhat')
 const { FacetCutAction, getSelectors } = require('./helpers')
-
+const LZEndpoints = require('../constants/layerzeroEndpoints.json')
 const FacetNames = [
-    'MinterFacet', // delete on prod
+    'MinterFacet',
+    'CombineFacet',
     'DragonStoneFacet',
     'PolishFacet',
     'UpgradeFacet',
@@ -25,6 +27,41 @@ module.exports = async function ({ deployments, getNamedAccounts }) {
             waitConfirmations: 1,
         })
     }
+
+    await deploy("DragonStonePieces", {
+        from: deployer,
+        proxy: {
+            owner: deployer,
+            proxyContract: "OptimizedTransparentProxy",
+            execute: {
+                init: {
+                    methodName: "initialize",
+                    args: ["Dragon Stone Piece", "DSTP", 0, 0, LZEndpoints[network.name] || ethers.constants.AddressZero],
+                },
+            },
+        },
+        log: true,
+        waitConfirmations: 1,
+    });
+
+    await deploy("DragonStoneBlessing", {
+        from: deployer,
+        proxy: {
+            owner: deployer,
+            proxyContract: "OptimizedTransparentProxy",
+            execute: {
+                init: {
+                    methodName: "initialize",
+                    args: ["Dragon Stone Blessing", "DSTB", 0, 0, LZEndpoints[network.name] || ethers.constants.AddressZero],
+                },
+            },
+        },
+        log: true,
+        waitConfirmations: 1,
+    });
+
+    const DragonStonePieces = await ethers.getContract('DragonStonePieces');
+    const DragonStoneBlessing = await ethers.getContract('DragonStoneBlessing');
 
     const DiamondCutFacet = await deploy("DiamondCutFacet", {
         from: deployer,
@@ -73,7 +110,7 @@ module.exports = async function ({ deployments, getNamedAccounts }) {
     let receipt
     // call to init function
     let diamondInit = await ethers.getContractAt("DiamondDappInit", DiamondInit.address)
-    let functionCall = diamondInit.interface.encodeFunctionData('init', [ethers.constants.AddressZero, "dragonstones.com/api/"])
+    let functionCall = diamondInit.interface.encodeFunctionData('init', [ethers.constants.AddressZero, "dragonstones.com/api/", DragonStonePieces.address, DragonStoneBlessing.address])
     tx = await diamondCut.diamondCut(cut, diamondInit.address, functionCall)
     // tx = await diamondCut.diamondCut([], diamondInit.address, functionCall)
     console.log('Diamond cut tx: ', tx.hash)
@@ -83,6 +120,16 @@ module.exports = async function ({ deployments, getNamedAccounts }) {
     }
     console.log('Completed diamond cut')
     console.log(Diamond.address);
+    const dragonStonePiece = await DragonStonePieces.getDragonContract()
+    if (dragonStonePiece !== Diamond.address) {
+        console.log('DragonStone set in pieces.');
+        await DragonStonePieces.setDragonContract(Diamond.address);
+    }
+    const dragonStonePiece2 = await DragonStoneBlessing.getDragonContract()
+    if (dragonStonePiece2 !== Diamond.address) {
+        console.log('DragonStone set in pieces.');
+        await DragonStoneBlessing.setDragonContract(Diamond.address);
+    }
     return Diamond.address
 }
 

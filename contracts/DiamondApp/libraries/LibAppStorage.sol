@@ -8,11 +8,18 @@ import {ILayerZeroEndpointUpgradeable} from "../../contracts-upgradable/interfac
 import {Token, StoredCredit} from "./AppStructs.sol";
 import {ActiveStone, DragonStone, CoreDragonStone} from "../libraries/GameStructs.sol";
 
+struct RoyaltyInfo {
+    address receiver;
+    uint96 royaltyFraction;
+}
+
 struct AppStorage {
     // core
     bytes32 domainSeparator;
     address pieces;
     address blessings;
+    RoyaltyInfo _defaultRoyaltyInfo;
+    mapping(uint256 => RoyaltyInfo) _tokenRoyaltyInfo;
     ILayerZeroEndpointUpgradeable lzEndpoint;
     string URI;
     mapping(address => bool) Managers;
@@ -41,6 +48,7 @@ struct AppStorage {
     mapping(address => mapping(uint => mapping(uint => uint))) Pages;
     mapping(address => uint) ActivePages;
     mapping(address => address) Delegates;
+    mapping(address => address) PaymentSplitters;
 }
 
 library LibAppStorage {
@@ -82,16 +90,17 @@ contract Modifiers {
     }
 
     modifier onlyManager() {
-        address sender = LibMeta.msgSender();
-        require(s.Managers[sender], "Only manager can call this function");
+        require(
+            s.Managers[LibMeta.msgSender()],
+            "Only manager can call this function"
+        );
         _;
     }
 
     modifier onlyTokenOwner(uint tokenId) {
-        address sender = LibMeta.msgSender();
         require(
-            sender == s.DragonStones[tokenId].OWNER,
-            "Only manager can call this function"
+            LibMeta.msgSender() == s.DragonStones[tokenId].OWNER,
+            "Only token owner can call this function"
         );
         _;
     }

@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.23;
 
-import {Modifiers} from "../libraries/LibAppStorage.sol";
+import {RoyaltyInfo, Modifiers} from "../libraries/LibAppStorage.sol";
 import {MAX_POLISH_LEVEL} from "../libraries/GameConstants.sol";
 import {ActiveStone, CoreBonus, DragonStone, Bonus, CoreDragonStone} from "../libraries/GameStructs.sol";
 import {LibBonuses} from "../libraries/LibBonuses.sol";
@@ -11,8 +11,25 @@ import {LibDappNFT} from "../libraries/LibDappNFT.sol";
 import {LibERC721} from "../../shared/libraries/LibERC721.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {LibStrings} from "../../shared/libraries/LibStrings.sol";
+import "@openzeppelin/contracts/token/common/ERC2981.sol";
 
 contract NonFungibleFacet is Modifiers {
+    function royaltyInfo(
+        uint256 tokenId,
+        uint256 salePrice
+    ) public view returns (address, uint256) {
+        RoyaltyInfo memory royalty = s._tokenRoyaltyInfo[tokenId];
+
+        if (royalty.receiver == address(0)) {
+            royalty = s._defaultRoyaltyInfo;
+        }
+
+        uint256 royaltyAmount = (salePrice * royalty.royaltyFraction) /
+            LibDappNFT._feeDenominator();
+
+        return (royalty.receiver, royaltyAmount);
+    }
+
     function burn(uint tokenId) external onlyTokenOwner(tokenId) {
         address sender = LibMeta.msgSender();
         LibDappNFT.transfer(sender, address(0), tokenId);

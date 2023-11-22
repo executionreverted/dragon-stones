@@ -62,7 +62,7 @@ contract MinterFacet is Modifiers {
         s.ownerTokenIds[msg.sender].push(uint32(tokenId));
 
         // add users payment splitter contract to 2981 royalty stuff later
-
+        LibDappNFT._setTokenRoyalty(tokenId, s.PaymentSplitters[msg.sender], 10000);
         emit LibERC721.Transfer(address(0), msg.sender, tokenId);
     }
 }

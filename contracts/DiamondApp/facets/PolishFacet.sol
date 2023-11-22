@@ -7,6 +7,7 @@ import {REQUIRED_PIECE_TO_POLISH_PER_LEVEL, MAX_POLISH_LEVEL} from "../libraries
 import {CoreDragonStone} from "../libraries/GameStructs.sol";
 import {LibDappNFT} from "../libraries/LibDappNFT.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
+import {LibRandom} from "../libraries/LibRandom.sol";
 import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
 
 contract PolishFacet is Modifiers {
@@ -28,8 +29,13 @@ contract PolishFacet is Modifiers {
             LibMeta.msgSender(),
             REQUIRED_PIECE_TO_POLISH_PER_LEVEL * (_mainToken.POLISH_LEVEL + 1)
         );
-
-        s.DragonStones[tokenId].POLISH_LEVEL++;
+        uint $upgradeChance = polishChance(_mainToken.POLISH_LEVEL + 1);
+        uint roll = LibRandom.d100(
+            block.number + block.timestamp + tokenId + 807154
+        );
+        if (roll < $upgradeChance) {
+            s.DragonStones[tokenId].POLISH_LEVEL++;
+        }
 
         LibDappNFT.transfer(LibMeta.msgSender(), address(0), useTokenId);
     }
@@ -37,8 +43,8 @@ contract PolishFacet is Modifiers {
     function polishChance(uint nextPolishLevel) internal pure returns (uint) {
         require(nextPolishLevel < MAX_POLISH_LEVEL, "CAN'T POLISH ANYMORE");
         uint8[10] memory POLISH_CHANCES = [
+            65,
             55,
-            50,
             45,
             40,
             35,

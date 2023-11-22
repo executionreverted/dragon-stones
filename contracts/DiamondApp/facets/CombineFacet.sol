@@ -8,6 +8,7 @@ import {CoreDragonStone} from "../libraries/GameStructs.sol";
 import {LibDappNFT} from "../libraries/LibDappNFT.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
+import {LibRandom} from "../libraries/LibRandom.sol";
 
 contract CombineFacet is Modifiers {
     function combine(
@@ -23,12 +24,19 @@ contract CombineFacet is Modifiers {
                 _mainToken.POLISH_LEVEL == _burnToken.POLISH_LEVEL,
             "doesn't match"
         );
-
+        uint nextTier = _mainToken.TIER + 1;
         IDragonStonePieces(s.pieces).burnPiece(
             LibMeta.msgSender(),
-            REQUIRED_PIECE_TO_COMBINE_PER_LEVEL * (_mainToken.TIER + 1)
+            REQUIRED_PIECE_TO_COMBINE_PER_LEVEL * (nextTier)
         );
 
+        uint $upgradeChance = combineChance(nextTier);
+        uint roll = LibRandom.d100(
+            block.number + block.timestamp + tokenId + nextTier + 7073173
+        );
+        if (roll < $upgradeChance) {
+            s.DragonStones[tokenId].TIER++;
+        }
         s.DragonStones[tokenId].TIER++;
 
         LibDappNFT.transfer(LibMeta.msgSender(), address(0), useTokenId);

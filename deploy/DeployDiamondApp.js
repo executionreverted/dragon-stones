@@ -10,7 +10,8 @@ const FacetNames = [
     'SymbolFacet',
     'SettingsFacet',
     'RegisterFacet',
-    'NonFungibleFacet'
+    'NonFungibleFacet',
+    'EnchantFacet'
 ]
 
 module.exports = async function ({ deployments, getNamedAccounts }) {

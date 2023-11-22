@@ -34,6 +34,7 @@ struct AppStorage {
     mapping(uint256 => address) approved;
     mapping(address => uint) balances;
     mapping(uint => Token) Tokens;
+    uint enchantSeed;
     uint nextMintId;
     uint maxMintId;
     uint16 FUNCTION_TYPE_SEND;

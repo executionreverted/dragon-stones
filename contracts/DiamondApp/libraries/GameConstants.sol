@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 uint constant MAX_STONE_SLOT_ID = 5;
+uint constant MAX_STONE_BONUS_COUNT = 4;
 uint constant MAX_UPGRADE_LEVEL = 999;
 uint constant MAX_TIER = 10;
 uint constant MAX_POLISH_LEVEL = 10;

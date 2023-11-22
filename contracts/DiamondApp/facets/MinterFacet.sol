@@ -48,13 +48,13 @@ contract MinterFacet is Modifiers {
             );
         }
 
-        uint[] memory _bonusesToAdd = new uint[](1);
-        _bonusesToAdd[0] = 1;
-        s.DragonStones[tokenId].BONUS_IDS = _bonusesToAdd;
+        // uint[] memory _bonusesToAdd = new uint[](1);
+        // _bonusesToAdd[0] = 1;
+        // s.DragonStones[tokenId].BONUS_IDS = _bonusesToAdd;
 
-        uint[] memory _bonusEffsToAdd = new uint[](1);
-        _bonusEffsToAdd[0] = 100;
-        s.DragonStones[tokenId].BONUS_EFFS = _bonusEffsToAdd;
+        // uint[] memory _bonusEffsToAdd = new uint[](1);
+        // _bonusEffsToAdd[0] = 100;
+        // s.DragonStones[tokenId].BONUS_EFFS = _bonusEffsToAdd;
 
         s.ownerTokenIdIndexes[msg.sender][tokenId] = s
             .ownerTokenIds[msg.sender]

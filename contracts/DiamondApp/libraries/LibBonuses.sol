@@ -14,62 +14,93 @@ library LibBonuses {
     function getBonusPool(
         StoneTypes stoneType
     ) internal pure returns (uint[] memory) {
-        // ruby 1 6 9 10 emerald 4 13 17 20 sapphire 2 7 11 amber 3 5 12 18 diamond 14 16 19 21  amethyst 8 15 20 21 cosmic all
+        // ruby pool: 1,2 7 8 11 12 21 22
+
+        if (stoneType == StoneTypes.RUBY) {
+            uint[] memory rubyBonuses = new uint[](8);
+            rubyBonuses[0] = 1;
+            rubyBonuses[1] = 2;
+            rubyBonuses[2] = 7;
+            rubyBonuses[3] = 8;
+            rubyBonuses[4] = 11;
+            rubyBonuses[5] = 12;
+            rubyBonuses[6] = 21;
+            rubyBonuses[7] = 22;
+            return rubyBonuses;
+        }
+        // emerald pool: 3 4 26 27 35 37
+
+        if (stoneType == StoneTypes.EMERALD) {
+            uint[] memory emeraldBonuses = new uint[](6);
+            emeraldBonuses[0] = 3;
+            emeraldBonuses[1] = 4;
+            emeraldBonuses[2] = 26;
+            emeraldBonuses[3] = 27;
+            emeraldBonuses[4] = 35;
+            emeraldBonuses[5] = 37;
+            return emeraldBonuses;
+        }
+        // sapphire pool: 5 6 13 14 18 22 23
+
+        if (stoneType == StoneTypes.SAPPHIRE) {
+            uint[] memory sapphireBonuses = new uint[](7);
+            sapphireBonuses[0] = 5;
+            sapphireBonuses[1] = 6;
+            sapphireBonuses[2] = 13;
+            sapphireBonuses[3] = 14;
+            sapphireBonuses[4] = 18;
+            sapphireBonuses[5] = 22;
+            sapphireBonuses[6] = 23;
+            return sapphireBonuses;
+        }
+
+        // amber pool: 7 8 24 25 34 36
+
+        if (stoneType == StoneTypes.AMBER) {
+            uint[] memory amberBonuses = new uint[](6);
+            amberBonuses[0] = 7;
+            amberBonuses[1] = 8;
+            amberBonuses[2] = 24;
+            amberBonuses[3] = 25;
+            amberBonuses[4] = 34;
+            amberBonuses[5] = 36;
+            return amberBonuses;
+        }
+
+        // amethyst pool: 13 15 16 17 30 31
+
+        if (stoneType == StoneTypes.AMETHYST) {
+            uint[] memory amethystBonuses = new uint[](6);
+            amethystBonuses[0] = 13;
+            amethystBonuses[1] = 15;
+            amethystBonuses[2] = 16;
+            amethystBonuses[3] = 17;
+            amethystBonuses[4] = 30;
+            amethystBonuses[5] = 31;
+            return amethystBonuses;
+        }
+
+        // diamond pool: 9 10 18 19 28 29 32 33 36
+        if (stoneType == StoneTypes.DIAMOND) {
+            uint[] memory diamondBonuses = new uint[](9);
+            diamondBonuses[0] = 9;
+            diamondBonuses[1] = 10;
+            diamondBonuses[2] = 18;
+            diamondBonuses[3] = 19;
+            diamondBonuses[4] = 28;
+            diamondBonuses[5] = 29;
+            diamondBonuses[6] = 32;
+            diamondBonuses[7] = 33;
+            diamondBonuses[8] = 36;
+            return diamondBonuses;
+        }
+
         if (stoneType == StoneTypes.COSMIC) {
             uint[] memory cosmicBonuses = new uint[](uint(type(Stats).max));
             for (uint i = 1; i <= cosmicBonuses.length; i++) {
                 cosmicBonuses[i - 1] = i;
             }
             return cosmicBonuses;
-        }
-        if (stoneType == StoneTypes.AMETHYST) {
-            uint[] memory amethystBonuses = new uint[](4);
-            amethystBonuses[0] = 8;
-            amethystBonuses[1] = 15;
-            amethystBonuses[2] = 20;
-            amethystBonuses[3] = 21;
-            return amethystBonuses;
-        }
-        if (stoneType == StoneTypes.DIAMOND) {
-            uint[] memory diamondBonuses = new uint[](4);
-            diamondBonuses[0] = 14;
-            diamondBonuses[1] = 16;
-            diamondBonuses[2] = 19;
-            diamondBonuses[3] = 21;
-            return diamondBonuses;
-        }
-        if (stoneType == StoneTypes.AMBER) {
-            uint[] memory amberBonuses = new uint[](4);
-            amberBonuses[0] = 3;
-            amberBonuses[1] = 5;
-            amberBonuses[2] = 12;
-            amberBonuses[3] = 18;
-            return amberBonuses;
-        }
-
-        if (stoneType == StoneTypes.RUBY) {
-            uint[] memory rubyBonuses = new uint[](4);
-            rubyBonuses[0] = 1;
-            rubyBonuses[1] = 6;
-            rubyBonuses[2] = 9;
-            rubyBonuses[3] = 10;
-            return rubyBonuses;
-        }
-
-        if (stoneType == StoneTypes.EMERALD) {
-            uint[] memory emeraldBonuses = new uint[](4);
-            emeraldBonuses[0] = 4;
-            emeraldBonuses[1] = 13;
-            emeraldBonuses[2] = 17;
-            emeraldBonuses[3] = 20;
-            return emeraldBonuses;
-        }
-        if (stoneType == StoneTypes.SAPPHIRE) {
-            uint[] memory sapphireBonuses = new uint[](3);
-            sapphireBonuses[0] = 2;
-            sapphireBonuses[1] = 7;
-            sapphireBonuses[2] = 11;
-            return sapphireBonuses;
         }
 
         revert("invalid stone type");
@@ -85,6 +116,7 @@ library LibBonuses {
             uint BONUS_VALUE_TIER_INCREMENTAL;
             uint VALUE;
         */
+        // diamond pool: 9 10 18 19 28 29 32 33 36
         if (bonusId == 1) {
             _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
             _bonus.BONUS_VALUE_TIER_INCREMENTAL = 5;

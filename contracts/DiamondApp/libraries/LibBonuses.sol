@@ -337,7 +337,7 @@ library LibBonuses {
             _bonus.BONUS_MIN_EFF = 50;
             _bonus.BONUS_MAX_EFF = 150;
             _bonus.VALUE = 10;
-        } else if (bonusId == 36) {
+        } else if (bonusId == 37) {
             _bonus.BONUS_VALUE_TYPE = BonusValueType.FLAT;
             _bonus.BONUS_VALUE_TIER_INCREMENTAL = 1;
             _bonus.BONUS_STAT = Stats.FASTER_CYCLES;

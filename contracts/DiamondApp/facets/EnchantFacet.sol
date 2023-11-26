@@ -135,6 +135,6 @@ contract EnchantFacet is Modifiers {
     function getEnchantChance(
         uint currentBonusCount
     ) internal pure returns (uint) {
-        return 200 / (currentBonusCount + 19);
+        return 200 / (currentBonusCount + 3);
     }
 }

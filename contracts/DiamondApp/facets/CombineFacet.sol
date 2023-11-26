@@ -21,8 +21,8 @@ contract CombineFacet is Modifiers {
 
         require(
             _mainToken.TIER == _burnToken.TIER &&
-                _mainToken.POLISH_LEVEL == _burnToken.POLISH_LEVEL,
-            "doesn't match"
+                _mainToken.POLISH_LEVEL == _burnToken.POLISH_LEVEL && _mainToken.STONE_TYPE == _burnToken.STONE_TYPE,
+            "doesn't match type or levels"
         );
         uint nextTier = _mainToken.TIER + 1;
         IDragonStonePieces(s.pieces).burnPiece(
@@ -37,7 +37,6 @@ contract CombineFacet is Modifiers {
         if (roll < $upgradeChance) {
             s.DragonStones[tokenId].TIER++;
         }
-        s.DragonStones[tokenId].TIER++;
 
         LibDappNFT.transfer(LibMeta.msgSender(), address(0), useTokenId);
     }

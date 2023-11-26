@@ -1,7 +1,7 @@
 const { ethers, network } = require('hardhat')
 const { FacetCutAction, getSelectors } = require('./helpers')
 const LZEndpoints = require('../constants/layerzeroEndpoints.json')
-const FacetNames = [
+export const FacetNames = [
     'MinterFacet',
     'CombineFacet',
     'DragonStoneFacet',
@@ -123,12 +123,12 @@ module.exports = async function ({ deployments, getNamedAccounts }) {
     console.log(Diamond.address);
     const dragonStonePiece = await DragonStonePieces.getDragonContract()
     if (dragonStonePiece !== Diamond.address) {
-        console.log('DragonStone set in pieces.');
+        console.log('DragonStone set in Pieces.');
         await DragonStonePieces.setDragonContract(Diamond.address);
     }
     const dragonStonePiece2 = await DragonStoneBlessing.getDragonContract()
     if (dragonStonePiece2 !== Diamond.address) {
-        console.log('DragonStone set in pieces.');
+        console.log('DragonStone set in Blessings.');
         await DragonStoneBlessing.setDragonContract(Diamond.address);
     }
     return Diamond.address

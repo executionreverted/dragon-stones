@@ -56,7 +56,7 @@ library LibDragonStones {
         dragonStone.TIER = core.TIER;
         dragonStone.POLISH_LEVEL = core.POLISH_LEVEL;
         dragonStone.BONUS = bonuses;
-
+        dragonStone.UPGRADE_LEVEL = core.UPGRADE_LEVEL;
         return dragonStone;
     }
 

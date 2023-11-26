@@ -13,14 +13,14 @@ import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
 import {IDragonStoneBlessing} from "../erc20/IDragonStoneBlessing.sol";
 
 contract MinterFacet is Modifiers {
-    function mintPiece() external onlyDiamondOwner {
+    function mintPiece() external /*onlyDiamondOwner*/ {
         IDragonStonePieces(s.pieces).mintPiece(
             msg.sender,
             REQUIRED_PIECE_TO_MINT
         );
     }
 
-    function mintBlessing() external onlyDiamondOwner {
+    function mintBlessing() external /*onlyDiamondOwner*/ {
         IDragonStoneBlessing(s.blessings).mintBlessing(
             msg.sender,
             REQUIRED_PIECE_TO_MINT
@@ -60,9 +60,14 @@ contract MinterFacet is Modifiers {
             .ownerTokenIds[msg.sender]
             .length;
         s.ownerTokenIds[msg.sender].push(uint32(tokenId));
+        s.tokenIds.push(uint32(tokenId));
 
         // add users payment splitter contract to 2981 royalty stuff later
-        LibDappNFT._setTokenRoyalty(tokenId, s.PaymentSplitters[msg.sender], 10000);
+        LibDappNFT._setTokenRoyalty(
+            tokenId,
+            s.PaymentSplitters[msg.sender],
+            10000
+        );
         emit LibERC721.Transfer(address(0), msg.sender, tokenId);
     }
 }

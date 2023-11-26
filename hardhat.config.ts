@@ -17,6 +17,7 @@ import './tasks';
 import "@typechain/hardhat";
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
+import 'hardhat-abi-exporter';
 
 task("accounts", "Prints the list of accounts", async (taskArgs: any, hre: any) => {
   const accounts = await hre.ethers.getSigners();
@@ -56,7 +57,26 @@ function accounts(chainKey) {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-
+  abiExporter: {
+    path: './abi',
+    runOnCompile: true,
+    clear: true,
+    only: [...[
+      'MinterFacet',
+      'CombineFacet',
+      'DragonStoneFacet',
+      'PolishFacet',
+      'UpgradeFacet',
+      'SymbolFacet',
+      'SettingsFacet',
+      'RegisterFacet',
+      'NonFungibleFacet',
+      'EnchantFacet',
+      'DragonStonePieces',
+      'DragonStoneBlessings'
+  ]],
+    spacing: 2,
+  },
   solidity: {
     compilers: [
       {
@@ -218,6 +238,11 @@ module.exports = {
     'shimmer-testnet': {
       url: 'https://json-rpc.evm.testnet.shimmer.network',
       chainId: 1071,
+      accounts: accounts(),
+    },
+    'localnet': {
+      url: 'http://127.0.0.1:8545/',
+      chainId: 1337,
       accounts: accounts(),
     }
   }

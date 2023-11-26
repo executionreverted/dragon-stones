@@ -1,0 +1,340 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "enum StoneTypes",
+        "name": "stoneType",
+        "type": "uint8"
+      }
+    ],
+    "name": "getBonusPools",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDragonStone",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "OWNER",
+            "type": "address"
+          },
+          {
+            "internalType": "enum StoneTypes",
+            "name": "STONE_TYPE",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "TIER",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "POLISH_LEVEL",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "UPGRADE_LEVEL",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "enum BonusValueType",
+                "name": "BONUS_VALUE_TYPE",
+                "type": "uint8"
+              },
+              {
+                "internalType": "enum Stats",
+                "name": "BONUS_STAT",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint256",
+                "name": "BONUS_EFF",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "VALUE",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256[50]",
+                "name": "__RESERVED__",
+                "type": "uint256[50]"
+              }
+            ],
+            "internalType": "struct Bonus[]",
+            "name": "BONUS",
+            "type": "tuple[]"
+          },
+          {
+            "internalType": "uint256[50]",
+            "name": "__RESERVED",
+            "type": "uint256[50]"
+          }
+        ],
+        "internalType": "struct DragonStone",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDragonStoneData",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "player",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pageId",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct ActiveStone",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "tokenIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "getDragonStones",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "OWNER",
+            "type": "address"
+          },
+          {
+            "internalType": "enum StoneTypes",
+            "name": "STONE_TYPE",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "TIER",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "POLISH_LEVEL",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "UPGRADE_LEVEL",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "enum BonusValueType",
+                "name": "BONUS_VALUE_TYPE",
+                "type": "uint8"
+              },
+              {
+                "internalType": "enum Stats",
+                "name": "BONUS_STAT",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint256",
+                "name": "BONUS_EFF",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "VALUE",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256[50]",
+                "name": "__RESERVED__",
+                "type": "uint256[50]"
+              }
+            ],
+            "internalType": "struct Bonus[]",
+            "name": "BONUS",
+            "type": "tuple[]"
+          },
+          {
+            "internalType": "uint256[50]",
+            "name": "__RESERVED",
+            "type": "uint256[50]"
+          }
+        ],
+        "internalType": "struct DragonStone[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getRawDragonStone",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "OWNER",
+            "type": "address"
+          },
+          {
+            "internalType": "enum StoneTypes",
+            "name": "STONE_TYPE",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "TIER",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "POLISH_LEVEL",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "UPGRADE_LEVEL",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "BONUS_IDS",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "BONUS_EFFS",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[50]",
+            "name": "__RESERVED",
+            "type": "uint256[50]"
+          }
+        ],
+        "internalType": "struct CoreDragonStone",
+        "name": "dragonStone",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "tokenIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "getRawDragonStones",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "OWNER",
+            "type": "address"
+          },
+          {
+            "internalType": "enum StoneTypes",
+            "name": "STONE_TYPE",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "TIER",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "POLISH_LEVEL",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "UPGRADE_LEVEL",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "BONUS_IDS",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "BONUS_EFFS",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[50]",
+            "name": "__RESERVED",
+            "type": "uint256[50]"
+          }
+        ],
+        "internalType": "struct CoreDragonStone[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

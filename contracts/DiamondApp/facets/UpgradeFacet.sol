@@ -15,7 +15,7 @@ contract UpgradeFacet is Modifiers {
         CoreDragonStone memory _mainToken = s.DragonStones[tokenId];
         require(_mainToken.UPGRADE_LEVEL < MAX_UPGRADE_LEVEL, "already max.");
 
-        uint $upgradeChance = upgradeChance(_mainToken.UPGRADE_LEVEL + 1);
+        uint $upgradeChance = upgradeChance(_mainToken.UPGRADE_LEVEL);
         uint roll = LibRandom.d100(block.number + block.timestamp + tokenId);
         IDragonStonePieces(s.pieces).burnPiece(
             LibMeta.msgSender(),
@@ -31,8 +31,9 @@ contract UpgradeFacet is Modifiers {
         if (roll < $upgradeChance) {
             s.DragonStones[tokenId].UPGRADE_LEVEL++;
         } else {
-            if (_mainToken.UPGRADE_LEVEL > 1 && !useBlessing)
+            if (_mainToken.UPGRADE_LEVEL > 1 && !useBlessing) {
                 s.DragonStones[tokenId].UPGRADE_LEVEL--;
+            }
         }
     }
 

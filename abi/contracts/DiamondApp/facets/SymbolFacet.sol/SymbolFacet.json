@@ -1,0 +1,146 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      }
+    ],
+    "name": "activePageId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "pageId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "stoneId",
+        "type": "uint256"
+      }
+    ],
+    "name": "equipDragonStone",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "pageId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPage",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "OWNER",
+            "type": "address"
+          },
+          {
+            "internalType": "enum StoneTypes",
+            "name": "STONE_TYPE",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "TIER",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "POLISH_LEVEL",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "UPGRADE_LEVEL",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "enum BonusValueType",
+                "name": "BONUS_VALUE_TYPE",
+                "type": "uint8"
+              },
+              {
+                "internalType": "enum Stats",
+                "name": "BONUS_STAT",
+                "type": "uint8"
+              },
+              {
+                "internalType": "uint256",
+                "name": "BONUS_EFF",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "VALUE",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256[50]",
+                "name": "__RESERVED__",
+                "type": "uint256[50]"
+              }
+            ],
+            "internalType": "struct Bonus[]",
+            "name": "BONUS",
+            "type": "tuple[]"
+          },
+          {
+            "internalType": "uint256[50]",
+            "name": "__RESERVED",
+            "type": "uint256[50]"
+          }
+        ],
+        "internalType": "struct DragonStone[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      }
+    ],
+    "name": "getPlayerStats",
+    "outputs": [
+      {
+        "internalType": "int256[]",
+        "name": "",
+        "type": "int256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

@@ -10,16 +10,19 @@
   "scripts": {
     "test": "npx hardhat test",
     "prettier": "prettier --write test/**/*.js && prettier --write test/*/*/*.js && prettier --write deploy/*.js && prettier --write tasks/*.js && prettier --write contracts/**/*.sol && prettier --write contracts/**/**/*.sol && prettier --write contracts/**/**/**/*.sol",
-    "lint": "yarn prettier && solhint 'contracts/*.sol' && solhint 'contracts/**/*.sol' && solhint 'contracts/**/**/*.sol' && solhint 'contracts/**/**/**/*.sol'"
+    "lint": "yarn prettier && solhint 'contracts/*.sol' && solhint 'contracts/**/*.sol' && solhint 'contracts/**/**/*.sol' && solhint 'contracts/**/**/**/*.sol'",
+    "postinstall": "npx --yes thirdweb@latest generate"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.3",
     "@openzeppelin/contracts-upgradeable": "^4.8.3",
     "@openzeppelin/hardhat-upgrades": "^1.23.1",
+    "@thirdweb-dev/sdk": "^4.0.17",
     "@uniswap/v2-core": "^1.0.1",
     "@uniswap/v2-periphery": "^1.1.0-beta.0",
     "dotenv": "^16.0.3",
     "hardhat": "^2.8.0",
+    "hardhat-abi-exporter": "^2.10.1",
     "hardhat-contract-sizer": "^2.1.1",
     "hardhat-deploy": "^0.10.5",
     "hardhat-deploy-ethers": "^0.3.0-beta.13",

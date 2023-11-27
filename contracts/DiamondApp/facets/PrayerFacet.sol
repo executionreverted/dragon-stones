@@ -8,47 +8,50 @@ import {ActiveStone, CoreBonus, DragonStone, Bonus, CoreDragonStone} from "../li
 import {StoneTypes, PlayerAction} from "../libraries/GameEnums.sol";
 import {LibBonuses} from "../libraries/LibBonuses.sol";
 import {LibDragonStones} from "../libraries/LibDragonStones.sol";
-import {LibIdle} from "../libraries/LibIdle.sol";
+import {LibPrayer} from "../libraries/LibPrayer.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
-import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
+import {IDragonStoneBlessing} from "../erc20/IDragonStoneBlessing.sol";
 
-contract IdlerFacet is Modifiers {
-    function beginIdleing() external onlyRegistered {
+contract PrayerFacet is Modifiers {
+    function beginPraying() external onlyRegistered {
         require(
             s.PlayerState[LibMeta.msgSender()].ACTION_STATE ==
                 PlayerAction.FREE,
-            "IdlerFacet: already idle"
+            "PrayerFacet: already praying"
         );
-        s.PlayerState[LibMeta.msgSender()].ACTION_STATE = PlayerAction.IDLE;
+        s.PlayerState[LibMeta.msgSender()].ACTION_STATE = PlayerAction.PRAYER;
         s.PlayerState[LibMeta.msgSender()].ACTION_START = block.timestamp;
     }
 
-    function endIdleing() external {
+    function endPraying() external {
         require(
             s.PlayerState[LibMeta.msgSender()].ACTION_STATE ==
-                PlayerAction.IDLE,
-            "IdlerFacet: not idle"
+                PlayerAction.PRAYER,
+            "PrayerFacet: not praying"
         );
         // require(
         //     block.timestamp >=
         //         s.PlayerState[LibMeta.msgSender()].ACTION_DEADLINE,
-        //     "IdlerFacet: too early"
+        //     "PrayrFacet: too early"
         // );
-        uint rewards = calculatePieceReward(LibMeta.msgSender());
-        IDragonStonePieces(s.pieces).mintPiece(LibMeta.msgSender(), rewards);
-        s.PlayerState[LibMeta.msgSender()].ACTION_STATE = PlayerAction.FREE;
-    }
-
-    function cancelIdleing() external {
-        require(
-            s.PlayerState[LibMeta.msgSender()].ACTION_STATE ==
-                PlayerAction.IDLE,
-            "IdlerFacet: not idle"
+        uint rewards = calculatePrayerReward(LibMeta.msgSender());
+        IDragonStoneBlessing(s.blessings).mintBlessing(
+            LibMeta.msgSender(),
+            rewards
         );
         s.PlayerState[LibMeta.msgSender()].ACTION_STATE = PlayerAction.FREE;
     }
 
-    function calculatePieceReward(address player) public view returns (uint) {
-        return LibIdle.calculateIdleReward(player);
+    function cancelPraying() external {
+        require(
+            s.PlayerState[LibMeta.msgSender()].ACTION_STATE ==
+                PlayerAction.PRAYER,
+            "PrayerFacet: not praying"
+        );
+        s.PlayerState[LibMeta.msgSender()].ACTION_STATE = PlayerAction.FREE;
+    }
+
+    function calculatePrayerReward(address player) public view returns (uint) {
+        return LibPrayer.calculatePrayerReward(player);
     }
 }

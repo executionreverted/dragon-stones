@@ -12,7 +12,7 @@ import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
 
 contract DailyFacet is Modifiers {
-    function claimIdleRewards() external onlyRegistered {
+    function claimDaily() external onlyRegistered {
         require(
             block.timestamp >=
                 s.PlayerState[LibMeta.msgSender()].DAILY_CLAIM + 23 hours,

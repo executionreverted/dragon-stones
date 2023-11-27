@@ -109,7 +109,7 @@ contract Modifiers {
 
     modifier onlyRegistered() {
         require(
-            s.PlayerState[LibMeta.msgSender()].LEVEL > 0,
+            s.PlayerMaxPages[msg.sender] > 0,
             "Only registered addresses can call this function"
         );
         _;

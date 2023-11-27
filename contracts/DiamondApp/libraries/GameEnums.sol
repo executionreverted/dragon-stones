@@ -67,5 +67,6 @@ enum QuestType {
 enum PlayerAction {
     FREE,
     IDLE,
-    PRODUCTION
+    PRODUCTION,
+    PRAYER
 }

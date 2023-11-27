@@ -14,6 +14,7 @@
     "postinstall": "npx --yes thirdweb@latest generate"
   },
   "dependencies": {
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.9",
     "@openzeppelin/contracts": "^4.8.3",
     "@openzeppelin/contracts-upgradeable": "^4.8.3",
     "@openzeppelin/hardhat-upgrades": "^1.23.1",

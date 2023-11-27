@@ -14,15 +14,22 @@ contract CombineFacet is Modifiers {
     function combine(
         uint tokenId,
         uint useTokenId
-    ) external onlyNonEOA onlyTokenOwner(tokenId) onlyTokenOwner(useTokenId) {
+    )
+        external
+        onlyNonEOA
+        onlyRegistered
+        onlyTokenOwner(tokenId)
+        onlyTokenOwner(useTokenId)
+    {
         CoreDragonStone memory _mainToken = s.DragonStones[tokenId];
-        require(_mainToken.TIER < MAX_TIER, "already max.");
+        require(_mainToken.TIER < MAX_TIER, "CombineFacet: already max.");
         CoreDragonStone memory _burnToken = s.DragonStones[useTokenId];
 
         require(
             _mainToken.TIER == _burnToken.TIER &&
-                _mainToken.POLISH_LEVEL == _burnToken.POLISH_LEVEL && _mainToken.STONE_TYPE == _burnToken.STONE_TYPE,
-            "doesn't match type or levels"
+                // _mainToken.POLISH_LEVEL == _burnToken.POLISH_LEVEL &&
+                _mainToken.STONE_TYPE == _burnToken.STONE_TYPE,
+            "CombineFacet: doesn't match type or tier"
         );
         uint nextTier = _mainToken.TIER + 1;
         IDragonStonePieces(s.pieces).burnPiece(
@@ -36,17 +43,18 @@ contract CombineFacet is Modifiers {
         );
         if (roll < $upgradeChance) {
             s.DragonStones[tokenId].TIER++;
+            s.PlayerState[LibMeta.msgSender()].SUCCESSFUL_COMBINE++;
         }
 
         LibDappNFT.transfer(LibMeta.msgSender(), address(0), useTokenId);
     }
 
     function combineChance(uint nextPolishLevel) internal pure returns (uint) {
-        require(nextPolishLevel < MAX_TIER, "CAN'T POLISH ANYMORE");
+        require(nextPolishLevel < MAX_TIER, "CombineFacet: max reached");
         uint8[10] memory POLISH_CHANCES = [
-            55,
+            75,
+            60,
             50,
-            45,
             40,
             35,
             30,

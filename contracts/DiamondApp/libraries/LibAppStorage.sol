@@ -6,7 +6,7 @@ import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {ERC165Upgradeable} from "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol";
 import {ILayerZeroEndpointUpgradeable} from "../../contracts-upgradable/interfaces/ILayerZeroEndpointUpgradeable.sol";
 import {Token, StoredCredit} from "./AppStructs.sol";
-import {ActiveStone, DragonStone, CoreDragonStone} from "../libraries/GameStructs.sol";
+import {Player, ActiveStone, DragonStone, CoreDragonStone} from "../libraries/GameStructs.sol";
 
 struct RoyaltyInfo {
     address receiver;
@@ -50,6 +50,7 @@ struct AppStorage {
     mapping(address => uint) ActivePages;
     mapping(address => address) Delegates;
     mapping(address => address) PaymentSplitters;
+    mapping(address => Player) PlayerState;
 }
 
 library LibAppStorage {
@@ -102,6 +103,14 @@ contract Modifiers {
         require(
             LibMeta.msgSender() == s.DragonStones[tokenId].OWNER,
             "Only token owner can call this function"
+        );
+        _;
+    }
+
+    modifier onlyRegistered() {
+        require(
+            s.PlayerState[LibMeta.msgSender()].LEVEL > 0,
+            "Only registered addresses can call this function"
         );
         _;
     }

@@ -11,7 +11,9 @@ export const FacetNames = [
     'SettingsFacet',
     'RegisterFacet',
     'NonFungibleFacet',
-    'EnchantFacet'
+    'EnchantFacet',
+    'DailyFacet',
+    'IdlerFacet'
 ]
 
 module.exports = async function ({ deployments, getNamedAccounts }) {

@@ -9,7 +9,10 @@ import {LibDiamond} from "../../shared/libraries/LibDiamond.sol";
 contract RegisterFacet is Modifiers {
     function registerAccount() external {
         // add modifier to check stone balance. sender should have at least 1 stone to create player account and start interacting with symbols
-        require(s.PlayerMaxPages[msg.sender] == 0, "already registered");
+        require(
+            s.PlayerMaxPages[msg.sender] == 0,
+            "RegisterFacet: already registered"
+        );
         if (LibDiamond.contractOwner() == msg.sender) {
             if (s.PaymentSplitters[msg.sender] == address(0)) {
                 s.PaymentSplitters[msg.sender] = msg.sender;
@@ -19,8 +22,12 @@ contract RegisterFacet is Modifiers {
             }
         }
         if (s.tokenIds.length > 1000) {
-            require(s.ownerTokenIds[msg.sender].length > 0, "0 balance");
+            require(
+                s.ownerTokenIds[msg.sender].length > 0,
+                "RegisterFacet: 0 balance"
+            );
         }
+        s.PlayerState[msg.sender].LEVEL = 1;
         s.PlayerMaxPages[msg.sender] = 2;
         s.ActivePages[msg.sender] = 1;
         address[] memory payees = new address[](2);

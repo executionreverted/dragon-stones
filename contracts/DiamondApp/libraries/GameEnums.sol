@@ -31,7 +31,6 @@ enum Stats {
     ALL_STATS // 21
 }
 
-
 enum StoneTypes {
     RUBY, // FIRE
     SAPPHIRE, // COLD
@@ -40,4 +39,33 @@ enum StoneTypes {
     DIAMOND, // HOLY
     AMETHYST, // DARK
     COSMIC // GIGA!
+}
+
+enum Zodiac {
+    AASTERINIAN,
+    ASTILABOR,
+    BAHAMUT,
+    CHRONEPSIS,
+    FALAZURE,
+    GARYX,
+    HLAL,
+    IO,
+    LENDYS,
+    TAMARA,
+    TIAMAT
+}
+
+enum QuestType {
+    EXPLORE,
+    SPEND_TIME,
+    BURN,
+    UPGRADE,
+    POLISH,
+    COMBINE
+}
+
+enum PlayerAction {
+    FREE,
+    IDLE,
+    PRODUCTION
 }

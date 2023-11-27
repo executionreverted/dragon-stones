@@ -13,7 +13,7 @@ import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
 
 contract EnchantFacet is Modifiers {
-    function enchant(uint tokenId) external onlyNonEOA onlyTokenOwner(tokenId) {
+    function enchant(uint tokenId) external onlyNonEOA onlyRegistered onlyTokenOwner(tokenId) {
         if (s.DragonStones[tokenId].BONUS_IDS.length == 0) {
             s.DragonStones[tokenId].BONUS_IDS = new uint[](40);
             s.DragonStones[tokenId].BONUS_EFFS = new uint[](40);
@@ -24,7 +24,7 @@ contract EnchantFacet is Modifiers {
             _mainToken.BONUS_IDS,
             stoneType
         );
-        require(hasBonusSlot, "no slot left");
+        require(hasBonusSlot, "EnchantFacet: no slot left");
         uint roll = LibRandom.d100(s.enchantSeed + block.number + 1337);
         uint enchantChance = getEnchantChance(bonusCount);
         // console.log("CHANCE", enchantChance);
@@ -50,6 +50,7 @@ contract EnchantFacet is Modifiers {
             // emit event Exists
             if (eff > _mainToken.BONUS_EFFS[existIndex]) {
                 replaceEff(tokenId, existIndex, eff);
+                s.PlayerState[LibMeta.msgSender()].SUCCESSFUL_ENCHANT++;
                 // emit event replaced with better one!
             }
             return;
@@ -83,6 +84,7 @@ contract EnchantFacet is Modifiers {
     ) internal {
         s.DragonStones[tokenId].BONUS_IDS[i] = chosenBonus;
         s.DragonStones[tokenId].BONUS_EFFS[i] = eff;
+        s.PlayerState[LibMeta.msgSender()].SUCCESSFUL_ENCHANT++;
     }
 
     function hasEmptyBonusSlot(

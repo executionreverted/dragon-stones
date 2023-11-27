@@ -14,15 +14,15 @@ contract PolishFacet is Modifiers {
     function polish(
         uint tokenId,
         uint useTokenId
-    ) external onlyNonEOA onlyTokenOwner(tokenId) onlyTokenOwner(useTokenId) {
+    ) external onlyNonEOA onlyTokenOwner(tokenId) onlyTokenOwner(useTokenId) onlyRegistered {
         CoreDragonStone memory _mainToken = s.DragonStones[tokenId];
-        require(_mainToken.POLISH_LEVEL < MAX_POLISH_LEVEL, "already max.");
+        require(_mainToken.POLISH_LEVEL < MAX_POLISH_LEVEL, "PolishFacet: already max.");
         CoreDragonStone memory _burnToken = s.DragonStones[useTokenId];
 
         require(
-            _mainToken.TIER == _burnToken.TIER &&
-                _mainToken.POLISH_LEVEL == _burnToken.POLISH_LEVEL,
-            "doesn't match"
+            _mainToken.TIER == _burnToken.TIER,
+            // && _mainToken.POLISH_LEVEL == _burnToken.POLISH_LEVEL,
+            "PolishFacet: doesn't match tier"
         );
 
         IDragonStonePieces(s.pieces).burnPiece(
@@ -35,13 +35,14 @@ contract PolishFacet is Modifiers {
         );
         if (roll < $upgradeChance) {
             s.DragonStones[tokenId].POLISH_LEVEL++;
+            s.PlayerState[LibMeta.msgSender()].SUCCESSFUL_POLISH++;
         }
 
         LibDappNFT.transfer(LibMeta.msgSender(), address(0), useTokenId);
     }
 
     function polishChance(uint nextPolishLevel) internal pure returns (uint) {
-        require(nextPolishLevel < MAX_POLISH_LEVEL, "CAN'T POLISH ANYMORE");
+        require(nextPolishLevel < MAX_POLISH_LEVEL, "PolishFacet: max reached");
         uint8[10] memory POLISH_CHANCES = [
             65,
             55,

@@ -14,7 +14,8 @@ export const FacetNames = [
     'EnchantFacet',
     'DailyFacet',
     'IdlerFacet',
-    'PrayerFacet'
+    'PrayerFacet',
+    'TestFacet'
 ]
 
 module.exports = async function ({ deployments, getNamedAccounts }) {

@@ -35,12 +35,12 @@ contract DailyFacet is Modifiers {
 
     function rewardMult(address player) internal view returns (uint) {
         int[] memory stats = LibSymbol.getPlayerStats(player);
-        uint premult = 0;
+        uint premult = 1;
         int chanceToDouble = stats[uint(Stats.CHANCE_TO_DOUBLE_CLAIM)];
-        if (chanceToDouble == 100) return 2;
-        if (chanceToDouble == 0) return 1;
+        if (chanceToDouble == 100) return premult + 1;
+        if (chanceToDouble == 0) return premult;
         if (chanceToDouble > 100) {
-            premult = uint(chanceToDouble) / 100;
+            premult = premult + uint(chanceToDouble) / 100;
             chanceToDouble %= 100;
             uint roll = LibRandom.d100(block.number + block.timestamp);
             if (roll < uint(chanceToDouble)) {

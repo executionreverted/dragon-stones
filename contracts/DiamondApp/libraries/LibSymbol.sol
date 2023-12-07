@@ -27,11 +27,9 @@ library LibSymbol {
         address player
     ) internal view returns (int[] memory) {
         AppStorage storage s = LibAppStorage.diamondStorage();
-
         int[] memory percBoosts = new int[](uint(type(Stats).max));
-        int[] memory userStats = new int[](uint(type(Stats).max));
+        int[] memory userStats = s.PlayerState[player].STATS;
         uint tierSetBonus;
-
         DragonStone[] memory stones = getPage(player, s.ActivePages[player]);
 
         for (uint x = 0; x < stones.length; x++) {

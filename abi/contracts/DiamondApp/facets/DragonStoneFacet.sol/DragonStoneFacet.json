@@ -228,9 +228,9 @@
       {
         "components": [
           {
-            "internalType": "enum Stats",
+            "internalType": "int256[]",
             "name": "STATS",
-            "type": "uint8"
+            "type": "int256[]"
           },
           {
             "internalType": "enum PlayerAction",

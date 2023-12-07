@@ -29,11 +29,6 @@ contract IdlerFacet is Modifiers {
                 PlayerAction.IDLE,
             "IdlerFacet: not idle"
         );
-        // require(
-        //     block.timestamp >=
-        //         s.PlayerState[LibMeta.msgSender()].ACTION_DEADLINE,
-        //     "IdlerFacet: too early"
-        // );
         uint rewards = calculatePieceReward(LibMeta.msgSender());
         IDragonStonePieces(s.pieces).mintPiece(LibMeta.msgSender(), rewards);
         s.PlayerState[LibMeta.msgSender()].ACTION_STATE = PlayerAction.FREE;

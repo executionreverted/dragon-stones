@@ -1,10 +1,10 @@
 const {
     gasPrice,
     getSelectors,
-    getSelector,
-    FacetCutAction
+    getSelector
 } = require("../deploy/helpers");
 
+const FacetCutAction = { Add: 0, Replace: 1, Remove: 2 };
 
 function getSighashes(selectors, ethers) {
     if (selectors.length === 0) return [];
@@ -17,7 +17,6 @@ function getSighashes(selectors, ethers) {
 
 module.exports = async (taskArgs, hre) => {
     const facetName = taskArgs.facet
-    const initFacetName = taskArgs.initContract
     console.log(taskArgs.addSelectors);
     console.log(taskArgs.removeSelectors);
     let addSelectors = taskArgs.addSelectors.split('$$$') || []
@@ -32,8 +31,11 @@ module.exports = async (taskArgs, hre) => {
 
     //Create the cut
     const cut = [];
-    let deployedFacet = await ethers.getContract(facetName)
-    if (!deployedFacet || deployedFacet?.address) {
+    let deployedFacet
+    try {
+        deployedFacet = await ethers.getContract(facetName)
+
+    } catch (error) {
         await hre.run('deploy', {
             'tags': facetName
         })
@@ -132,15 +134,15 @@ module.exports = async (taskArgs, hre) => {
     let functionCall
     if (deployInit) {
         // call to init function
-        let diaInit = await hre.deployments.deploy(initFacetName, {
+        let diaInit = await hre.deployments.deploy('DiamondDappInit', {
             from: deployer,
             args: [],
             log: true,
             waitConfirmations: 1,
         })
-        let diamondInit = await ethers.getContractAt(initFacetName, diaInit.address)
+        let diamondInit = await ethers.getContractAt("DiamondDappInit", diaInit.address)
         initAddress = diamondInit.address;
-        functionCall = await diamondInit.interface.encodeFunctionData('init')
+        let functionCall = diamondInit.interface.encodeFunctionData('init', [ethers.constants.AddressZero, "dragonstones.com/api/", DragonStonePieces.address, DragonStoneBlessing.address])
     }
     //Choose to use a multisig or a simple deploy address
     const tx = await diamondCut.diamondCut(

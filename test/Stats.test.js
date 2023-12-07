@@ -39,7 +39,9 @@ describe("Stats", function () {
         console.log(`ActivePage: ${activePage}`);
         expect(`${activePage}`).is.eq("1", "Not right")
     })
+
     const tokensToMint = 6
+
     it("should create tokens", async function () {
         for (let index = 0; index < tokensToMint; index++) {
             await MinterFacet.mintPiece();

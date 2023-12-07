@@ -29,6 +29,7 @@ library LibSymbol {
         AppStorage storage s = LibAppStorage.diamondStorage();
         int[] memory percBoosts = new int[](uint(type(Stats).max));
         int[] memory userStats = s.PlayerState[player].STATS;
+        if (userStats.length == 0) userStats = new int[](uint(type(Stats).max));
         uint tierSetBonus;
         DragonStone[] memory stones = getPage(player, s.ActivePages[player]);
 

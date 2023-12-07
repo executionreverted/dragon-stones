@@ -52,16 +52,16 @@ contract CombineFacet is Modifiers {
     function combineChance(uint nextPolishLevel) internal pure returns (uint) {
         require(nextPolishLevel < MAX_TIER, "CombineFacet: max reached");
         uint8[10] memory POLISH_CHANCES = [
-            75,
-            60,
             50,
             40,
-            35,
             30,
-            25,
             20,
             15,
-            10
+            10,
+            10,
+            5,
+            5,
+            2
         ];
         return POLISH_CHANCES[nextPolishLevel];
     }

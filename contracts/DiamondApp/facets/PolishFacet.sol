@@ -14,9 +14,18 @@ contract PolishFacet is Modifiers {
     function polish(
         uint tokenId,
         uint useTokenId
-    ) external onlyNonEOA onlyTokenOwner(tokenId) onlyTokenOwner(useTokenId) onlyRegistered {
+    )
+        external
+        onlyNonEOA
+        onlyTokenOwner(tokenId)
+        onlyTokenOwner(useTokenId)
+        onlyRegistered
+    {
         CoreDragonStone memory _mainToken = s.DragonStones[tokenId];
-        require(_mainToken.POLISH_LEVEL < MAX_POLISH_LEVEL, "PolishFacet: already max.");
+        require(
+            _mainToken.POLISH_LEVEL < MAX_POLISH_LEVEL,
+            "PolishFacet: already max."
+        );
         CoreDragonStone memory _burnToken = s.DragonStones[useTokenId];
 
         require(

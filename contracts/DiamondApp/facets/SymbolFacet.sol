@@ -5,10 +5,11 @@ pragma solidity ^0.8.23;
 import {Modifiers} from "../libraries/LibAppStorage.sol";
 import {MAX_POLISH_LEVEL, MAX_STONE_SLOT_ID} from "../libraries/GameConstants.sol";
 import {CoreBonus, DragonStone, Bonus, CoreDragonStone} from "../libraries/GameStructs.sol";
-import {BonusValueType, StoneTypes, Stats} from "../libraries/GameEnums.sol";
+import {PlayerAction, BonusValueType, StoneTypes, Stats} from "../libraries/GameEnums.sol";
 import {LibBonuses} from "../libraries/LibBonuses.sol";
 import {LibDragonStones} from "../libraries/LibDragonStones.sol";
 import {LibSymbol} from "../libraries/LibSymbol.sol";
+import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 
 contract SymbolFacet is Modifiers {
     function equipDragonStone(
@@ -16,14 +17,18 @@ contract SymbolFacet is Modifiers {
         uint stoneId
     ) external onlyRegistered onlyTokenOwner(stoneId) {
         if (pageId == 0) {
-            pageId = s.ActivePages[msg.sender];
+            pageId = s.ActivePages[LibMeta.msgSender()];
         }
-
+        require(
+            s.PlayerState[LibMeta.msgSender()].ACTION_STATE ==
+                PlayerAction.FREE,
+            "SymbolFacet: player is busy"
+        );
         CoreDragonStone memory _stone = s.DragonStones[stoneId];
 
         uint dragonStoneSlot = uint(_stone.STONE_TYPE);
 
-        uint oldStoneId = s.Pages[msg.sender][pageId][dragonStoneSlot];
+        uint oldStoneId = s.Pages[LibMeta.msgSender()][pageId][dragonStoneSlot];
         if (oldStoneId > 0) {
             // nft facet should remove token from active pages if its traded
             // refund old stone , in future it will have a chance to disappear old stone
@@ -37,9 +42,9 @@ contract SymbolFacet is Modifiers {
             uint slotId;
         }
         */
-        s.ActiveStones[stoneId].player = msg.sender;
+        s.ActiveStones[stoneId].player = LibMeta.msgSender();
         s.ActiveStones[stoneId].pageId = pageId;
-        s.Pages[msg.sender][pageId][dragonStoneSlot] = stoneId;
+        s.Pages[LibMeta.msgSender()][pageId][dragonStoneSlot] = stoneId;
     }
 
     function unequipDragonStone(
@@ -47,14 +52,19 @@ contract SymbolFacet is Modifiers {
         StoneTypes slot
     ) external onlyRegistered {
         if (pageId == 0) {
-            pageId = s.ActivePages[msg.sender];
+            pageId = s.ActivePages[LibMeta.msgSender()];
         }
         require(
-            s.Pages[msg.sender][pageId][uint(slot)] > 0,
+            s.Pages[LibMeta.msgSender()][pageId][uint(slot)] > 0,
             "SymbolFacet: empty slot"
         );
-        uint stoneId = s.Pages[msg.sender][pageId][uint(slot)];
-        delete s.Pages[msg.sender][pageId][uint(slot)];
+        require(
+            s.PlayerState[LibMeta.msgSender()].ACTION_STATE ==
+                PlayerAction.FREE,
+            "SymbolFacet: busy"
+        );
+        uint stoneId = s.Pages[LibMeta.msgSender()][pageId][uint(slot)];
+        delete s.Pages[LibMeta.msgSender()][pageId][uint(slot)];
         delete s.ActiveStones[stoneId];
     }
 

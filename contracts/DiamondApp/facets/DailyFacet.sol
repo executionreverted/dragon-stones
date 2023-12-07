@@ -5,27 +5,54 @@ pragma solidity ^0.8.23;
 import {Modifiers} from "../libraries/LibAppStorage.sol";
 import {BASE_DAILY_REWARD} from "../libraries/GameConstants.sol";
 import {ActiveStone, CoreBonus, DragonStone, Bonus, CoreDragonStone} from "../libraries/GameStructs.sol";
-import {StoneTypes, PlayerAction} from "../libraries/GameEnums.sol";
+import {StoneTypes, PlayerAction, Stats} from "../libraries/GameEnums.sol";
 import {LibBonuses} from "../libraries/LibBonuses.sol";
 import {LibDragonStones} from "../libraries/LibDragonStones.sol";
+import {LibSymbol} from "../libraries/LibSymbol.sol";
+import {LibRandom} from "../libraries/LibRandom.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
 
 contract DailyFacet is Modifiers {
     function claimDaily() external onlyRegistered {
+        address player = LibMeta.msgSender();
         require(
-            block.timestamp >=
-                s.PlayerState[LibMeta.msgSender()].DAILY_CLAIM + 23 hours,
+            block.timestamp >= s.PlayerState[player].DAILY_CLAIM + 23 hours,
             "DailyFacet: too early"
         );
+
+        uint mult = rewardMult(player);
         IDragonStonePieces(s.pieces).mintPiece(
-            LibMeta.msgSender(),
-            BASE_DAILY_REWARD
+            player,
+            BASE_DAILY_REWARD * mult
         );
-        s.PlayerState[LibMeta.msgSender()].DAILY_CLAIM = block.timestamp;
+        s.PlayerState[player].DAILY_CLAIM = block.timestamp;
     }
 
     function lastDailyClaim(address player) public view returns (uint) {
         return s.PlayerState[player].DAILY_CLAIM;
+    }
+
+    function rewardMult(address player) internal view returns (uint) {
+        int[] memory stats = LibSymbol.getPlayerStats(player);
+        uint premult = 0;
+        int chanceToDouble = stats[uint(Stats.CHANCE_TO_DOUBLE_CLAIM)];
+        if (chanceToDouble == 100) return 2;
+        if (chanceToDouble == 0) return 1;
+        if (chanceToDouble > 100) {
+            premult = uint(chanceToDouble) / 100;
+            chanceToDouble %= 100;
+            uint roll = LibRandom.d100(block.number + block.timestamp);
+            if (roll < uint(chanceToDouble)) {
+                premult++;
+            }
+        } else {
+            uint roll = LibRandom.d100(block.number + block.timestamp);
+            if (roll < uint(chanceToDouble)) {
+                premult++;
+            }
+        }
+
+        return premult;
     }
 }

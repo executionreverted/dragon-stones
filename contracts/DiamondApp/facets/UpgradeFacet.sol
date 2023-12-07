@@ -9,12 +9,20 @@ import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
 import {IDragonStoneBlessing} from "../erc20/IDragonStoneBlessing.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {LibRandom} from "../libraries/LibRandom.sol";
+import {PlayerAction} from "../libraries/GameEnums.sol";
 
 contract UpgradeFacet is Modifiers {
-    function upgrade(uint tokenId, bool useBlessing) external onlyNonEOA onlyRegistered {
+    function upgrade(
+        uint tokenId,
+        bool useBlessing
+    ) external onlyNonEOA onlyRegistered {
         CoreDragonStone memory _mainToken = s.DragonStones[tokenId];
         require(_mainToken.UPGRADE_LEVEL < MAX_UPGRADE_LEVEL, "already max.");
-
+        require(
+            s.PlayerState[LibMeta.msgSender()].ACTION_STATE ==
+                PlayerAction.FREE,
+            "UpgradeFacet: player is busy"
+        );
         uint $upgradeChance = upgradeChance(_mainToken.UPGRADE_LEVEL);
         uint roll = LibRandom.d100(block.number + block.timestamp + tokenId);
         IDragonStonePieces(s.pieces).burnPiece(

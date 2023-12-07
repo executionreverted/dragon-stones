@@ -11,6 +11,7 @@ import {Bonus, CoreBonus} from "../libraries/GameStructs.sol";
 import {BonusValueType, Stats, StoneTypes} from "../libraries/GameEnums.sol";
 
 library LibBonuses {
+
     function getBonusPool(
         StoneTypes stoneType
     ) internal pure returns (uint[] memory) {

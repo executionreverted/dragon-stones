@@ -4,7 +4,7 @@ pragma solidity ^0.8.23;
 
 import {Modifiers} from "../libraries/LibAppStorage.sol";
 import {MAX_POLISH_LEVEL} from "../libraries/GameConstants.sol";
-import {ActiveStone, CoreBonus, DragonStone, Bonus, CoreDragonStone} from "../libraries/GameStructs.sol";
+import {Player, ActiveStone, CoreBonus, DragonStone, Bonus, CoreDragonStone} from "../libraries/GameStructs.sol";
 import {StoneTypes} from "../libraries/GameEnums.sol";
 import {LibBonuses} from "../libraries/LibBonuses.sol";
 import {LibDragonStones} from "../libraries/LibDragonStones.sol";
@@ -54,5 +54,9 @@ contract DragonStoneFacet is Modifiers {
         StoneTypes stoneType
     ) external pure returns (uint[] memory) {
         return LibBonuses.getBonusPool(stoneType);
+    }
+
+    function getPlayer(address player) external view returns (Player memory) {
+        return s.PlayerState[player];
     }
 }

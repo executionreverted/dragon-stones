@@ -218,6 +218,97 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      }
+    ],
+    "name": "getPlayer",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "enum Stats",
+            "name": "STATS",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum PlayerAction",
+            "name": "ACTION_STATE",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ACTION_START",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ACTION_DEADLINE",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "DAILY_CLAIM",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "PROFILE_PICTURE",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "LEVEL",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "EXP",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "EXPEDITION_COUNT",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "SUCCESSFUL_COMBINE",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "SUCCESSFUL_POLISH",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "SUCCESSFUL_UPGRADE",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "SUCCESSFUL_ENCHANT",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "COMPLETED_QUESTS",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct Player",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "tokenId",
         "type": "uint256"

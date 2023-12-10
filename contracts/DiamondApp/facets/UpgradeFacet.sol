@@ -63,4 +63,8 @@ contract UpgradeFacet is Modifiers {
         if (nextUpgradeLevel >= 10) return 10;
         return UPGRADE_CHANCES[nextUpgradeLevel];
     }
+
+    function requiredPieces(uint nextTier) external pure returns (uint) {
+        return REQUIRED_PIECE_TO_UPGRADE_PER_LEVEL * (nextTier + 1);
+    }
 }

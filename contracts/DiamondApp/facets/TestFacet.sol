@@ -14,7 +14,7 @@ import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
 
 contract TestFacet is Modifiers {
-    function setStatVal(address player, Stats stat, int val) external {
+    function setStatVal(address player, Stats stat, int val) external onlyDiamondOwner {
         if (s.PlayerState[player].STATS.length == 0) {
             s.PlayerState[player].STATS = new int[](uint(type(Stats).max));
         }

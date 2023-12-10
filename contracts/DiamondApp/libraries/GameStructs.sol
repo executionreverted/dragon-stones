@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: SEE LICENSE IN LICENSE
 pragma solidity ^0.8.0;
 
-import {StoneTypes, BonusValueType, Stats, PlayerAction} from "./GameEnums.sol";
+import {StoneTypes, BonusValueType, Stats, PlayerAction, Currencies} from "./GameEnums.sol";
 
 struct ActiveStone {
     address player;
@@ -66,4 +66,11 @@ struct Player {
 
 struct Quest {
     uint id;
+}
+
+struct Offer {
+    Currencies SELL_CURRENCY;
+    Currencies GET_CURRENCY;
+    uint SELL_RATE;
+    uint GET_RATE;
 }

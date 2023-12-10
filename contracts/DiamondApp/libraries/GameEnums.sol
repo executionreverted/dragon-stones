@@ -70,3 +70,9 @@ enum PlayerAction {
     PRODUCTION,
     PRAYER
 }
+
+enum Currencies {
+    PIECE,
+    BLESSING,
+    GOLD
+}

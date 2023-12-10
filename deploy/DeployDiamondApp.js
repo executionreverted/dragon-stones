@@ -33,6 +33,23 @@ module.exports = async function ({ deployments, getNamedAccounts }) {
         })
     }
 
+    await deploy("DragonStoneGold", {
+        from: deployer,
+        proxy: {
+            owner: deployer,
+            proxyContract: "OptimizedTransparentProxy",
+            execute: {
+                init: {
+                    methodName: "initialize",
+                    args: ["Dragon Stone Gold", "DSTG", 0, 0, LZEndpoints[network.name] || ethers.constants.AddressZero],
+                },
+            },
+        },
+        log: true,
+        waitConfirmations: 1,
+    });
+
+
     await deploy("DragonStonePieces", {
         from: deployer,
         proxy: {
@@ -67,6 +84,7 @@ module.exports = async function ({ deployments, getNamedAccounts }) {
 
     const DragonStonePieces = await ethers.getContract('DragonStonePieces');
     const DragonStoneBlessing = await ethers.getContract('DragonStoneBlessing');
+    const DragonStoneGold = await ethers.getContract('DragonStoneGold');
 
     const DiamondCutFacet = await deploy("DiamondCutFacet", {
         from: deployer,
@@ -134,6 +152,12 @@ module.exports = async function ({ deployments, getNamedAccounts }) {
     if (dragonStonePiece2 !== Diamond.address) {
         console.log('DragonStone set in Blessings.');
         await DragonStoneBlessing.setDragonContract(Diamond.address);
+    }
+
+    const dragonStoneGold = await DragonStoneGold.getDragonContract()
+    if (dragonStoneGold !== Diamond.address) {
+        console.log('DragonStone set in Gold.');
+        await DragonStoneGold.setDragonContract(Diamond.address);
     }
     return Diamond.address
 }

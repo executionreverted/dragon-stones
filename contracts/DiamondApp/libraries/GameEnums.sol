@@ -5,7 +5,15 @@ enum BonusValueType {
     FLAT,
     PERCENTAGE
 }
-
+enum BoostableStats {
+    STR, // 1
+    WIS, // 2
+    VIT, // 3
+    DEX, // 4
+    LUK, // 5
+    HP, // 6
+    SP // 7
+}
 enum Stats {
     NULL, // 0
     STR, // 1

@@ -50,6 +50,7 @@ struct DragonStone {
 struct Player {
     int[] STATS;
     PlayerAction ACTION_STATE;
+    uint USED_STAT_POINTS;
     uint ACTION_START;
     uint ACTION_DEADLINE;
     uint ACTION_DATA1;

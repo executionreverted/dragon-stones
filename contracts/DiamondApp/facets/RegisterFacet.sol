@@ -27,7 +27,9 @@ contract RegisterFacet is Modifiers {
 
         if (LibDiamond.contractOwner() == sender) {
             if (s.PaymentSplitters[sender] == address(0)) {
-                s.PlayerState[sender].STATS = new int[](uint(type(Stats).max));
+                s.PlayerState[sender].STATS = new int[](
+                    uint(type(Stats).max) + 1
+                );
                 s.PlayerState[sender].LEVEL = 1;
                 s.PaymentSplitters[sender] = sender;
                 s.PlayerMaxPages[sender] = 2;
@@ -36,7 +38,7 @@ contract RegisterFacet is Modifiers {
             }
         }
 
-        s.PlayerState[sender].STATS = new int[](uint(type(Stats).max));
+        s.PlayerState[sender].STATS = new int[](uint(type(Stats).max) + 1);
         s.PlayerState[sender].LEVEL = 1;
         s.PlayerMaxPages[sender] = 2;
         s.ActivePages[sender] = 1;

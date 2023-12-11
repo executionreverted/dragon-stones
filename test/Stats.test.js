@@ -3,7 +3,7 @@ import hre, { ethers } from "hardhat"
 const deployments = hre.deployments
 
 
-let owner, owner2, DailyFacet, TestFacet, CombineFacet, DragonStonePieces, DragonStoneBlessing, NonFungibleFacet, DragonStoneFacet, MinterFacet, UpgradeFacet, PolishFacet, SettingsFacet, RegisterFacet, SymbolFacet;
+let owner, owner2, DailyFacet, TestFacet, StatsFacet, CombineFacet, DragonStonePieces, DragonStoneBlessing, NonFungibleFacet, DragonStoneFacet, MinterFacet, UpgradeFacet, PolishFacet, SettingsFacet, RegisterFacet, SymbolFacet;
 describe("Stats", function () {
     before(async function () {
         let accounts = await hre.ethers.getSigners()
@@ -22,6 +22,7 @@ describe("Stats", function () {
         RegisterFacet = await ethers.getContractAt('RegisterFacet', deployed.Diamond.address);
         SymbolFacet = await ethers.getContractAt('SymbolFacet', deployed.Diamond.address);
         NonFungibleFacet = await ethers.getContractAt('NonFungibleFacet', deployed.Diamond.address);
+        StatsFacet = await ethers.getContractAt('StatsFacet', deployed.Diamond.address);
         DragonStonePieces = await ethers.getContract('DragonStonePieces');
         DragonStoneBlessing = await ethers.getContract('DragonStoneBlessing');
     })
@@ -40,29 +41,33 @@ describe("Stats", function () {
         expect(`${activePage}`).is.eq("1", "Not right")
     })
 
-    const tokensToMint = 6
-
-    it("should create tokens", async function () {
-        for (let index = 0; index < tokensToMint; index++) {
-            await MinterFacet.mintPiece();
-            await MinterFacet.createStone();
-        }
+    it("should have 10 stat points at start", async function () {
+        console.log(await StatsFacet.playerStatPoints(owner.address));
+        expect(`${await StatsFacet.playerStatPoints(owner.address)}`).to.be.eq('10')
     })
 
-    it("should set chance to claim to 100", async function () {
-        await TestFacet.setStatVal(owner.address, 18, 250)
+    it("should give 10 stat points to STR", async function () {
+        await StatsFacet.useStatPoint([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+        expect(`${await StatsFacet.playerStatPoints(owner.address)}`).to.be.eq('0')
     })
 
-    it("should calculate my active page stats right", async function () {
-        let page = await SymbolFacet.getPlayerStats(owner.address);
-        console.log({
-            stats: page
-        });
+
+    it("should have 10 STR", async function () {
+        console.log(
+            await SymbolFacet.getPlayerStats(owner.address)
+        );
+        const stats = await SymbolFacet.getPlayerStats(owner.address);
+        expect(`${stats[1]}`).to.be.eq("10")
     })
 
-    it("get daily!", async function () {
-        console.log(`Before: ${await DragonStonePieces.balanceOf(owner.address) / 1e18}`);
-        await DailyFacet.claimDaily();
-        console.log(`After: ${await DragonStonePieces.balanceOf(owner.address) / 1e18}`);
+
+    it("should have 10 DMG", async function () {
+        console.log(
+            await SymbolFacet.getPlayerStats(owner.address)
+        );
+        const stats = await SymbolFacet.getPlayerStats(owner.address);
+        expect(`${stats[8]}`).to.be.eq("10")
     })
+
+
 })

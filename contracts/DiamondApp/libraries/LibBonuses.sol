@@ -418,5 +418,6 @@ library LibBonuses {
         }
 
         bonus.VALUE += upgradeBonus;
+        bonus.BONUS_EFF = efficiency;
     }
 }

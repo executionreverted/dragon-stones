@@ -20,7 +20,8 @@ contract DiamondDappInit {
         address _endpoint,
         string memory tokenURI,
         address _pieces,
-        address _blessings
+        address _blessings,
+        address _golds
     ) external {
         s.domainSeparator = LibMeta.domainSeparator("DiamondApp", "V1");
         LibDiamond.DiamondStorage storage ds = LibDiamond.diamondStorage();
@@ -36,6 +37,7 @@ contract DiamondDappInit {
         s.URI = tokenURI;
         s.pieces = _pieces;
         s.blessings = _blessings;
+        s.golds = _golds;
         LibDappNFT._setDefaultRoyalty(LibDiamond.contractOwner(), 1000);
     }
 }

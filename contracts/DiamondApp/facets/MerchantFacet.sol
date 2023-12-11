@@ -11,32 +11,45 @@ import {LibDragonStones} from "../libraries/LibDragonStones.sol";
 import {LibIdle} from "../libraries/LibIdle.sol";
 import {LibMerchant} from "../libraries/LibMerchant.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
-import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
-import {IDragonStoneBlessing} from "../erc20/IDragonStoneBlessing.sol";
+import {LibRewards} from "../libraries/LibRewards.sol";
 
 contract MerchantFacet is Modifiers {
-    function deal(
-        uint offerId,
-        uint sellAmount
-    ) external onlyNonEOA onlyRegistered {
+    // rate means how much sell resource you want to spend
+    function deal(uint offerId, uint rate) external onlyNonEOA onlyRegistered {
+        require(rate > 0, "MerchantFacet: 0 rate");
         // fetch offer deal
         Offer memory offer = LibMerchant.offer(offerId);
-
+        address player = LibMeta.msgSender();
         // check cost type and burn
         if (offer.SELL_CURRENCY == Currencies.PIECE) {
-            burnPiece(LibMeta.msgSender(), offer.SELL_RATE * sellAmount);
+            LibRewards.burnPiece(player, offer.SELL_RATE * rate);
         } else if (offer.SELL_CURRENCY == Currencies.BLESSING) {
-            burnBlessing(LibMeta.msgSender(), offer.SELL_RATE * sellAmount);
+            LibRewards.burnBlessing(player, offer.SELL_RATE * rate);
         } else if (offer.SELL_CURRENCY == Currencies.GOLD) {
-            burnBlessing(LibMeta.msgSender(), offer.SELL_RATE * sellAmount);
+            LibRewards.burnGold(player, offer.SELL_RATE * rate);
+        } else {
+            revert("MerchantFacet: critical error, whats wrong?");
+        }
+
+        if (offer.GET_CURRENCY == Currencies.PIECE) {
+            LibRewards.mintPiece(player, offer.GET_RATE * rate);
+        } else if (offer.GET_CURRENCY == Currencies.BLESSING) {
+            LibRewards.mintBlessing(player, offer.GET_RATE * rate);
+        } else if (offer.GET_CURRENCY == Currencies.GOLD) {
+            LibRewards.mintGold(player, offer.GET_RATE * rate);
+        } else {
+            revert("MerchantFacet: critical error 2, whats wrong?");
         }
     }
 
-    function burnPiece(address player, uint amount) internal {
-        IDragonStonePieces(s.pieces).burnPiece(player, amount);
-    }
+    function offers(
+        uint[] calldata offerIds
+    ) external pure returns (Offer[] memory) {
+        Offer[] memory _result = new Offer[](offerIds.length);
 
-    function burnBlessing(address player, uint amount) internal {
-        IDragonStoneBlessing(s.blessings).burnBlessing(player, amount);
+        for (uint i = 0; i < offerIds.length; i++) {
+            _result[i] = LibMerchant.offer(offerIds[i]);
+        }
+        return _result;
     }
 }

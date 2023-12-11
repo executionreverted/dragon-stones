@@ -68,7 +68,8 @@ enum PlayerAction {
     FREE,
     IDLE,
     PRODUCTION,
-    PRAYER
+    PRAYER,
+    ADVENTURE
 }
 
 enum Currencies {

@@ -48,6 +48,7 @@ contract PolishFacet is Modifiers {
         }
 
         LibDappNFT.transfer(LibMeta.msgSender(), address(0), useTokenId);
+        delete s.ActiveStones[useTokenId];
     }
 
     function polishChance(uint nextPolishLevel) internal pure returns (uint) {

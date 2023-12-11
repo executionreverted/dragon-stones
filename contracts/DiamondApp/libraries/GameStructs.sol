@@ -52,6 +52,9 @@ struct Player {
     PlayerAction ACTION_STATE;
     uint ACTION_START;
     uint ACTION_DEADLINE;
+    uint ACTION_DATA1;
+    uint ACTION_DATA2;
+    uint ACTION_DATA3;
     uint DAILY_CLAIM;
     uint PROFILE_PICTURE;
     uint LEVEL;
@@ -73,4 +76,22 @@ struct Offer {
     Currencies GET_CURRENCY;
     uint SELL_RATE;
     uint GET_RATE;
+}
+
+struct AdventureMap {
+    uint MIN_LEVEL;
+    uint BASE_CYCLE;
+    uint MAX_CYCLE;
+    uint BASE_DROP_AMOUNT;
+    uint BASE_GOLD_REWARD;
+    uint STONE_DROP_CHANCE;
+    uint STONE_DROP_MIN_TIME;
+    uint EXP_PER_CYCLE;
+    int[] MIN_STATS;
+}
+
+struct WorldBoss {
+    uint HP;
+    uint REWARD_PER_DMG;
+    uint DEF;
 }

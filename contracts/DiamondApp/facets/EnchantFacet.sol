@@ -67,11 +67,6 @@ contract EnchantFacet is Modifiers {
     }
 
     function replaceEff(uint tokenId, uint existIndex, uint eff) internal {
-        // console.log(
-        //     "REPLACED ",
-        //     s.DragonStones[tokenId].BONUS_EFFS[existIndex],
-        //     eff
-        // );
         // emit event here
         s.DragonStones[tokenId].BONUS_EFFS[existIndex] = eff;
     }

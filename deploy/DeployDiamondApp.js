@@ -1,6 +1,7 @@
 const { ethers, network } = require('hardhat')
 const { FacetCutAction, getSelectors } = require('./helpers')
 const LZEndpoints = require('../constants/layerzeroEndpoints.json')
+
 export const FacetNames = [
     'MinterFacet',
     'CombineFacet',
@@ -15,6 +16,8 @@ export const FacetNames = [
     'DailyFacet',
     'IdlerFacet',
     'PrayerFacet',
+    'MerchantFacet',
+    'AdventureFacet',
     'TestFacet'
 ]
 
@@ -133,7 +136,7 @@ module.exports = async function ({ deployments, getNamedAccounts }) {
     let receipt
     // call to init function
     let diamondInit = await ethers.getContractAt("DiamondDappInit", DiamondInit.address)
-    let functionCall = diamondInit.interface.encodeFunctionData('init', [ethers.constants.AddressZero, "dragonstones.com/api/", DragonStonePieces.address, DragonStoneBlessing.address])
+    let functionCall = diamondInit.interface.encodeFunctionData('init', [ethers.constants.AddressZero, "dragonstones.com/api/", DragonStonePieces.address, DragonStoneBlessing.address, DragonStoneGold.address])
     tx = await diamondCut.diamondCut(cut, diamondInit.address, functionCall)
     // tx = await diamondCut.diamondCut([], diamondInit.address, functionCall)
     console.log('Diamond cut tx: ', tx.hash)
@@ -143,16 +146,21 @@ module.exports = async function ({ deployments, getNamedAccounts }) {
     }
     console.log('Completed diamond cut')
     console.log(Diamond.address);
+
+
     const dragonStonePiece = await DragonStonePieces.getDragonContract()
     if (dragonStonePiece !== Diamond.address) {
         console.log('DragonStone set in Pieces.');
         await DragonStonePieces.setDragonContract(Diamond.address);
     }
+
+
     const dragonStonePiece2 = await DragonStoneBlessing.getDragonContract()
     if (dragonStonePiece2 !== Diamond.address) {
         console.log('DragonStone set in Blessings.');
         await DragonStoneBlessing.setDragonContract(Diamond.address);
     }
+
 
     const dragonStoneGold = await DragonStoneGold.getDragonContract()
     if (dragonStoneGold !== Diamond.address) {

@@ -47,22 +47,12 @@ contract CombineFacet is Modifiers {
         }
 
         LibDappNFT.transfer(LibMeta.msgSender(), address(0), useTokenId);
+        delete s.ActiveStones[useTokenId];
     }
 
     function combineChance(uint nextPolishLevel) internal pure returns (uint) {
         require(nextPolishLevel < MAX_TIER, "CombineFacet: max reached");
-        uint8[10] memory POLISH_CHANCES = [
-            50,
-            40,
-            30,
-            20,
-            15,
-            10,
-            10,
-            5,
-            5,
-            2
-        ];
+        uint8[10] memory POLISH_CHANCES = [50, 40, 30, 20, 15, 10, 10, 5, 5, 2];
         return POLISH_CHANCES[nextPolishLevel];
     }
 }

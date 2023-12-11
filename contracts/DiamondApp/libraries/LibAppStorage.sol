@@ -18,6 +18,7 @@ struct AppStorage {
     bytes32 domainSeparator;
     address pieces;
     address blessings;
+    address golds;
     RoyaltyInfo _defaultRoyaltyInfo;
     mapping(uint256 => RoyaltyInfo) _tokenRoyaltyInfo;
     ILayerZeroEndpointUpgradeable lzEndpoint;

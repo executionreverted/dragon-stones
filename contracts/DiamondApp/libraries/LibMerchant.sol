@@ -9,36 +9,49 @@ import {BASE_EXP} from "./GameConstants.sol";
 library LibMerchant {
     function offer(uint id) internal pure returns (Offer memory) {
         if (id == 1) {
+            // Pıece -> Blessing swap
             return
                 Offer({
                     SELL_CURRENCY: Currencies.PIECE,
                     GET_CURRENCY: Currencies.BLESSING,
-                    GET_RATE: 1,
-                    SELL_RATE: 5
+                    GET_RATE: 1e18,
+                    SELL_RATE: 25e18
                 });
         } else if (id == 2) {
+            // Gold -> Piece swap
             return
                 Offer({
                     SELL_CURRENCY: Currencies.GOLD,
                     GET_CURRENCY: Currencies.PIECE,
-                    GET_RATE: 2,
-                    SELL_RATE: 1
+                    GET_RATE: 1e18,
+                    SELL_RATE: 3e18
                 });
         } else if (id == 3) {
+            // Blessing -> Piece swap
             return
                 Offer({
                     SELL_CURRENCY: Currencies.BLESSING,
                     GET_CURRENCY: Currencies.PIECE,
-                    GET_RATE: 1,
-                    SELL_RATE: 1
+                    GET_RATE: 15e18,
+                    SELL_RATE: 1e18
                 });
-        } else if (id == 1) {
+        } else if (id == 4) {
+            // Gold -> Blessing swap
             return
                 Offer({
                     SELL_CURRENCY: Currencies.GOLD,
                     GET_CURRENCY: Currencies.BLESSING,
-                    GET_RATE: 1,
-                    SELL_RATE: 5
+                    GET_RATE: 1e18,
+                    SELL_RATE: 50e18
+                });
+        } else if (id == 5) {
+            // Blessing -> Gold swap
+            return
+                Offer({
+                    SELL_CURRENCY: Currencies.BLESSING,
+                    GET_CURRENCY: Currencies.GOLD,
+                    GET_RATE: 25e18,
+                    SELL_RATE: 1e18
                 });
         }
 

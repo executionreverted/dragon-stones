@@ -311,6 +311,16 @@
             "internalType": "uint256",
             "name": "COMPLETED_QUESTS",
             "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "LAST_BOSS_ATTACK",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[50]",
+            "name": "__RESERVED__",
+            "type": "uint256[50]"
           }
         ],
         "internalType": "struct Player",

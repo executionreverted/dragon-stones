@@ -28,24 +28,28 @@ contract BossFacet is Modifiers {
         );
         int[] memory stats = LibSymbol.getPlayerStats(player);
         uint dmg = uint(stats[uint(Stats.DAMAGE)]);
+        if (dmg > s.boss.HP) {
+            dmg = s.boss.HP;
+            // do some achievement or other stuff on kill
+        }
         storeRewards(player, dmg);
         s.boss.HP -= dmg;
     }
 
     function claimBossRewards() external onlyRegistered onlyNonEOA {
         address player = LibMeta.msgSender();
-        WorldBossInventory memory worldBossInventory = s.WorldBossInventories[
+        WorldBossInventory memory _worldBossInventory = s.WorldBossInventories[
             player
         ];
 
-        if (worldBossInventory.GOLD > 0) {
-            LibRewards.mintGold(player, worldBossInventory.GOLD);
+        if (_worldBossInventory.GOLD > 0) {
+            LibRewards.mintGold(player, _worldBossInventory.GOLD);
         }
-        if (worldBossInventory.PIECE > 0) {
-            LibRewards.mintPiece(player, worldBossInventory.PIECE);
+        if (_worldBossInventory.PIECE > 0) {
+            LibRewards.mintPiece(player, _worldBossInventory.PIECE);
         }
-        if (worldBossInventory.BLESSING > 0) {
-            LibRewards.mintBlessing(player, worldBossInventory.BLESSING);
+        if (_worldBossInventory.BLESSING > 0) {
+            LibRewards.mintBlessing(player, _worldBossInventory.BLESSING);
         }
 
         delete s.WorldBossInventories[player];
@@ -71,8 +75,18 @@ contract BossFacet is Modifiers {
         }
     }
 
+    function boss() external view returns (WorldBoss memory) {
+        return s.boss;
+    }
+
+    function worldBossInventory(
+        address player
+    ) external view returns (WorldBossInventory memory) {
+        return s.WorldBossInventories[player];
+    }
+
     // admin
-    function setBoss(WorldBoss memory boss) external onlyDiamondOwner {
-        s.boss = boss;
+    function setBoss(WorldBoss memory _boss) external onlyDiamondOwner {
+        s.boss = _boss;
     }
 }

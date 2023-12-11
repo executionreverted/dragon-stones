@@ -30,6 +30,11 @@ library LibSymbol {
         AppStorage storage s = LibAppStorage.diamondStorage();
         int[] memory percBoosts = new int[](uint(type(Stats).max) + 1);
         int[] memory userStats = s.PlayerState[player].STATS;
+        int[] memory base = playerBaseStats();
+        for (uint i = 0; i < userStats.length; i++) {
+            userStats[i] += base[i];
+        }
+
         if (userStats.length != uint(type(Stats).max) + 1)
             userStats = new int[](uint(type(Stats).max) + 1);
         uint tierSetBonus;
@@ -106,5 +111,14 @@ library LibSymbol {
         stats[uint(Stats.MULTIKILL)] += stats[uint(Stats.DEX)] / 3;
         stats[uint(Stats.LOOT_BONUS)] += stats[uint(Stats.LUK)] / 4;
         return stats;
+    }
+
+    function playerBaseStats() internal pure returns (int[] memory) {
+        int[] memory base = new int[](uint(type(Stats).max) + 1);
+        base[uint(Stats.DAMAGE)] = 5;
+        base[uint(Stats.HP)] = 10;
+        base[uint(Stats.SP)] = 20;
+        base[uint(Stats.DEF)] = 10;
+        return base;
     }
 }

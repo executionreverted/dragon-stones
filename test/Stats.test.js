@@ -66,7 +66,7 @@ describe("Stats", function () {
             await SymbolFacet.getPlayerStats(owner.address)
         );
         const stats = await SymbolFacet.getPlayerStats(owner.address);
-        expect(`${stats[8]}`).to.be.eq("10")
+        expect(`${stats[8]}`).to.be.eq("15")
     })
 
 

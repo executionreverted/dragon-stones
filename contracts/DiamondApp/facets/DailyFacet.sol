@@ -10,6 +10,7 @@ import {LibBonuses} from "../libraries/LibBonuses.sol";
 import {LibDragonStones} from "../libraries/LibDragonStones.sol";
 import {LibSymbol} from "../libraries/LibSymbol.sol";
 import {LibRandom} from "../libraries/LibRandom.sol";
+import {LibPremium} from "../libraries/LibPremium.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
 
@@ -22,10 +23,14 @@ contract DailyFacet is Modifiers {
         );
 
         uint mult = rewardMult(player);
+        (uint premiumTier, , ) = LibPremium.userPremiumStatus(player);
+        if (premiumTier > 0) mult *= 2;
+
         IDragonStonePieces(s.pieces).mintPiece(
             player,
             BASE_DAILY_REWARD * mult
         );
+        
         s.PlayerState[player].DAILY_CLAIM = block.timestamp;
     }
 

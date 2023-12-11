@@ -14,6 +14,7 @@ import {LibAdventure} from "../libraries/LibAdventure.sol";
 import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
 import {LibRewards} from "../libraries/LibRewards.sol";
 import {LibLevel} from "../libraries/LibLevel.sol";
+import {LibPremium} from "../libraries/LibPremium.sol";
 
 contract BossFacet is Modifiers {
     function attack() external onlyRegistered onlyNonEOA {
@@ -21,7 +22,7 @@ contract BossFacet is Modifiers {
         require(block.timestamp >= s.boss.STARTS_AT, "BossFacet: too soon");
         require(block.timestamp < s.boss.EXPIRES_AT, "BossFacet: escaped");
         address player = LibMeta.msgSender();
-        uint cooldown = s.boss.BASE_COOLDOWN;
+        uint cooldown = getWorldBossCooldown(player);
         require(
             block.timestamp > s.PlayerState[player].LAST_BOSS_ATTACK + cooldown,
             "BossFacet: cooldown"
@@ -34,6 +35,14 @@ contract BossFacet is Modifiers {
         }
         storeRewards(player, dmg);
         s.boss.HP -= dmg;
+    }
+
+    function getWorldBossCooldown(address player) public view returns (uint) {
+        (uint premiumTier, , ) = LibPremium.userPremiumStatus(player);
+        if (premiumTier > 0)
+            return s.boss.BASE_COOLDOWN - (s.boss.BASE_COOLDOWN / 3);
+
+        return s.boss.BASE_COOLDOWN;
     }
 
     function claimBossRewards() external onlyRegistered onlyNonEOA {

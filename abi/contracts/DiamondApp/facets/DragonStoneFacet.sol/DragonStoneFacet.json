@@ -318,6 +318,16 @@
             "type": "uint256"
           },
           {
+            "internalType": "uint256",
+            "name": "PREMIUM_TIER",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "PREMIUM_EXPIRES",
+            "type": "uint256"
+          },
+          {
             "internalType": "uint256[50]",
             "name": "__RESERVED__",
             "type": "uint256[50]"

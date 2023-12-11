@@ -4,7 +4,7 @@ import { time } from "@nomicfoundation/hardhat-network-helpers"
 const deployments = hre.deployments
 
 
-let owner, owner2, BossFacet, AdventureFacet, MerchantFacet, DailyFacet, TestFacet, CombineFacet, DragonStonePieces, DragonStoneGold, DragonStoneBlessing, NonFungibleFacet, DragonStoneFacet, MinterFacet, UpgradeFacet, PolishFacet, SettingsFacet, RegisterFacet, SymbolFacet;
+let owner, owner2, BossFacet, PremiumFacet, AdventureFacet, MerchantFacet, DailyFacet, TestFacet, CombineFacet, DragonStonePieces, DragonStoneGold, DragonStoneBlessing, NonFungibleFacet, DragonStoneFacet, MinterFacet, UpgradeFacet, PolishFacet, SettingsFacet, RegisterFacet, SymbolFacet;
 describe("Stats", function () {
     before(async function () {
         let accounts = await hre.ethers.getSigners()
@@ -26,6 +26,7 @@ describe("Stats", function () {
         MerchantFacet = await ethers.getContractAt('MerchantFacet', deployed.Diamond.address);
         AdventureFacet = await ethers.getContractAt('AdventureFacet', deployed.Diamond.address);
         BossFacet = await ethers.getContractAt('BossFacet', deployed.Diamond.address);
+        PremiumFacet = await ethers.getContractAt('PremiumFacet', deployed.Diamond.address);
 
         DragonStonePieces = await ethers.getContract('DragonStonePieces');
         DragonStoneBlessing = await ethers.getContract('DragonStoneBlessing');
@@ -207,5 +208,16 @@ describe("Stats", function () {
     it("should escape", async function () {
         await time.increase(24 * 60 * 60)
         expect(BossFacet.attack()).to.revertedWith('BossFacet: escaped')
+    })
+
+    it("should get cooldown right", async function () {
+        const cd = await BossFacet.getWorldBossCooldown(owner.address)
+        console.log(`cd ${cd}`);
+    })
+
+    it("should buy premium and 50% reduce cooldown", async function () {
+        await PremiumFacet.buyPremium(1, { value: ethers.utils.parseEther('1') })
+        const cd = await BossFacet.getWorldBossCooldown(owner.address)
+        console.log(`cd ${cd}`);
     })
 })

@@ -54,6 +54,8 @@ struct AppStorage {
     mapping(address => Player) PlayerState;
     mapping(address => WorldBossInventory) WorldBossInventories;
     WorldBoss boss;
+    uint premiumPrice;
+    bool canBuyPremium;
 }
 
 library LibAppStorage {

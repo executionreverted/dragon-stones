@@ -19,6 +19,8 @@ export const FacetNames = [
     'MerchantFacet',
     'AdventureFacet',
     'BossFacet',
+    'StatsFacet',
+    'PremiumFacet',
     'TestFacet'
 ]
 

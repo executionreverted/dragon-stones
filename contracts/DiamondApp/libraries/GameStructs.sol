@@ -66,6 +66,8 @@ struct Player {
     uint SUCCESSFUL_ENCHANT;
     uint COMPLETED_QUESTS;
     uint LAST_BOSS_ATTACK;
+    uint PREMIUM_TIER;
+    uint PREMIUM_EXPIRES;
     uint[50] __RESERVED__;
 }
 

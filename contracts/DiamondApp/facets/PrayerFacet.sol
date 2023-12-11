@@ -9,6 +9,7 @@ import {StoneTypes, PlayerAction} from "../libraries/GameEnums.sol";
 import {LibBonuses} from "../libraries/LibBonuses.sol";
 import {LibDragonStones} from "../libraries/LibDragonStones.sol";
 import {LibPrayer} from "../libraries/LibPrayer.sol";
+import {LibPremium} from "../libraries/LibPremium.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {IDragonStoneBlessing} from "../erc20/IDragonStoneBlessing.sol";
 
@@ -52,6 +53,9 @@ contract PrayerFacet is Modifiers {
     }
 
     function calculatePrayerReward(address player) public view returns (uint) {
-        return LibPrayer.calculatePrayerReward(player);
+        (uint premiumTier, , ) = LibPremium.userPremiumStatus(player);
+        uint rewards = LibPrayer.calculatePrayerReward(player);
+        if (premiumTier > 0) rewards += rewards / 5;
+        return rewards;
     }
 }

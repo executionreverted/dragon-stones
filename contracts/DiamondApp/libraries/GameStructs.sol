@@ -65,6 +65,8 @@ struct Player {
     uint SUCCESSFUL_UPGRADE;
     uint SUCCESSFUL_ENCHANT;
     uint COMPLETED_QUESTS;
+    uint LAST_BOSS_ATTACK;
+    uint[50] __RESERVED__;
 }
 
 struct Quest {
@@ -92,6 +94,20 @@ struct AdventureMap {
 
 struct WorldBoss {
     uint HP;
-    uint REWARD_PER_DMG;
+    uint GOLD_REWARD_PER_DMG;
+    uint PIECE_REWARD_PER_DMG;
+    uint BLESSING_REWARD_PER_DMG;
+    uint EXP_REWARD_PER_DMG;
     uint DEF;
+    uint EXPIRES_AT;
+    uint STARTS_AT;
+    uint BASE_COOLDOWN;
+}
+
+struct WorldBossInventory {
+    uint GOLD;
+    uint EXP;
+    uint PIECE;
+    uint BLESSING;
+    uint[50] __RESERVED__;
 }

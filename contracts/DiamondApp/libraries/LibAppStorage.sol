@@ -6,7 +6,7 @@ import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {ERC165Upgradeable} from "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol";
 import {ILayerZeroEndpointUpgradeable} from "../../contracts-upgradable/interfaces/ILayerZeroEndpointUpgradeable.sol";
 import {Token, StoredCredit} from "./AppStructs.sol";
-import {Player, ActiveStone, DragonStone, CoreDragonStone} from "../libraries/GameStructs.sol";
+import {WorldBossInventory, Player, WorldBoss, ActiveStone, DragonStone, CoreDragonStone} from "../libraries/GameStructs.sol";
 
 struct RoyaltyInfo {
     address receiver;
@@ -52,6 +52,8 @@ struct AppStorage {
     mapping(address => address) Delegates;
     mapping(address => address) PaymentSplitters;
     mapping(address => Player) PlayerState;
+    mapping(address => WorldBossInventory) WorldBossInventories;
+    WorldBoss boss;
 }
 
 library LibAppStorage {

@@ -18,6 +18,7 @@ export const FacetNames = [
     'PrayerFacet',
     'MerchantFacet',
     'AdventureFacet',
+    'BossFacet',
     'TestFacet'
 ]
 

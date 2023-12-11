@@ -11,25 +11,31 @@ import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 contract RegisterFacet is Modifiers {
     function registerAccount() external {
         address sender = LibMeta.msgSender();
-        // add modifier to check stone balance. sender should have at least 1 stone to create player account and start interacting with symbols
+
         require(
             s.PlayerMaxPages[sender] == 0,
             "RegisterFacet: already registered"
         );
+
+        // add modifier to check stone balance. sender should have at least 1 stone to create player account and start interacting with symbols
+        if (s.tokenIds.length > 250) {
+            require(
+                s.ownerTokenIds[sender].length > 0,
+                "RegisterFacet: 0 balance"
+            );
+        }
+
         if (LibDiamond.contractOwner() == sender) {
             if (s.PaymentSplitters[sender] == address(0)) {
+                s.PlayerState[sender].STATS = new int[](uint(type(Stats).max));
+                s.PlayerState[sender].LEVEL = 1;
                 s.PaymentSplitters[sender] = sender;
                 s.PlayerMaxPages[sender] = 2;
                 s.ActivePages[sender] = 1;
                 return;
             }
         }
-        if (s.tokenIds.length > 1000) {
-            require(
-                s.ownerTokenIds[sender].length > 0,
-                "RegisterFacet: 0 balance"
-            );
-        }
+
         s.PlayerState[sender].STATS = new int[](uint(type(Stats).max));
         s.PlayerState[sender].LEVEL = 1;
         s.PlayerMaxPages[sender] = 2;

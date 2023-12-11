@@ -85,6 +85,20 @@ contract AdventureFacet is Modifiers {
         exitAdventure(player);
     }
 
+    function calculateRewards(
+        address player
+    ) external view returns (uint _piece, uint _gold, uint _exp) {
+        uint id = s.PlayerState[player].ACTION_DATA1;
+        require(id != 0, "AdventureFacet: invalid map");
+        AdventureMap memory map = LibAdventure.getMap(id);
+        uint cycles = (block.timestamp - s.PlayerState[player].ACTION_START) /
+            map.BASE_CYCLE;
+        if (cycles > map.MAX_CYCLE) cycles = map.MAX_CYCLE;
+        _piece = cycles * map.BASE_DROP_AMOUNT;
+        _gold = cycles * map.BASE_GOLD_REWARD;
+        _exp = cycles * map.EXP_PER_CYCLE;
+    }
+
     function _enterAdventure(address player, uint adventureId) internal {
         s.PlayerState[player].ACTION_STATE = PlayerAction.ADVENTURE;
         s.PlayerState[player].ACTION_START = block.timestamp;

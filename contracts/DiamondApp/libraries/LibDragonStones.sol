@@ -4,6 +4,12 @@ import {ActiveStone, CoreBonus, DragonStone, Bonus, CoreDragonStone} from "./Gam
 import {LibBonuses} from "./LibBonuses.sol";
 import {LibAppStorage, AppStorage} from "./LibAppStorage.sol";
 import {StoneTypes} from "./GameEnums.sol";
+import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
+import {IDragonStoneBlessing} from "../erc20/IDragonStoneBlessing.sol";
+import {REQUIRED_PIECE_TO_MINT, MAX_POLISH_LEVEL} from "../libraries/GameConstants.sol";
+import {LibRandom} from "../libraries/LibRandom.sol";
+import {LibDappNFT} from "../libraries/LibDappNFT.sol";
+import {LibERC721} from "../../shared/libraries/LibERC721.sol";
 
 library LibDragonStones {
     function getDragonStoneData(
@@ -65,5 +71,37 @@ library LibDragonStones {
     ) internal view returns (CoreDragonStone memory dragonStone) {
         AppStorage storage s = LibAppStorage.diamondStorage();
         return s.DragonStones[tokenId];
+    }
+
+    function mintStone(address player) internal {
+        AppStorage storage s = LibAppStorage.diamondStorage();
+        s.nextMintId++;
+        uint tokenId = s.nextMintId;
+        s.DragonStones[tokenId].OWNER = player;
+        uint roll = LibRandom.d100(tokenId + block.number);
+        bool isCosmic = roll < 2;
+        if (isCosmic) {
+            s.DragonStones[tokenId].STONE_TYPE = StoneTypes.COSMIC;
+        } else {
+            s.DragonStones[tokenId].STONE_TYPE = StoneTypes(
+                LibRandom.dn(
+                    tokenId + block.number + block.timestamp + 90909,
+                    uint(type(StoneTypes).max)
+                )
+            );
+        }
+        s.ownerTokenIdIndexes[player][tokenId] = s.ownerTokenIds[player].length;
+        s.ownerTokenIds[player].push(uint32(tokenId));
+        s.tokenIds.push(uint32(tokenId));
+
+        if (s.PaymentSplitters[player] != address(0)) {
+            LibDappNFT._setTokenRoyalty(
+                tokenId,
+                s.PaymentSplitters[player],
+                10000
+            );
+        }
+
+        emit LibERC721.Transfer(address(0), player, tokenId);
     }
 }

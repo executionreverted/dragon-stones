@@ -79,10 +79,23 @@ contract AdventureFacet is Modifiers {
         uint cycles = (block.timestamp - s.PlayerState[player].ACTION_START) /
             map.BASE_CYCLE;
         if (cycles > map.MAX_CYCLE) cycles = map.MAX_CYCLE;
+        if (
+            block.timestamp - s.PlayerState[player].ACTION_START >
+            map.STONE_DROP_MIN_TIME
+        ) {
+            checkStoneDrop(player, map.STONE_DROP_CHANCE);
+        }
         LibRewards.mintPiece(player, cycles * map.BASE_DROP_AMOUNT);
         LibRewards.mintGold(player, cycles * map.BASE_GOLD_REWARD);
         LibLevel.giveExp(player, cycles * map.EXP_PER_CYCLE);
         exitAdventure(player);
+    }
+
+    function checkStoneDrop(address player, uint chance) internal {
+        uint roll = LibRandom.d100(chance + block.timestamp + 1881);
+        if (roll <= chance) {
+            LibDragonStones.mintStone(player);
+        }
     }
 
     function calculateRewards(

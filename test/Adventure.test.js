@@ -108,6 +108,7 @@ describe("Stats", function () {
         console.log(`piece: ${rewards[0] / 1e18}`);
         console.log(`gold: ${rewards[1] / 1e18}`);
         console.log(`exp: ${rewards[2]}`);
+        console.log(`first stone balance: ${await NonFungibleFacet.balanceOf(owner.address)}`);
     })
 
 
@@ -120,6 +121,7 @@ describe("Stats", function () {
         console.log(`action state: ${playerState.ACTION_STATE}`)
         console.log(`action time: ${playerState.ACTION_START}`)
         console.log(`action param: ${playerState.ACTION_DATA1}`)
+        console.log(`stone balance: ${await NonFungibleFacet.balanceOf(owner.address)}`);
     })
 
 
@@ -132,6 +134,7 @@ describe("Stats", function () {
         console.log(`ACTION_START: ${playerState.ACTION_START}`);
         console.log(`ACTION_DEADLINE: ${playerState.ACTION_DEADLINE}`);
         console.log(`ACTION_DATA1: ${playerState.ACTION_DATA1}`);
+        console.log(`stone balance: ${await NonFungibleFacet.balanceOf(owner.address)}`);
     })
 
     it("should get 2 day rewards with reenter", async function () {
@@ -146,6 +149,7 @@ describe("Stats", function () {
         console.log(`2 action state: ${playerState.ACTION_STATE}`)
         console.log(`2 action time: ${playerState.ACTION_START}`)
         console.log(`2 action param: ${playerState.ACTION_DATA1}`)
+        console.log(`2 stone balance: ${await NonFungibleFacet.balanceOf(owner.address)}`);
     })
 
     it("should get 2 day rewards with reenter", async function () {
@@ -155,10 +159,11 @@ describe("Stats", function () {
 
     it("get rewards and keep in adventure after reenter", async function () {
         let playerState = await DragonStoneFacet.getPlayer(owner.address)
-        console.log(`2 player level: ${playerState.LEVEL}`);
-        console.log(`2 player exp: ${playerState.EXP}`);
-        console.log(`2 action state: ${playerState.ACTION_STATE}`)
-        console.log(`2 action time: ${playerState.ACTION_START}`)
-        console.log(`2 action param: ${playerState.ACTION_DATA1}`)
+        console.log(`3 player level: ${playerState.LEVEL}`);
+        console.log(`3 player exp: ${playerState.EXP}`);
+        console.log(`3 action state: ${playerState.ACTION_STATE}`)
+        console.log(`3 action time: ${playerState.ACTION_START}`)
+        console.log(`3 action param: ${playerState.ACTION_DATA1}`)
+        console.log(`3 stone balance: ${await NonFungibleFacet.balanceOf(owner.address)}`);
     })
 })

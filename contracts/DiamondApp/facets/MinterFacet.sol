@@ -11,6 +11,7 @@ import {LibRandom} from "../libraries/LibRandom.sol";
 import {LibERC721} from "../../shared/libraries/LibERC721.sol";
 import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
 import {IDragonStoneBlessing} from "../erc20/IDragonStoneBlessing.sol";
+import {LibDragonStones} from "../libraries/LibDragonStones.sol";
 
 contract MinterFacet is Modifiers {
     function mintPiece() external /*onlyDiamondOwner*/ {
@@ -32,45 +33,6 @@ contract MinterFacet is Modifiers {
             msg.sender,
             REQUIRED_PIECE_TO_MINT
         );
-        s.nextMintId++;
-        uint tokenId = s.nextMintId;
-        s.DragonStones[tokenId].OWNER = msg.sender;
-        uint roll = LibRandom.d100(tokenId + block.number);
-        bool isCosmic = roll < 2;
-        if (isCosmic) {
-            s.DragonStones[tokenId].STONE_TYPE = StoneTypes.COSMIC;
-        } else {
-            s.DragonStones[tokenId].STONE_TYPE = StoneTypes(
-                LibRandom.dn(
-                    tokenId + block.number + block.timestamp,
-                    uint(type(StoneTypes).max)
-                )
-            );
-        }
-
-        // uint[] memory _bonusesToAdd = new uint[](1);
-        // _bonusesToAdd[0] = 1;
-        // s.DragonStones[tokenId].BONUS_IDS = _bonusesToAdd;
-
-        // uint[] memory _bonusEffsToAdd = new uint[](1);
-        // _bonusEffsToAdd[0] = 100;
-        // s.DragonStones[tokenId].BONUS_EFFS = _bonusEffsToAdd;
-
-        s.ownerTokenIdIndexes[msg.sender][tokenId] = s
-            .ownerTokenIds[msg.sender]
-            .length;
-        s.ownerTokenIds[msg.sender].push(uint32(tokenId));
-        s.tokenIds.push(uint32(tokenId));
-
-        // add users payment splitter contract to 2981 royalty stuff later
-        if (s.PaymentSplitters[msg.sender] != address(0)) {
-            LibDappNFT._setTokenRoyalty(
-                tokenId,
-                s.PaymentSplitters[msg.sender],
-                10000
-            );
-        }
-
-        emit LibERC721.Transfer(address(0), msg.sender, tokenId);
+        LibDragonStones.mintStone(msg.sender);
     }
 }

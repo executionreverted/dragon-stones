@@ -15,15 +15,26 @@ function getSighashes(selectors, ethers) {
     return sighashes;
 }
 
-module.exports = async (taskArgs, hre) => {
+module.exports = async (taskArgs, { deployments, getNamedAccounts, network }) => {
     const facetName = taskArgs.facet
+    const newFacet = taskArgs.newFacet
     console.log(taskArgs.addSelectors);
     console.log(taskArgs.removeSelectors);
-    let addSelectors = taskArgs.addSelectors.split('$$$') || []
-    let removeSelectors = taskArgs.removeSelectors.split('$$$') || [];
-    const deployInit = Boolean(taskArgs.deployInit);
-    const { deployer } = await hre.getNamedAccounts()
+    let addSelectors = taskArgs.addSelectors.split('___') || []
+    let removeSelectors = taskArgs.removeSelectors.split('___') || [];
     //Instantiate the Signer
+
+    const { deploy } = deployments
+    const { deployer } = await getNamedAccounts()
+    // uncomment
+    if (network.name == 'hardhat') {
+        let deployed = await deployments.run(['DiamondApp'])
+    }
+
+    // let TestFacet = await ethers.getContractAt('TestFacet', deployed.Diamond.address);
+
+    // console.log('_______________');
+    // console.log(`${await TestFacet.test()}`);
 
     const dia = await hre.ethers.getContract(
         "Diamond"
@@ -36,10 +47,8 @@ module.exports = async (taskArgs, hre) => {
         deployedFacet = await ethers.getContract(facetName)
 
     } catch (error) {
-        await hre.run('deploy', {
-            'tags': facetName
-        })
-        deployedFacet = await ethers.getContract(facetName)
+        console.log('old facet is not found');
+        return;
     }
 
     console.log(
@@ -58,10 +67,15 @@ module.exports = async (taskArgs, hre) => {
         (selector) => !newSelectors.includes(selector)
     );
 
-    await hre.run('deploy', {
-        'tags': facetName
+
+    await deploy(newFacet, {
+        from: deployer,
+        args: [],
+        log: true,
+        waitConfirmations: 1,
     })
-    const newDeployedFacet = await ethers.getContract(facetName)
+
+    const newDeployedFacet = await ethers.getContract(newFacet)
     let existingSelectors$ = getSelectors(newDeployedFacet);
 
     for (const selector of newSelectors) {
@@ -127,25 +141,11 @@ module.exports = async (taskArgs, hre) => {
     ));
 
 
-    let initAddress;
-    let functionCall
-    if (deployInit) {
-        // call to init function
-        let diaInit = await hre.deployments.deploy('DiamondDappInit', {
-            from: deployer,
-            args: [],
-            log: true,
-            waitConfirmations: 1,
-        })
-        let diamondInit = await ethers.getContractAt("DiamondDappInit", diaInit.address)
-        initAddress = diamondInit.address;
-        let functionCall = diamondInit.interface.encodeFunctionData('init', [ethers.constants.AddressZero, "dragonstones.com/api/", DragonStonePieces.address, DragonStoneBlessing.address])
-    }
     //Choose to use a multisig or a simple deploy address
     const tx = await diamondCut.diamondCut(
         cut,
-        initAddress ? initAddress : hre.ethers.constants.AddressZero,
-        functionCall ? functionCall : "0x",
+        hre.ethers.constants.AddressZero,
+        "0x",
         {
             gasPrice: gasPrice,
         }
@@ -156,4 +156,7 @@ module.exports = async (taskArgs, hre) => {
         throw Error(`Diamond upgrade failed: ${tx.hash}`);
     }
     console.log("Completed diamond cut: ", tx.hash);
+    // console.log('_______________');
+    // const TestFacetV2 = await ethers.getContractAt(newFacet, dia.address)
+    // console.log(`${await TestFacetV2.test2(1, "testing.")}`);
 }

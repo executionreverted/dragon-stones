@@ -13,19 +13,8 @@ import {LibIdle} from "../libraries/LibIdle.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
 
-contract TestFacet is Modifiers {
-    function setStatVal(
-        address player,
-        Stats stat,
-        int val
-    ) external onlyDiamondOwner {
-        if (s.PlayerState[player].STATS.length == 0) {
-            s.PlayerState[player].STATS = new int[](uint(type(Stats).max));
-        }
-        s.PlayerState[player].STATS[uint(stat)] = val;
-    }
-
-    function test() external pure returns (uint) {
-        return 1995;
+contract TestFacetV3 is Modifiers {
+    function test3(uint abc) external pure returns (string memory) {
+        return "Hello world";
     }
 }

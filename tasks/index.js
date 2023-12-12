@@ -214,3 +214,15 @@ task('deployUpgrade', require("./deployUpgrade"))
     .addParam('facet', 'facetName')
     .addParam('addSelectors', 'add function selectors')
     .addParam('removeSelectors', 'remove function selectors')
+
+
+task('upgradeFacet', require("./upgradeFacet"))
+    .addParam('facet', 'facetName')
+    .addParam('newFacet', 'new facetName')
+    .addParam('addSelectors', 'add function selectors')
+    .addParam('removeSelectors', 'remove function selectors')
+
+
+task('addFacet', require("./addFacet"))
+    .addParam('facet', 'facet')
+

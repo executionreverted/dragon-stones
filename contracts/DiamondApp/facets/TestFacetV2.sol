@@ -13,7 +13,7 @@ import {LibIdle} from "../libraries/LibIdle.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
 
-contract TestFacet is Modifiers {
+contract TestFacetV2 is Modifiers {
     function setStatVal(
         address player,
         Stats stat,
@@ -26,6 +26,14 @@ contract TestFacet is Modifiers {
     }
 
     function test() external pure returns (uint) {
-        return 1995;
+        return 2023;
+    }
+
+    function test2(
+        uint abc,
+        string memory dbc
+    ) external pure returns (string memory) {
+        abc;
+        return dbc;
     }
 }

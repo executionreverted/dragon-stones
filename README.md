@@ -194,3 +194,15 @@ npx hardhat --network shimmer-testnet deployUpgrade --deploy-init false --facet 
 ```
 npx hardhat --network shimmer-testnet deployUpgrade --deploy-init false --facet CityManagerFacet --remove-selectors "function buildingLevels(uint)$$$function upgradeBuilding(uint, uint, bool)" --add-selectors ""
 ```
+
+### upgrade without init
+```
+npx hardhat upgradeFacet --facet TestFacet --add-selectors "function test2(uint, string)" --remove-selectors "" --new-facet TestFacetV2;
+
+npx hardhat upgradeFacet --facet TestFacet --add-selectors "function test2(uint, string)" --remove-selectors "" --new-facet TestFacetV2                                                        
+```
+
+### add new facet
+```
+npx hardhat addFacet --facet TestFacetV3
+```

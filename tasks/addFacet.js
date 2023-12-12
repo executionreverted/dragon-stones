@@ -22,8 +22,10 @@ module.exports = async (taskArgs, { deployments, getNamedAccounts }) => {
     const { deployer } = await getNamedAccounts()
 
     // uncomment for testing on local to deploy first
-    await deployments.run(['DiamondApp'])
-
+    if (network.name == 'hardhat') {
+        let deployed = await deployments.run(['DiamondApp'])
+    }
+    
     const dia = await hre.ethers.getContract(
         "Diamond"
     )
@@ -52,10 +54,6 @@ module.exports = async (taskArgs, { deployments, getNamedAccounts }) => {
     );
 
 
-    //replace only when not using on newly deplyed diamonds
-
-    console.log('cut');
-    console.log(cut);
     //Execute the Cut
 
     const diamondCut = (await hre.ethers.getContractAt(
@@ -81,15 +79,22 @@ module.exports = async (taskArgs, { deployments, getNamedAccounts }) => {
         }
     );
 
+
+
+    //replace only when not using on newly deplyed diamonds
+
+    console.log('cut');
+    console.log(cut);
+    
     const receipt = await tx.wait();
     if (!receipt.status) {
         throw Error(`Diamond upgrade failed: ${tx.hash}`);
     }
     // console.log("Completed diamond cut: ", tx.hash);
     // // console.log('_______________');
-    const TestFacetV3 = await ethers.getContractAt(facet, dia.address)
+    // const TestFacetV3 = await ethers.getContractAt(facet, dia.address)
     // console.log('pre');
-    console.log(`${await TestFacetV3.test3(123)}`);
+    // console.log(`${await TestFacetV3.test3(123)}`);
     // console.log('post');
     // console.log(`${await TestFacetV2.test2(1, "testing.")}`);
 }

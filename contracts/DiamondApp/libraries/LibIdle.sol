@@ -11,6 +11,7 @@ library LibIdle {
         address player
     ) internal view returns (uint) {
         AppStorage storage s = LibAppStorage.diamondStorage();
+        if (s.PlayerState[player].ACTION_STATE != PlayerAction.IDLE) return 0;
         require(
             s.PlayerState[player].ACTION_STATE == PlayerAction.IDLE,
             "LibIdle: not idleing"

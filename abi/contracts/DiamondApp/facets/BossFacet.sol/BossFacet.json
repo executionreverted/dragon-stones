@@ -1,0 +1,201 @@
+[
+  {
+    "inputs": [],
+    "name": "attack",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "boss",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "HP",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "GOLD_REWARD_PER_DMG",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "PIECE_REWARD_PER_DMG",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "BLESSING_REWARD_PER_DMG",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "EXP_REWARD_PER_DMG",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "DEF",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "EXPIRES_AT",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "STARTS_AT",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "BASE_COOLDOWN",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct WorldBoss",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "claimBossRewards",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      }
+    ],
+    "name": "getWorldBossCooldown",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "HP",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "GOLD_REWARD_PER_DMG",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "PIECE_REWARD_PER_DMG",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "BLESSING_REWARD_PER_DMG",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "EXP_REWARD_PER_DMG",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "DEF",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "EXPIRES_AT",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "STARTS_AT",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "BASE_COOLDOWN",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct WorldBoss",
+        "name": "_boss",
+        "type": "tuple"
+      }
+    ],
+    "name": "setBoss",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      }
+    ],
+    "name": "worldBossInventory",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "GOLD",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "EXP",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "PIECE",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "BLESSING",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[50]",
+            "name": "__RESERVED__",
+            "type": "uint256[50]"
+          }
+        ],
+        "internalType": "struct WorldBossInventory",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

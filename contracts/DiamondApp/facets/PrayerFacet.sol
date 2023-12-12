@@ -33,7 +33,7 @@ contract PrayerFacet is Modifiers {
         // require(
         //     block.timestamp >=
         //         s.PlayerState[LibMeta.msgSender()].ACTION_DEADLINE,
-        //     "PrayrFacet: too early"
+        //     "PrayerFacet: too early"
         // );
         uint rewards = calculatePrayerReward(LibMeta.msgSender());
         IDragonStoneBlessing(s.blessings).mintBlessing(

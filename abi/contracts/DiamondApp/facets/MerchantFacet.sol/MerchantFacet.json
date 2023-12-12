@@ -1,0 +1,61 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offerId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "rate",
+        "type": "uint256"
+      }
+    ],
+    "name": "deal",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "offerIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "offers",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "enum Currencies",
+            "name": "SELL_CURRENCY",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum Currencies",
+            "name": "GET_CURRENCY",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "SELL_RATE",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "GET_RATE",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct Offer[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  }
+]

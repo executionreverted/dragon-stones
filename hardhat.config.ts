@@ -72,9 +72,18 @@ module.exports = {
       'RegisterFacet',
       'NonFungibleFacet',
       'EnchantFacet',
+      'DailyFacet',
+      'IdlerFacet',
+      'PrayerFacet',
+      'MerchantFacet',
+      'AdventureFacet',
+      'BossFacet',
+      'StatsFacet',
+      'PremiumFacet',
       'DragonStonePieces',
-      'DragonStoneBlessings'
-  ]],
+      'DragonStoneBlessings',
+      'DragonStoneGold'
+    ]],
     spacing: 2,
   },
   solidity: {

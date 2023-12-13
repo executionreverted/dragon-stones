@@ -14,7 +14,7 @@ import {LibPremium} from "../libraries/LibPremium.sol";
 import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
 
 contract IdlerFacet is Modifiers {
-    function beginIdleing() external onlyRegistered {
+    function beginIdleing() external notPaused onlyRegistered {
         address player = LibMeta.msgSender();
         require(
             s.PlayerState[player].ACTION_STATE == PlayerAction.FREE,
@@ -24,7 +24,7 @@ contract IdlerFacet is Modifiers {
         s.PlayerState[player].ACTION_START = block.timestamp;
     }
 
-    function endIdleing() external {
+    function endIdleing() external notPaused {
         address player = LibMeta.msgSender();
         require(
             s.PlayerState[player].ACTION_STATE == PlayerAction.IDLE,
@@ -36,7 +36,7 @@ contract IdlerFacet is Modifiers {
     }
 
     // terminate for emergency. no rewards will be given
-    function cancelIdleing() external {
+    function cancelIdleing() external notPaused {
         address player = LibMeta.msgSender();
         require(
             s.PlayerState[player].ACTION_STATE == PlayerAction.IDLE,

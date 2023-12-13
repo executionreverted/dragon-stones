@@ -19,7 +19,7 @@ contract StatsFacet is Modifiers {
     // to use multiple, param should me like [STR, INT, INT]
     function useStatPoint(
         BoostableStats[] calldata _statPointsToAdd
-    ) external onlyRegistered onlyNonEOA {
+    ) external notPaused onlyRegistered onlyNonEOA {
         address player = LibMeta.msgSender();
         uint pointsLeft = playerStatPoints(player);
         require(

@@ -14,7 +14,7 @@ import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {IDragonStoneBlessing} from "../erc20/IDragonStoneBlessing.sol";
 
 contract PrayerFacet is Modifiers {
-    function beginPraying() external onlyRegistered {
+    function beginPraying() external notPaused onlyRegistered {
         require(
             s.PlayerState[LibMeta.msgSender()].ACTION_STATE ==
                 PlayerAction.FREE,
@@ -24,7 +24,7 @@ contract PrayerFacet is Modifiers {
         s.PlayerState[LibMeta.msgSender()].ACTION_START = block.timestamp;
     }
 
-    function endPraying() external {
+    function endPraying() external notPaused {
         require(
             s.PlayerState[LibMeta.msgSender()].ACTION_STATE ==
                 PlayerAction.PRAYER,
@@ -43,7 +43,7 @@ contract PrayerFacet is Modifiers {
         s.PlayerState[LibMeta.msgSender()].ACTION_STATE = PlayerAction.FREE;
     }
 
-    function cancelPraying() external {
+    function cancelPraying() external notPaused {
         require(
             s.PlayerState[LibMeta.msgSender()].ACTION_STATE ==
                 PlayerAction.PRAYER,

@@ -7,7 +7,9 @@ import {Player} from "../libraries/GameStructs.sol";
 import {PlayerAction} from "../libraries/GameEnums.sol";
 
 contract SettingsFacet is Modifiers {
-    function setActivePage(uint pageId) external {
+    function setActivePage(
+        uint pageId
+    ) external notPaused onlyNonEOA onlyRegistered {
         require(
             pageId > 0 &&
                 s.PlayerMaxPages[msg.sender] > 0 &&

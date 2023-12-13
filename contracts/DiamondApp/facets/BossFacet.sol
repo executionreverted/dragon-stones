@@ -17,7 +17,7 @@ import {LibLevel} from "../libraries/LibLevel.sol";
 import {LibPremium} from "../libraries/LibPremium.sol";
 
 contract BossFacet is Modifiers {
-    function attack() external onlyRegistered onlyNonEOA {
+    function attack() external notPaused onlyRegistered onlyNonEOA {
         require(s.boss.HP > 0, "BossFacet: boss is dead");
         require(block.timestamp >= s.boss.STARTS_AT, "BossFacet: too soon");
         require(block.timestamp < s.boss.EXPIRES_AT, "BossFacet: escaped");
@@ -45,7 +45,7 @@ contract BossFacet is Modifiers {
         return s.boss.BASE_COOLDOWN;
     }
 
-    function claimBossRewards() external onlyRegistered onlyNonEOA {
+    function claimBossRewards() external notPaused onlyRegistered onlyNonEOA {
         address player = LibMeta.msgSender();
         WorldBossInventory memory _worldBossInventory = s.WorldBossInventories[
             player

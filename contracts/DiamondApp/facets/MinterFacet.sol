@@ -14,21 +14,21 @@ import {IDragonStoneBlessing} from "../erc20/IDragonStoneBlessing.sol";
 import {LibDragonStones} from "../libraries/LibDragonStones.sol";
 
 contract MinterFacet is Modifiers {
-    function mintPiece() external /*onlyDiamondOwner*/ {
+    function mintPiece() external notPaused /*onlyDiamondOwner*/ {
         IDragonStonePieces(s.pieces).mintPiece(
             msg.sender,
             REQUIRED_PIECE_TO_MINT * 10
         );
     }
 
-    function mintBlessing() external /*onlyDiamondOwner*/ {
+    function mintBlessing() external notPaused /*onlyDiamondOwner*/ {
         IDragonStoneBlessing(s.blessings).mintBlessing(
             msg.sender,
             REQUIRED_PIECE_TO_MINT * 10
         );
     }
 
-    function createStone() public onlyNonEOA onlyRegistered {
+    function createStone() public notPaused onlyNonEOA onlyRegistered {
         IDragonStonePieces(s.pieces).burnPiece(
             msg.sender,
             REQUIRED_PIECE_TO_MINT

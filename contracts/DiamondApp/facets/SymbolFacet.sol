@@ -15,7 +15,7 @@ contract SymbolFacet is Modifiers {
     function equipDragonStone(
         uint pageId,
         uint stoneId
-    ) external onlyRegistered onlyTokenOwner(stoneId) {
+    ) external notPaused onlyRegistered onlyTokenOwner(stoneId) {
         if (pageId == 0) {
             pageId = s.ActivePages[LibMeta.msgSender()];
         }
@@ -50,7 +50,7 @@ contract SymbolFacet is Modifiers {
     function unequipDragonStone(
         uint pageId,
         StoneTypes slot
-    ) external onlyRegistered {
+    ) external notPaused onlyRegistered {
         if (pageId == 0) {
             pageId = s.ActivePages[LibMeta.msgSender()];
         }

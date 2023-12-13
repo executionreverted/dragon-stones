@@ -15,7 +15,7 @@ import {LibRewards} from "../libraries/LibRewards.sol";
 
 contract MerchantFacet is Modifiers {
     // rate means how much sell resource you want to spend
-    function deal(uint offerId, uint rate) external onlyNonEOA onlyRegistered {
+    function deal(uint offerId, uint rate) external notPaused onlyNonEOA onlyRegistered {
         require(rate > 0, "MerchantFacet: 0 rate");
         // fetch offer deal
         Offer memory offer = LibMerchant.offer(offerId);

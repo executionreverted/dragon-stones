@@ -15,7 +15,7 @@ contract UpgradeFacet is Modifiers {
     function upgrade(
         uint tokenId,
         bool useBlessing
-    ) external onlyNonEOA onlyRegistered {
+    ) external notPaused onlyNonEOA onlyRegistered {
         CoreDragonStone memory _mainToken = s.DragonStones[tokenId];
         require(_mainToken.UPGRADE_LEVEL < MAX_UPGRADE_LEVEL, "already max.");
         require(
@@ -65,6 +65,6 @@ contract UpgradeFacet is Modifiers {
     }
 
     function requiredPieces(uint nextTier) external pure returns (uint) {
-        return REQUIRED_PIECE_TO_UPGRADE_PER_LEVEL * (nextTier + 1);
+        return REQUIRED_PIECE_TO_UPGRADE_PER_LEVEL * (nextTier);
     }
 }

@@ -9,7 +9,7 @@ import {Stats} from "../libraries/GameEnums.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 
 contract RegisterFacet is Modifiers {
-    function registerAccount() external {
+    function registerAccount() external notPaused {
         address sender = LibMeta.msgSender();
 
         require(

@@ -19,7 +19,7 @@ import {LibLevel} from "../libraries/LibLevel.sol";
 contract AdventureFacet is Modifiers {
     function enterAdventure(
         uint adventureId
-    ) external onlyNonEOA onlyRegistered {
+    ) external notPaused onlyNonEOA onlyRegistered {
         address player = LibMeta.msgSender();
         Player memory state = s.PlayerState[player];
         AdventureMap memory map = LibAdventure.getMap(adventureId);
@@ -34,7 +34,7 @@ contract AdventureFacet is Modifiers {
         _enterAdventure(player, adventureId);
     }
 
-    function reenterAdventure() external onlyNonEOA onlyRegistered {
+    function reenterAdventure() external notPaused onlyNonEOA onlyRegistered {
         address player = LibMeta.msgSender();
         require(
             s.PlayerState[player].ACTION_STATE == PlayerAction.ADVENTURE,
@@ -47,7 +47,7 @@ contract AdventureFacet is Modifiers {
         _enterAdventure(player, id);
     }
 
-    function leaveAdventure() external onlyNonEOA onlyRegistered {
+    function leaveAdventure() external notPaused onlyNonEOA onlyRegistered {
         address player = LibMeta.msgSender();
         require(
             s.PlayerState[player].ACTION_STATE == PlayerAction.ADVENTURE,
@@ -125,11 +125,12 @@ contract AdventureFacet is Modifiers {
     }
 
     // BE CAREFUL IT WILL RESET YOUR ADVENTURE PROGRESS
-    function forceExit() external onlyNonEOA onlyRegistered {
+    function forceExit() external notPaused onlyNonEOA onlyRegistered {
         exitAdventure(LibMeta.msgSender());
     }
 
     function getAllMaps() external pure returns (AdventureMap[] memory) {
         return LibAdventure.getAllMaps();
     }
+
 }

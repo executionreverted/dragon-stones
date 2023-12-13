@@ -17,7 +17,7 @@ import {LibLevel} from "../libraries/LibLevel.sol";
 import {LibPremium} from "../libraries/LibPremium.sol";
 
 contract PremiumFacet is Modifiers {
-    function buyPremium(uint _days) external payable onlyNonEOA onlyRegistered {
+    function buyPremium(uint _days) external payable notPaused onlyNonEOA onlyRegistered {
         require(
             msg.value >= _days * premiumPricePerDay(),
             "PremiumFacet: payment required"

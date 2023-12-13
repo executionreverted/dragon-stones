@@ -16,6 +16,7 @@ contract CombineFacet is Modifiers {
         uint useTokenId
     )
         external
+        notPaused
         onlyNonEOA
         onlyRegistered
         onlyTokenOwner(tokenId)

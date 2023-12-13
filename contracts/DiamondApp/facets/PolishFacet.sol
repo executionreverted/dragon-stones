@@ -16,6 +16,7 @@ contract PolishFacet is Modifiers {
         uint useTokenId
     )
         external
+        notPaused 
         onlyNonEOA
         onlyTokenOwner(tokenId)
         onlyTokenOwner(useTokenId)

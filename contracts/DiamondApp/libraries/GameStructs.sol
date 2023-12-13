@@ -114,3 +114,13 @@ struct WorldBossInventory {
     uint BLESSING;
     uint[50] __RESERVED__;
 }
+
+
+struct Airdrop {
+    /// @notice inclusion root
+    bytes32 merkleRoot;
+    /// @notice state of airdrop, 0: coming soon, 1: active, 2: ended
+    uint8 state;
+    uint maxClaims;
+    uint claims;
+}

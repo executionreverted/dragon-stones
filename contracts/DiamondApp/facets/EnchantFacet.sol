@@ -13,7 +13,7 @@ import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
 
 contract EnchantFacet is Modifiers {
-    function enchant(uint tokenId) external onlyNonEOA onlyRegistered onlyTokenOwner(tokenId) {
+    function enchant(uint tokenId) external notPaused onlyNonEOA onlyRegistered onlyTokenOwner(tokenId) {
         if (s.DragonStones[tokenId].BONUS_IDS.length == 0) {
             s.DragonStones[tokenId].BONUS_IDS = new uint[](40);
             s.DragonStones[tokenId].BONUS_EFFS = new uint[](40);

@@ -6,7 +6,7 @@ import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {ERC165Upgradeable} from "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol";
 import {ILayerZeroEndpointUpgradeable} from "../../contracts-upgradable/interfaces/ILayerZeroEndpointUpgradeable.sol";
 import {Token, StoredCredit} from "./AppStructs.sol";
-import {WorldBossInventory, Player, WorldBoss, ActiveStone, DragonStone, CoreDragonStone} from "../libraries/GameStructs.sol";
+import {Airdrop, WorldBossInventory, Player, WorldBoss, ActiveStone, DragonStone, CoreDragonStone} from "../libraries/GameStructs.sol";
 
 struct RoyaltyInfo {
     address receiver;
@@ -56,6 +56,11 @@ struct AppStorage {
     WorldBoss boss;
     uint premiumPrice;
     bool canBuyPremium;
+    bool paused;
+    uint airdropCount;
+    mapping(uint => Airdrop) airdrops;
+    mapping(uint => mapping(address => bool)) airdropsHasClaimed;
+    mapping(address => bool) airdropAdmins;
 }
 
 library LibAppStorage {
@@ -117,6 +122,11 @@ contract Modifiers {
             s.PlayerMaxPages[msg.sender] > 0,
             "Only registered addresses can call this function"
         );
+        _;
+    }
+
+    modifier notPaused() {
+        require(!s.paused, "Game is currently paused");
         _;
     }
 }

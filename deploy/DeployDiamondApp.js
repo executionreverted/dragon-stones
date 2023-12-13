@@ -3,6 +3,7 @@ const { FacetCutAction, getSelectors } = require('./helpers')
 const LZEndpoints = require('../constants/layerzeroEndpoints.json')
 
 export const FacetNames = [
+    'AirdropFacet',
     'MinterFacet',
     'CombineFacet',
     'DragonStoneFacet',

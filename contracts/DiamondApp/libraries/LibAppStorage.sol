@@ -96,7 +96,7 @@ contract Modifiers {
         address sender = LibMeta.msgSender();
         require(
             sender == ds.contractOwner,
-            "Only manager can call this function"
+            "Only admin can call this function"
         );
         _;
     }

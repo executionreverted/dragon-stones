@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.23;
 
-import {Modifiers} from "../libraries/LibAppStorage.sol";
+import {Modifiers, LibDiamond} from "../libraries/LibAppStorage.sol";
 import {Player, Airdrop} from "../libraries/GameStructs.sol";
 import {PlayerAction} from "../libraries/GameEnums.sol";
 import {LibRewards} from "../libraries/LibRewards.sol";
@@ -26,7 +26,6 @@ contract AirdropFacet is Modifiers {
     );
     event AdminAdded(address indexed account);
     event AdminRemoved(address indexed account);
-
 
     modifier onlyAirdropAdmin() {
         require(
@@ -65,7 +64,7 @@ contract AirdropFacet is Modifiers {
             s.airdrops[airdropId].merkleRoot,
             leaf
         );
-        if (!isValidLeaf) revert("AirdropFacet: not in list");
+        if (!isValidLeaf) revert("AirdropFacet: not in list or altered leaf");
 
         if (amounts[0] > 0) giveGold(to, amounts[0]);
         if (amounts[1] > 0) givePiece(to, amounts[1]);
@@ -102,6 +101,15 @@ contract AirdropFacet is Modifiers {
         LibDragonStones.mintStone(player);
     }
 
+    function getAllAirdrops() external view returns (Airdrop[] memory) {
+        uint count = s.airdropCount;
+        Airdrop[] memory result = new Airdrop[](count);
+        for (uint i = 0; i < result.length; i++) {
+            result[i] = s.airdrops[i];
+        }
+        return result;
+    }
+
     /// ============ Owner Functions ============
     function addAirdrop(
         bytes32 _merkleRoot,
@@ -125,7 +133,10 @@ contract AirdropFacet is Modifiers {
         uint airdropId,
         uint8 _state
     ) external onlyDiamondOwner {
-        require(airdropId < s.airdropCount, "airdropId outside of bounds");
+        require(
+            airdropId < s.airdropCount,
+            "AirdropFacet: airdropId outside of bounds"
+        );
         s.airdrops[airdropId].state = _state;
         emit AirdropUpdated(
             airdropId,
@@ -140,8 +151,18 @@ contract AirdropFacet is Modifiers {
         bytes32 _merkleRoot,
         uint8 _state,
         uint _maxClaims
-    ) external onlyDiamondOwner {
-        require(airdropId < s.airdropCount, "airdropId outside of bounds");
+    ) external {
+        LibDiamond.DiamondStorage storage ds = LibDiamond.diamondStorage();
+        address sender = LibMeta.msgSender();
+        require(
+            sender == ds.contractOwner || s.airdropAdmins[sender],
+            "Only admin can call this function"
+        );
+
+        require(
+            airdropId < s.airdropCount,
+            "AirdropFacet: airdropId outside of bounds"
+        );
         s.airdrops[airdropId].merkleRoot = _merkleRoot;
         s.airdrops[airdropId].state = _state;
         s.airdrops[airdropId].maxClaims = _maxClaims;
@@ -159,4 +180,6 @@ contract AirdropFacet is Modifiers {
     ) external onlyDiamondOwner {
         s.airdropAdmins[_admin] = _value;
     }
+
+    function isAirdropAdmin(address admin) external view returns (bool) {}
 }

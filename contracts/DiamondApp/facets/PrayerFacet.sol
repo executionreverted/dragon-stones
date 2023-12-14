@@ -15,19 +15,19 @@ import {IDragonStoneBlessing} from "../erc20/IDragonStoneBlessing.sol";
 
 contract PrayerFacet is Modifiers {
     function beginPraying() external notPaused onlyRegistered {
+        address player = LibMeta.msgSender();
         require(
-            s.PlayerState[LibMeta.msgSender()].ACTION_STATE ==
-                PlayerAction.FREE,
+            s.PlayerState[player].ACTION_STATE == PlayerAction.FREE,
             "PrayerFacet: already praying"
         );
-        s.PlayerState[LibMeta.msgSender()].ACTION_STATE = PlayerAction.PRAYER;
-        s.PlayerState[LibMeta.msgSender()].ACTION_START = block.timestamp;
+        s.PlayerState[player].ACTION_STATE = PlayerAction.PRAYER;
+        s.PlayerState[player].ACTION_START = block.timestamp;
     }
 
     function endPraying() external notPaused {
+        address player = LibMeta.msgSender();
         require(
-            s.PlayerState[LibMeta.msgSender()].ACTION_STATE ==
-                PlayerAction.PRAYER,
+            s.PlayerState[player].ACTION_STATE == PlayerAction.PRAYER,
             "PrayerFacet: not praying"
         );
         // require(
@@ -35,21 +35,18 @@ contract PrayerFacet is Modifiers {
         //         s.PlayerState[LibMeta.msgSender()].ACTION_DEADLINE,
         //     "PrayerFacet: too early"
         // );
-        uint rewards = calculatePrayerReward(LibMeta.msgSender());
-        IDragonStoneBlessing(s.blessings).mintBlessing(
-            LibMeta.msgSender(),
-            rewards
-        );
-        s.PlayerState[LibMeta.msgSender()].ACTION_STATE = PlayerAction.FREE;
+        uint rewards = calculatePrayerReward(player);
+        IDragonStoneBlessing(s.blessings).mintBlessing(player, rewards);
+        s.PlayerState[player].ACTION_STATE = PlayerAction.FREE;
     }
 
     function cancelPraying() external notPaused {
+        address player = LibMeta.msgSender();
         require(
-            s.PlayerState[LibMeta.msgSender()].ACTION_STATE ==
-                PlayerAction.PRAYER,
+            s.PlayerState[player].ACTION_STATE == PlayerAction.PRAYER,
             "PrayerFacet: not praying"
         );
-        s.PlayerState[LibMeta.msgSender()].ACTION_STATE = PlayerAction.FREE;
+        s.PlayerState[player].ACTION_STATE = PlayerAction.FREE;
     }
 
     function calculatePrayerReward(address player) public view returns (uint) {

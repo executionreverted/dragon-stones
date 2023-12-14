@@ -112,9 +112,9 @@ struct WorldBossInventory {
     uint EXP;
     uint PIECE;
     uint BLESSING;
+    uint STONE_TICKET;
     uint[50] __RESERVED__;
 }
-
 
 struct Airdrop {
     /// @notice inclusion root

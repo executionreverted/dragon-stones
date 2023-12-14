@@ -185,6 +185,11 @@
             "type": "uint256"
           },
           {
+            "internalType": "uint256",
+            "name": "STONE_TICKET",
+            "type": "uint256"
+          },
+          {
             "internalType": "uint256[50]",
             "name": "__RESERVED__",
             "type": "uint256[50]"

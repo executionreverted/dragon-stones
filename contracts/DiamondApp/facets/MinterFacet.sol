@@ -9,6 +9,7 @@ import {LibBonuses} from "../libraries/LibBonuses.sol";
 import {LibDappNFT} from "../libraries/LibDappNFT.sol";
 import {LibRandom} from "../libraries/LibRandom.sol";
 import {LibERC721} from "../../shared/libraries/LibERC721.sol";
+import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
 import {IDragonStoneBlessing} from "../erc20/IDragonStoneBlessing.sol";
 import {LibDragonStones} from "../libraries/LibDragonStones.sol";
@@ -34,5 +35,15 @@ contract MinterFacet is Modifiers {
             REQUIRED_PIECE_TO_MINT
         );
         LibDragonStones.mintStone(msg.sender);
+    }
+
+    function redeemStoneTicket() public notPaused onlyNonEOA onlyRegistered {
+        address player = LibMeta.msgSender();
+        require(
+            s.WorldBossInventories[player].STONE_TICKET > 0,
+            "MinterFacet: no tickets left"
+        );
+        s.WorldBossInventories[player].STONE_TICKET--;
+        LibDragonStones.mintStone(player);
     }
 }

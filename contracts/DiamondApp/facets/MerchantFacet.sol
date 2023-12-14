@@ -3,19 +3,18 @@
 pragma solidity ^0.8.23;
 
 import {Modifiers} from "../libraries/LibAppStorage.sol";
-import {MAX_POLISH_LEVEL} from "../libraries/GameConstants.sol";
-import {ActiveStone, CoreBonus, DragonStone, Bonus, CoreDragonStone, Offer} from "../libraries/GameStructs.sol";
-import {StoneTypes, PlayerAction, Currencies} from "../libraries/GameEnums.sol";
-import {LibBonuses} from "../libraries/LibBonuses.sol";
-import {LibDragonStones} from "../libraries/LibDragonStones.sol";
-import {LibIdle} from "../libraries/LibIdle.sol";
+import {Offer} from "../libraries/GameStructs.sol";
+import {Currencies} from "../libraries/GameEnums.sol";
 import {LibMerchant} from "../libraries/LibMerchant.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {LibRewards} from "../libraries/LibRewards.sol";
 
 contract MerchantFacet is Modifiers {
     // rate means how much sell resource you want to spend
-    function deal(uint offerId, uint rate) external notPaused onlyNonEOA onlyRegistered {
+    function deal(
+        uint offerId,
+        uint rate
+    ) external notPaused onlyNonEOA onlyRegistered {
         require(rate > 0, "MerchantFacet: 0 rate");
         // fetch offer deal
         Offer memory offer = LibMerchant.offer(offerId);

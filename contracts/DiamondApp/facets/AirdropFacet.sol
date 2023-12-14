@@ -4,7 +4,6 @@ pragma solidity ^0.8.23;
 
 import {Modifiers, LibDiamond} from "../libraries/LibAppStorage.sol";
 import {Player, Airdrop} from "../libraries/GameStructs.sol";
-import {PlayerAction} from "../libraries/GameEnums.sol";
 import {LibRewards} from "../libraries/LibRewards.sol";
 import {LibDragonStones} from "../libraries/LibDragonStones.sol";
 import {MerkleProof} from "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol"; // OZ: MerkleProof

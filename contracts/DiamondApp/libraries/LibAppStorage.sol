@@ -35,6 +35,7 @@ struct AppStorage {
     mapping(uint256 => address) approved;
     mapping(address => uint) balances;
     mapping(uint => Token) Tokens;
+    uint maxProfilePictureId;
     uint enchantSeed;
     uint nextMintId;
     uint maxMintId;

@@ -3,15 +3,12 @@
 pragma solidity ^0.8.23;
 
 import {RoyaltyInfo, Modifiers} from "../libraries/LibAppStorage.sol";
-import {MAX_POLISH_LEVEL} from "../libraries/GameConstants.sol";
-import {ActiveStone, CoreBonus, DragonStone, Bonus, CoreDragonStone} from "../libraries/GameStructs.sol";
 import {LibBonuses} from "../libraries/LibBonuses.sol";
-import {LibDragonStones} from "../libraries/LibDragonStones.sol";
 import {LibDappNFT} from "../libraries/LibDappNFT.sol";
 import {LibERC721} from "../../shared/libraries/LibERC721.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {LibStrings} from "../../shared/libraries/LibStrings.sol";
-import "@openzeppelin/contracts/token/common/ERC2981.sol";
+import {ERC2981} from "@openzeppelin/contracts/token/common/ERC2981.sol";
 
 contract NonFungibleFacet is Modifiers {
     function royaltyInfo(

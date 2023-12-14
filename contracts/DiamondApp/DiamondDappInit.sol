@@ -40,5 +40,6 @@ contract DiamondDappInit {
         s.golds = _golds;
         LibDappNFT._setDefaultRoyalty(LibDiamond.contractOwner(), 1000);
         s.premiumPrice = 1 ether;
+        s.maxProfilePictureId = 5;
     }
 }

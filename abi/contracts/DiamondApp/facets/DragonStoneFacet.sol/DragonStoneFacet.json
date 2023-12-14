@@ -233,6 +233,11 @@
             "type": "int256[]"
           },
           {
+            "internalType": "enum Zodiac",
+            "name": "ZODIAC",
+            "type": "uint8"
+          },
+          {
             "internalType": "enum PlayerAction",
             "name": "ACTION_STATE",
             "type": "uint8"

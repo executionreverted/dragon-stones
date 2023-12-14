@@ -3,11 +3,8 @@
 pragma solidity ^0.8.23;
 
 import {Modifiers} from "../libraries/LibAppStorage.sol";
-import {MAX_POLISH_LEVEL, MAX_STONE_SLOT_ID} from "../libraries/GameConstants.sol";
-import {CoreBonus, DragonStone, Bonus, CoreDragonStone} from "../libraries/GameStructs.sol";
-import {PlayerAction, BonusValueType, StoneTypes, Stats} from "../libraries/GameEnums.sol";
-import {LibBonuses} from "../libraries/LibBonuses.sol";
-import {LibDragonStones} from "../libraries/LibDragonStones.sol";
+import {DragonStone, Bonus, CoreDragonStone} from "../libraries/GameStructs.sol";
+import {PlayerAction, StoneTypes, Stats} from "../libraries/GameEnums.sol";
 import {LibSymbol} from "../libraries/LibSymbol.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 

@@ -3,16 +3,12 @@
 pragma solidity ^0.8.23;
 
 import {Modifiers} from "../libraries/LibAppStorage.sol";
-import {BASE_DAILY_REWARD} from "../libraries/GameConstants.sol";
-import {Player, AdventureMap, ActiveStone, CoreBonus, DragonStone, Bonus, CoreDragonStone} from "../libraries/GameStructs.sol";
-import {StoneTypes, PlayerAction, Stats, PlayerAction} from "../libraries/GameEnums.sol";
-import {LibBonuses} from "../libraries/LibBonuses.sol";
+import {Player, AdventureMap} from "../libraries/GameStructs.sol";
+import {PlayerAction, Stats, PlayerAction} from "../libraries/GameEnums.sol";
 import {LibDragonStones} from "../libraries/LibDragonStones.sol";
-import {LibSymbol} from "../libraries/LibSymbol.sol";
 import {LibRandom} from "../libraries/LibRandom.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {LibAdventure} from "../libraries/LibAdventure.sol";
-import {IDragonStonePieces} from "../erc20/IDragonStonePieces.sol";
 import {LibRewards} from "../libraries/LibRewards.sol";
 import {LibLevel} from "../libraries/LibLevel.sol";
 

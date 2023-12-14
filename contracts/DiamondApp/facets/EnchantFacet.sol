@@ -6,7 +6,6 @@ import {Modifiers} from "../libraries/LibAppStorage.sol";
 import {MAX_STONE_BONUS_COUNT} from "../libraries/GameConstants.sol";
 import {CoreBonus, CoreDragonStone, Bonus} from "../libraries/GameStructs.sol";
 import {StoneTypes} from "../libraries/GameEnums.sol";
-import {LibDappNFT} from "../libraries/LibDappNFT.sol";
 import {LibBonuses} from "../libraries/LibBonuses.sol";
 import {LibRandom} from "../libraries/LibRandom.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";

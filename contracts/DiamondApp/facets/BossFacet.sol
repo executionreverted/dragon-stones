@@ -3,8 +3,8 @@
 pragma solidity ^0.8.23;
 
 import {Modifiers} from "../libraries/LibAppStorage.sol";
-import {WorldBossInventory, WorldBoss, Player, AdventureMap, ActiveStone, CoreBonus, DragonStone, Bonus, CoreDragonStone} from "../libraries/GameStructs.sol";
-import {StoneTypes, PlayerAction, Stats, PlayerAction} from "../libraries/GameEnums.sol";
+import {WorldBossInventory, WorldBoss, AdventureMap, DragonStone} from "../libraries/GameStructs.sol";
+import {Stats} from "../libraries/GameEnums.sol";
 import {LibBonuses} from "../libraries/LibBonuses.sol";
 import {LibDragonStones} from "../libraries/LibDragonStones.sol";
 import {LibSymbol} from "../libraries/LibSymbol.sol";

@@ -19,7 +19,18 @@
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "pictureId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum Zodiac",
+        "name": "zodiac",
+        "type": "uint8"
+      }
+    ],
     "name": "registerAccount",
     "outputs": [],
     "stateMutability": "nonpayable",

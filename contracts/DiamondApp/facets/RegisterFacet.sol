@@ -5,12 +5,16 @@ pragma solidity ^0.8.23;
 import {Modifiers} from "../libraries/LibAppStorage.sol";
 import {PaymentSplitter} from "@openzeppelin/contracts/finance/PaymentSplitter.sol";
 import {LibDiamond} from "../../shared/libraries/LibDiamond.sol";
-import {Stats} from "../libraries/GameEnums.sol";
+import {Stats, Zodiac} from "../libraries/GameEnums.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 
 contract RegisterFacet is Modifiers {
-    function registerAccount() external notPaused {
+    function registerAccount(uint pictureId, Zodiac zodiac) external notPaused {
         address sender = LibMeta.msgSender();
+        require(
+            pictureId <= s.maxProfilePictureId,
+            "RegisterFacet: invalid picture id"
+        );
 
         require(
             s.PlayerMaxPages[sender] == 0,
@@ -24,24 +28,14 @@ contract RegisterFacet is Modifiers {
                 "RegisterFacet: 0 balance"
             );
         }
-
-        if (LibDiamond.contractOwner() == sender) {
-            if (s.PaymentSplitters[sender] == address(0)) {
-                s.PlayerState[sender].STATS = new int[](
-                    uint(type(Stats).max) + 1
-                );
-                s.PlayerState[sender].LEVEL = 1;
-                s.PaymentSplitters[sender] = sender;
-                s.PlayerMaxPages[sender] = 2;
-                s.ActivePages[sender] = 1;
-                return;
-            }
-        }
-
+        // init player
+        s.PlayerState[sender].PROFILE_PICTURE = pictureId;
+        s.PlayerState[sender].ZODIAC = zodiac;
         s.PlayerState[sender].STATS = new int[](uint(type(Stats).max) + 1);
         s.PlayerState[sender].LEVEL = 1;
         s.PlayerMaxPages[sender] = 2;
         s.ActivePages[sender] = 1;
+        // royalty splitter
         address[] memory payees = new address[](2);
         payees[0] = LibDiamond.contractOwner();
         payees[1] = sender;

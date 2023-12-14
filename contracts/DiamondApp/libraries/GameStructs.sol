@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: SEE LICENSE IN LICENSE
 pragma solidity ^0.8.0;
 
-import {StoneTypes, BonusValueType, Stats, PlayerAction, Currencies} from "./GameEnums.sol";
+import {Zodiac, StoneTypes, BonusValueType, Stats, PlayerAction, Currencies} from "./GameEnums.sol";
 
 struct ActiveStone {
     address player;
@@ -49,6 +49,7 @@ struct DragonStone {
 
 struct Player {
     int[] STATS;
+    Zodiac ZODIAC;
     PlayerAction ACTION_STATE;
     uint USED_STAT_POINTS;
     uint ACTION_START;
@@ -124,3 +125,4 @@ struct Airdrop {
     uint maxClaims;
     uint claims;
 }
+

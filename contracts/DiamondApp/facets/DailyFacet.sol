@@ -4,7 +4,6 @@ pragma solidity ^0.8.23;
 
 import {Modifiers} from "../libraries/LibAppStorage.sol";
 import {BASE_DAILY_REWARD} from "../libraries/GameConstants.sol";
-import {ActiveStone, CoreBonus, DragonStone, Bonus, CoreDragonStone} from "../libraries/GameStructs.sol";
 import {StoneTypes, PlayerAction, Stats} from "../libraries/GameEnums.sol";
 import {LibBonuses} from "../libraries/LibBonuses.sol";
 import {LibDragonStones} from "../libraries/LibDragonStones.sol";

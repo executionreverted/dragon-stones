@@ -7,7 +7,7 @@ import {Currencies} from "./GameEnums.sol";
 library LibAdventure {
     function achivements() external view returns (Achievement[] memory) {}
 
-    function achievement(uint id) public view returns (Achievement memory ach) {
+    function achievement(uint id) public pure returns (Achievement memory ach) {
         if (id == 1) {
             // Hello World!
             ach.REWARD_1 = Currencies.GOLD;

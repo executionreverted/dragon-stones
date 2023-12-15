@@ -5,7 +5,7 @@ import {Achievement} from "./GameStructs.sol";
 import {Currencies} from "./GameEnums.sol";
 
 library LibAchievement {
-    uint constant MAX_ACH_ID = 42;
+    uint constant MAX_ACH_ID = 47;
 
     function achievements() internal pure returns (Achievement[] memory) {
         Achievement[] memory achs = new Achievement[](MAX_ACH_ID);
@@ -263,6 +263,39 @@ library LibAchievement {
             // Trader 5 Deals 1000
             ach.REQUIRED_MERCHANT_TRADES = 1000;
             ach.REWARD_AMOUNT_1 = 3000e18;
+            ach.REWARD_AMOUNT_2 = 250e18;
+            ach.REWARD_AMOUNT_3 = 100e18;
+            ach.REWARDS_STONE_TICKET = true;
+        } else if (id == 43) {
+            // Perfectionist 1 Set
+            ach.REQUIRED_LEVEL = 2;
+            ach.REQUIRED_SET_BONUS = 1;
+            ach.REWARD_AMOUNT_2 = 25e18;
+        } else if (id == 44) {
+            // Perfectionist 2 Set
+            ach.REQUIRED_LEVEL = 3;
+            ach.REQUIRED_SET_BONUS = 2;
+            ach.REWARD_AMOUNT_1 = 250e18;
+            ach.REWARD_AMOUNT_2 = 50e18;
+        } else if (id == 45) {
+            // Perfectionist 3 Set
+            ach.REQUIRED_LEVEL = 5;
+            ach.REQUIRED_SET_BONUS = 3;
+            ach.REWARD_AMOUNT_1 = 1000e18;
+            ach.REWARD_AMOUNT_2 = 100e18;
+            ach.REWARD_AMOUNT_3 = 20e18;
+        } else if (id == 46) {
+            // Perfectionist 4 Set
+            ach.REQUIRED_LEVEL = 10;
+            ach.REQUIRED_SET_BONUS = 4;
+            ach.REWARD_AMOUNT_1 = 2000e18;
+            ach.REWARD_AMOUNT_2 = 200e18;
+            ach.REWARD_AMOUNT_3 = 50e18;
+        } else if (id == 47) {
+            // Perfectionist 5 Set
+            ach.REQUIRED_LEVEL = 15;
+            ach.REQUIRED_SET_BONUS = 5;
+            ach.REWARD_AMOUNT_1 = 2500e18;
             ach.REWARD_AMOUNT_2 = 250e18;
             ach.REWARD_AMOUNT_3 = 100e18;
             ach.REWARDS_STONE_TICKET = true;

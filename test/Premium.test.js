@@ -34,7 +34,7 @@ describe("Dragon", function () {
     })
 
     it("account should be enabled and page set to 1", async function () {
-        await RegisterFacet.registerAccount();
+        await RegisterFacet.registerAccount(1, 1);
         const activePage = await SymbolFacet.activePageId(owner.address);
         console.log('Account created');
         console.log(`ActivePage: ${activePage}`);
@@ -46,7 +46,8 @@ describe("Dragon", function () {
         console.log(data);
     })
     it("account buys premium", async function () {
-        await PremiumFacet.buyPremium(1, { value: ethers.utils.parseEther('1') })
+        const price = await PremiumFacet.premiumPriceByDays(1)
+        await PremiumFacet.buyPremium(1, { value: price })
 
         const data = await PremiumFacet.userPremiumStatus(owner.address)
         console.log(data);
@@ -69,4 +70,14 @@ describe("Dragon", function () {
         const data = await PremiumFacet.userPremiumStatus(owner.address)
         console.log(data);
     })
+
+
+    it("bulk 14 / 31 days discount", async function () {
+        const price = await PremiumFacet.premiumPriceByDays(1)
+        const price2 = await PremiumFacet.premiumPriceByDays(14)
+        const price3 = await PremiumFacet.premiumPriceByDays(31)
+        expect(price.lt(price2), "14 days is not cheaper").to.be.true
+        expect(price2.lt(price3), "31 days is not cheaper").to.be.true
+    })
+
 })

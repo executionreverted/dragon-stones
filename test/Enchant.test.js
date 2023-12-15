@@ -34,7 +34,7 @@ describe("Dragon", function () {
     })
 
     it("account should be enabled and page set to 1", async function () {
-        await RegisterFacet.registerAccount();
+        await RegisterFacet.registerAccount(1,1);
         const activePage = await SymbolFacet.activePageId(owner.address);
         console.log('Account created');
         console.log(`ActivePage: ${activePage}`);

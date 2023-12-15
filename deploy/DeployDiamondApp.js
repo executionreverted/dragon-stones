@@ -23,7 +23,7 @@ export const FacetNames = [
     'BossFacet',
     'StatsFacet',
     'PremiumFacet',
-    // 'TestFacet'
+    'TestFacet'
 ]
 
 module.exports = async function ({ deployments, getNamedAccounts }) {

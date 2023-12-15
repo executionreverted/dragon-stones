@@ -11,12 +11,17 @@ contract PremiumFacet is Modifiers {
     function buyPremium(
         uint _days
     ) external payable notPaused onlyNonEOA onlyRegistered {
-        require(_days >= 3, "PremiumFacet : at least 3 days");
+        require(_days >= 1, "PremiumFacet : at least 3 days");
         address player = LibMeta.msgSender();
-        require(
-            msg.value >= _days * premiumPricePerDay(),
-            "PremiumFacet: payment required"
-        );
+        uint price = _days * premiumPricePerDay();
+
+        if (_days >= 30) {
+            price -= (price * 10) / 100;
+        } else if (_days >= 14) {
+            price -= (price * 5) / 100;
+        }
+
+        require(msg.value >= price, "PremiumFacet: payment required");
         uint remainingPremiumTime;
         if (s.PlayerState[player].PREMIUM_EXPIRES > block.timestamp) {
             remainingPremiumTime =
@@ -28,6 +33,18 @@ contract PremiumFacet is Modifiers {
             block.timestamp +
             (_days * 1 days) +
             remainingPremiumTime;
+    }
+
+    function premiumPriceByDays(uint _days) external view returns (uint) {
+        uint price = _days * premiumPricePerDay();
+
+        if (_days >= 30) {
+            price -= (price * 10) / 100;
+        } else if (_days >= 14) {
+            price -= (price * 5) / 100;
+        }
+
+        return price;
     }
 
     function premiumPricePerDay() public view returns (uint) {

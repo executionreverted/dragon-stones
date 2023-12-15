@@ -39,7 +39,7 @@ contract DiamondDappInit {
         s.blessings = _blessings;
         s.golds = _golds;
         LibDappNFT._setDefaultRoyalty(LibDiamond.contractOwner(), 1000);
-        s.premiumPrice = 300000000000000000;
+        s.premiumPrice = uint(1 ether) / 31;
         s.maxProfilePictureId = 10;
     }
 }

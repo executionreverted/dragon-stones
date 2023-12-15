@@ -36,14 +36,19 @@ contract RegisterFacet is Modifiers {
         s.PlayerMaxPages[sender] = 2;
         s.ActivePages[sender] = 1;
         // royalty splitter
-        address[] memory payees = new address[](2);
-        payees[0] = LibDiamond.contractOwner();
-        payees[1] = sender;
-        uint[] memory shares = new uint[](2);
-        shares[0] = 50;
-        shares[1] = 50;
-        address deployed = address(new PaymentSplitter(payees, shares));
-        s.PaymentSplitters[sender] = deployed;
+
+        if (sender != LibDiamond.contractOwner()) {
+            address[] memory payees = new address[](2);
+            payees[0] = LibDiamond.contractOwner();
+            payees[1] = sender;
+            uint[] memory shares = new uint[](2);
+            shares[0] = 50;
+            shares[1] = 50;
+            address deployed = address(new PaymentSplitter(payees, shares));
+            s.PaymentSplitters[sender] = deployed;
+        } else {
+            s.PaymentSplitters[sender] = LibDiamond.contractOwner();
+        }
     }
 
     function paymentSplitter(address user) external view returns (address) {

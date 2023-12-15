@@ -62,6 +62,8 @@ module.exports = {
     runOnCompile: true,
     clear: true,
     only: [...[
+      'AchievementFacet',
+      'AirdropFacet',
       'MinterFacet',
       'CombineFacet',
       'DragonStoneFacet',

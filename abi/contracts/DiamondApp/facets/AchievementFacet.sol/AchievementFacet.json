@@ -1,0 +1,190 @@
+[
+  {
+    "inputs": [],
+    "name": "achievements",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "REWARD_AMOUNT_1",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REWARD_AMOUNT_2",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REWARD_AMOUNT_3",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_LEVEL",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_SET_BONUS",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_SUCCESSFUL_COMBINE",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_SUCCESSFUL_POLISH",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_SUCCESSFUL_ENCHANT",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_SUCCESSFUL_UPGRADE",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_SUCCESSFUL_CREATE",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_MERCHANT_TRADES",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_WORLD_BOSS_DAMAGE",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_BOSS_LAST_HIT",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_DAILY_LOGIN",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_IDLE_HOURS",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_PRAYER_HOURS",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_ADVENTURE_HOURS",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_EQUIP_RUBY_TIER",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_EQUIP_AMETHYST_TIER",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_EQUIP_COSMIC_TIER",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_EQUIP_AMBER_TIER",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_EQUIP_SAPPHIRE_TIER",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_EQUIP_EMERALD_TIER",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_EQUIP_DIAMOND_TIER",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_MULTIKILL",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "REQUIRED_CHANCE_TO_DOUBLE_CLAIM",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "PARAM_1",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "PARAM_2",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "PARAM_3",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "COMPLETED",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "REWARDS_STONE_TICKET",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256[50]",
+            "name": "__RESERVED__",
+            "type": "uint256[50]"
+          }
+        ],
+        "internalType": "struct Achievement[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "achId",
+        "type": "uint256"
+      }
+    ],
+    "name": "claimAchievement",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

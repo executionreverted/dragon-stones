@@ -81,4 +81,8 @@ describe("Stats", function () {
 
         console.log(`balances : ${gBal / 1e18}, ${pBal / 1e18}, ${bBal / 1e18}`);
     })
+
+    it("shouldnt let claim level achievement", async function () {
+        await expect(AchievementFacet.claimAchievement(1)).to.be.revertedWith('AchievementFacet: level requirement')
+    })
 })

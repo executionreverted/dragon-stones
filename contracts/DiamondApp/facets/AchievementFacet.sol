@@ -11,10 +11,6 @@ import {LibSymbol} from "../libraries/LibSymbol.sol";
 import {LibRewards} from "../libraries/LibRewards.sol";
 
 contract AchievementFacet is Modifiers {
-    function achievements() external view returns (Achievement[] memory) {
-        return LibAchievement.achivements();
-    }
-
     function claimAchievement(
         uint achId
     ) external notPaused onlyNonEOA onlyRegistered {

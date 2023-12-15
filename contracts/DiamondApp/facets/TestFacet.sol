@@ -28,4 +28,16 @@ contract TestFacet is Modifiers {
     function test() external pure returns (uint) {
         return 1995;
     }
+
+    function setMerchantDeal(address player, uint val) external {
+        s.PlayerState[player].MERCHANT_DEALS = val;
+    }
+
+    function setSuccess(address player, uint val) external {
+        s.PlayerState[player].SUCCESSFUL_COMBINE = val;
+        s.PlayerState[player].SUCCESSFUL_CRAFT = val;
+        s.PlayerState[player].SUCCESSFUL_POLISH = val;
+        s.PlayerState[player].SUCCESSFUL_ENCHANT = val;
+        s.PlayerState[player].SUCCESSFUL_CRAFT = val;
+    }
 }

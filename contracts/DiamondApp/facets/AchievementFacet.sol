@@ -17,7 +17,7 @@ contract AchievementFacet is Modifiers {
         address player = LibMeta.msgSender();
         require(
             !s.completedAchievements[player][achId],
-            "AchievementFacet: already completed"
+            "AchievementFacet: already claimed"
         );
         Achievement memory ach = LibAchievement.achievement(achId);
         handleRequirement(player, s.PlayerState[player], ach);

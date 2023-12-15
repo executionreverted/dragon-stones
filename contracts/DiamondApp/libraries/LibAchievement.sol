@@ -7,7 +7,7 @@ import {Currencies} from "./GameEnums.sol";
 library LibAchievement {
     uint constant MAX_ACH_ID = 42;
 
-    function achivements() internal pure returns (Achievement[] memory) {
+    function achievements() internal pure returns (Achievement[] memory) {
         Achievement[] memory achs = new Achievement[](MAX_ACH_ID);
         for (uint i = 0; i < MAX_ACH_ID; i++) {
             achs[i] = achievement(i + 1);

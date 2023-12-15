@@ -293,4 +293,8 @@ contract AchievementFacet is Modifiers {
             "AchievementFacet: boss kill count requirement"
         );
     }
+
+    function achievements() external pure returns (Achievement[] memory) {
+        return LibAchievement.achievements();
+    }
 }

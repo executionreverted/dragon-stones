@@ -11,6 +11,7 @@ contract PremiumFacet is Modifiers {
     function buyPremium(
         uint _days
     ) external payable notPaused onlyNonEOA onlyRegistered {
+        require(_days >= 3, "PremiumFacet : at least 3 days");
         address player = LibMeta.msgSender();
         require(
             msg.value >= _days * premiumPricePerDay(),

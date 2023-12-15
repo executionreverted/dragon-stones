@@ -11,6 +11,7 @@ import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {LibAdventure} from "../libraries/LibAdventure.sol";
 import {LibRewards} from "../libraries/LibRewards.sol";
 import {LibLevel} from "../libraries/LibLevel.sol";
+import {LibPremium} from "../libraries/LibPremium.sol";
 
 contract AdventureFacet is Modifiers {
     function enterAdventure(
@@ -81,9 +82,19 @@ contract AdventureFacet is Modifiers {
         ) {
             checkStoneDrop(player, map.STONE_DROP_CHANCE);
         }
-        LibRewards.mintPiece(player, cycles * map.BASE_DROP_AMOUNT);
-        LibRewards.mintGold(player, cycles * map.BASE_GOLD_REWARD);
-        LibLevel.giveExp(player, cycles * map.EXP_PER_CYCLE);
+        (uint tier, , ) = LibPremium.userPremiumStatus(player);
+        uint gold = cycles * map.BASE_GOLD_REWARD;
+        uint piece = cycles * map.BASE_DROP_AMOUNT;
+        uint exp = cycles * map.EXP_PER_CYCLE;
+        if (tier > 0) {
+            // premium bonus
+            gold += (gold * 25) / 100;
+            exp += (exp * 25) / 100;
+            piece += (piece * 25) / 100;
+        }
+        LibRewards.mintPiece(player, piece);
+        LibRewards.mintGold(player, gold);
+        LibLevel.giveExp(player, exp);
         s.PlayerState[player].ADVENTURE_HOURS +=
             block.timestamp -
             s.PlayerState[player].ACTION_START;

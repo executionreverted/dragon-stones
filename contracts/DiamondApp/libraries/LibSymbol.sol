@@ -5,6 +5,7 @@ import {Bonus, DragonStone} from "./GameStructs.sol";
 import {BonusValueType, Stats, StoneTypes} from "./GameEnums.sol";
 import {LibBonuses} from "../libraries/LibBonuses.sol";
 import {LibDragonStones} from "../libraries/LibDragonStones.sol";
+import {MAX_TIER} from "../libraries/GameConstants.sol";
 
 // import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 library LibSymbol {
@@ -36,12 +37,12 @@ library LibSymbol {
 
         if (userStats.length != uint(type(Stats).max) + 1)
             userStats = new int[](uint(type(Stats).max) + 1);
-        uint tierSetBonus;
+        uint tierSetBonus = MAX_TIER;
         DragonStone[] memory stones = getPage(player, s.ActivePages[player]);
 
         for (uint x = 0; x < stones.length; x++) {
+            if (stones[x].TIER < tierSetBonus) tierSetBonus = stones[x].TIER;
             for (uint y = 0; y < stones[x].BONUS.length; y++) {
-                tierSetBonus = stones[x].TIER;
                 Bonus memory bonus = stones[x].BONUS[y];
                 BonusValueType bonusValueType = bonus.BONUS_VALUE_TYPE;
                 // stat type : userStats[stones[x].BONUS.BonusStat];

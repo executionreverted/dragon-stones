@@ -9,6 +9,7 @@ import {LibAchievement} from "../libraries/LibAchievement.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {LibSymbol} from "../libraries/LibSymbol.sol";
 import {LibRewards} from "../libraries/LibRewards.sol";
+import {MAX_TIER} from "../libraries/GameConstants.sol";
 
 contract AchievementFacet is Modifiers {
     function claimAchievement(
@@ -72,6 +73,7 @@ contract AchievementFacet is Modifiers {
             handleCombineRequirement(player, ach);
         if (ach.REQUIRED_SUCCESSFUL_UPGRADE > 0)
             handleUpgradeRequirement(player, ach);
+        if (ach.REQUIRED_SET_BONUS > 0) handleSet(playerAddres, ach);
 
         if (
             ach.REQUIRED_EQUIP_RUBY_TIER > 0 ||
@@ -287,6 +289,29 @@ contract AchievementFacet is Modifiers {
         require(
             player.BOSS_LAST_HIT >= ach.REQUIRED_BOSS_LAST_HIT,
             "AchievementFacet: boss kill count requirement"
+        );
+    }
+
+    function handleSet(address player, Achievement memory ach) internal view {
+        uint tierSetBonus1 = MAX_TIER;
+        uint tierSetBonus2 = MAX_TIER;
+        DragonStone[] memory stones = LibSymbol.getPage(player, 1);
+
+        for (uint x = 0; x < stones.length; x++) {
+            if (stones[x].TIER < tierSetBonus1) tierSetBonus1 = stones[x].TIER;
+        }
+
+        DragonStone[] memory stones2 = LibSymbol.getPage(player, 2);
+
+        for (uint x = 0; x < stones2.length; x++) {
+            if (stones2[x].TIER < tierSetBonus2)
+                tierSetBonus2 = stones2[x].TIER;
+        }
+
+        require(
+            tierSetBonus1 >= ach.REQUIRED_SET_BONUS ||
+                tierSetBonus2 >= ach.REQUIRED_SET_BONUS,
+            "AchievementFacet: set bonus requirement"
         );
     }
 

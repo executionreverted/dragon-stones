@@ -29,15 +29,15 @@ contract AchievementFacet is Modifiers {
 
         // send rewards. todo
         if (ach.REWARD_AMOUNT_1 > 0) {
-            LibRewards.giveGold(ach.REWARD_AMOUNT_1);
+            LibRewards.mintGold(player, ach.REWARD_AMOUNT_1);
         }
 
         if (ach.REWARD_AMOUNT_2 > 0) {
-            LibRewards.givePiece(ach.REWARD_AMOUNT_2);
+            LibRewards.mintPiece(player, ach.REWARD_AMOUNT_2);
         }
 
         if (ach.REWARD_AMOUNT_3 > 0) {
-            LibRewards.giveBlessing(ach.REWARD_AMOUNT_3);
+            LibRewards.mintBlessing(player, ach.REWARD_AMOUNT_3);
         }
 
         if (ach.REWARDS_STONE_TICKET) {

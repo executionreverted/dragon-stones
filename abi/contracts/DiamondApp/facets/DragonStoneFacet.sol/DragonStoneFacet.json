@@ -299,6 +299,11 @@
           },
           {
             "internalType": "uint256",
+            "name": "SUCCESSFUL_CRAFT",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
             "name": "SUCCESSFUL_COMBINE",
             "type": "uint256"
           },
@@ -370,6 +375,11 @@
           {
             "internalType": "uint256",
             "name": "MERCHANT_DEALS",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "BOSS_LAST_HIT",
             "type": "uint256"
           },
           {

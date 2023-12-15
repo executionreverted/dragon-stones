@@ -84,6 +84,9 @@ contract AdventureFacet is Modifiers {
         LibRewards.mintPiece(player, cycles * map.BASE_DROP_AMOUNT);
         LibRewards.mintGold(player, cycles * map.BASE_GOLD_REWARD);
         LibLevel.giveExp(player, cycles * map.EXP_PER_CYCLE);
+        s.PlayerState[player].ADVENTURE_HOURS +=
+            block.timestamp -
+            s.PlayerState[player].ACTION_START;
         exitAdventure(player);
     }
 
@@ -116,7 +119,6 @@ contract AdventureFacet is Modifiers {
 
     function exitAdventure(address player) internal {
         s.PlayerState[player].ACTION_STATE = PlayerAction.FREE;
-        s.PlayerState[player].ACTION_START = block.timestamp;
         s.PlayerState[player].ACTION_DATA1 = 0;
     }
 
@@ -128,5 +130,4 @@ contract AdventureFacet is Modifiers {
     function getAllMaps() external pure returns (AdventureMap[] memory) {
         return LibAdventure.getAllMaps();
     }
-
 }

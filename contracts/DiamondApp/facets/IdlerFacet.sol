@@ -29,6 +29,9 @@ contract IdlerFacet is Modifiers {
         );
         uint rewards = calculatePieceReward(player);
         IDragonStonePieces(s.pieces).mintPiece(player, rewards);
+        s.PlayerState[player].IDLE_HOURS +=
+            block.timestamp -
+            s.PlayerState[player].ACTION_START;
         s.PlayerState[player].ACTION_STATE = PlayerAction.FREE;
     }
 

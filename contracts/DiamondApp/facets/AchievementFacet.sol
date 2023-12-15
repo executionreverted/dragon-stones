@@ -12,6 +12,8 @@ import {LibRewards} from "../libraries/LibRewards.sol";
 import {MAX_TIER} from "../libraries/GameConstants.sol";
 
 contract AchievementFacet is Modifiers {
+
+ 
     function claimAchievement(
         uint achId
     ) external notPaused onlyNonEOA onlyRegistered {

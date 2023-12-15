@@ -35,6 +35,9 @@ contract PrayerFacet is Modifiers {
         // );
         uint rewards = calculatePrayerReward(player);
         IDragonStoneBlessing(s.blessings).mintBlessing(player, rewards);
+        s.PlayerState[player].PRAYER_HOURS +=
+            block.timestamp -
+            s.PlayerState[player].ACTION_START;
         s.PlayerState[player].ACTION_STATE = PlayerAction.FREE;
     }
 

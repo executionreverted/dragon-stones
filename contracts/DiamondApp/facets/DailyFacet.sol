@@ -29,8 +29,9 @@ contract DailyFacet is Modifiers {
             player,
             BASE_DAILY_REWARD * mult
         );
-        
+
         s.PlayerState[player].DAILY_CLAIM = block.timestamp;
+        s.PlayerState[player].TOTAL_DAILIES++;
     }
 
     function lastDailyClaim(address player) public view returns (uint) {

@@ -136,12 +136,9 @@ struct Airdrop {
 }
 
 struct Achievement {
-    Currencies REWARD_1;
-    Currencies REWARD_2;
-    Currencies REWARD_3;
-    uint REWARD_AMOUNT_1;
-    uint REWARD_AMOUNT_2;
-    uint REWARD_AMOUNT_3;
+    uint REWARD_AMOUNT_1; // GOLD
+    uint REWARD_AMOUNT_2; // PIECE
+    uint REWARD_AMOUNT_3; // BLESSING
     uint REQUIRED_LEVEL; // NEEDS LEVEL
     uint REQUIRED_SET_BONUS; // NEEDS AN ACTIVE SET BONUS ON CLAIM TIME
     uint REQUIRED_SUCCESSFUL_COMBINE; // DOWN 4 NEEDS TOTAL SUCCESSFUL UPGRADES

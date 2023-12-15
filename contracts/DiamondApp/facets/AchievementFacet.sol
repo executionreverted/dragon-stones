@@ -4,10 +4,11 @@ pragma solidity ^0.8.23;
 
 import {Modifiers} from "../libraries/LibAppStorage.sol";
 import {DragonStone, Player, Achievement} from "../libraries/GameStructs.sol";
-import {Stats, StoneTypes} from "../libraries/GameEnums.sol";
+import {Currencies, Stats, StoneTypes} from "../libraries/GameEnums.sol";
 import {LibAchievement} from "../libraries/LibAchievement.sol";
 import {LibMeta} from "../../shared/libraries/LibMeta.sol";
 import {LibSymbol} from "../libraries/LibSymbol.sol";
+import {LibRewards} from "../libraries/LibRewards.sol";
 
 contract AchievementFacet is Modifiers {
     function achievements() external view returns (Achievement[] memory) {
@@ -27,6 +28,21 @@ contract AchievementFacet is Modifiers {
         s.completedAchievements[player][achId] = true;
 
         // send rewards. todo
+        if (ach.REWARD_AMOUNT_1 > 0) {
+            LibRewards.giveGold(ach.REWARD_AMOUNT_1);
+        }
+
+        if (ach.REWARD_AMOUNT_2 > 0) {
+            LibRewards.givePiece(ach.REWARD_AMOUNT_2);
+        }
+
+        if (ach.REWARD_AMOUNT_3 > 0) {
+            LibRewards.giveBlessing(ach.REWARD_AMOUNT_3);
+        }
+
+        if (ach.REWARDS_STONE_TICKET) {
+            s.WorldBossInventories[player].STONE_TICKET++;
+        }
     }
 
     function handleRequirement(

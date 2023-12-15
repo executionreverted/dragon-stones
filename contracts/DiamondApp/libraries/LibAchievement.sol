@@ -5,11 +5,19 @@ import {Achievement} from "./GameStructs.sol";
 import {Currencies} from "./GameEnums.sol";
 
 library LibAchievement {
-    uint constant MAX_ACH_ID = 20;
+    uint constant MAX_ACH_ID = 42;
 
-    function achivements() external view returns (Achievement[] memory) {}
+    function achivements() internal pure returns (Achievement[] memory) {
+        Achievement[] memory achs = new Achievement[](MAX_ACH_ID);
+        for (uint i = 0; i < MAX_ACH_ID; i++) {
+            achs[i] = achievement(i + 1);
+        }
+        return achs;
+    }
 
-    function achievement(uint id) public pure returns (Achievement memory ach) {
+    function achievement(
+        uint id
+    ) internal pure returns (Achievement memory ach) {
         if (id == 1) {
             // Hello World! Reach level 2
             ach.REQUIRED_LEVEL = 2;

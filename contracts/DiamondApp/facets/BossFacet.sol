@@ -33,6 +33,7 @@ contract BossFacet is Modifiers {
             dmg = s.boss.HP;
             // do some achievement or other stuff on kill
             s.WorldBossInventories[player].STONE_TICKET++;
+            s.PlayerState[player].BOSS_LAST_HIT++;
         }
         storeRewards(player, dmg);
         s.boss.HP -= dmg;

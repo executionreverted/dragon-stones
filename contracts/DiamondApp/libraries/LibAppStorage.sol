@@ -62,6 +62,7 @@ struct AppStorage {
     mapping(uint => Airdrop) airdrops;
     mapping(uint => mapping(address => bool)) airdropsHasClaimed;
     mapping(address => bool) airdropAdmins;
+    mapping(address => mapping(uint => bool)) completedAchievements;
 }
 
 library LibAppStorage {

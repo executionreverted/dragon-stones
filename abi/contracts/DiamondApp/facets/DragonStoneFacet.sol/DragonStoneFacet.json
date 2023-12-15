@@ -329,12 +329,47 @@
           },
           {
             "internalType": "uint256",
+            "name": "TOTAL_BOSS_DAMAGE",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "IDLE_HOURS",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "PRAYER_HOURS",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ADVENTURE_HOURS",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "TOTAL_DAILIES",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
             "name": "PREMIUM_TIER",
             "type": "uint256"
           },
           {
             "internalType": "uint256",
             "name": "PREMIUM_EXPIRES",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "WORLD_BOSS_DAMAGE",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "MERCHANT_DEALS",
             "type": "uint256"
           },
           {
